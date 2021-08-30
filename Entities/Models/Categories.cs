@@ -11,7 +11,7 @@ namespace Entities.Models
 
 
         public string CategoryMeal { get; set; }
-        public string CategoryID { get; set; }
+        public string CategoryId { get; set; }
 
     }
 }
