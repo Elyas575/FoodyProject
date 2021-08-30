@@ -13,9 +13,9 @@ namespace Entities.Models
         [Required(ErrorMessage = "Phone number should be added")]
 
         public string CustomerAddress { get; set; }
+        [Required(ErrorMessage = "Customer Address is a required field ")]
 
-
-        public Guid ResturantContactId { get; set; }
+        public int ResturantContactId { get; set; }
 
 
     }
