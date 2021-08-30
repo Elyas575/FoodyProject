@@ -15,7 +15,7 @@ namespace Entities.Models
         public string CustomerAddress { get; set; }
 
 
-        public Guid ResturantContactId { get; set; }
+        public int ResturantContactId { get; set; }
 
 
     }
