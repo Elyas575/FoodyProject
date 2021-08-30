@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace Entities.Models
 {
     public class Category
-    {  
+    {
+        public Guid CategoryId { get; set; }
+        public string CategoryName { get; set; }
 
 
-        public string CategoryMeal { get; set; }
-        public string CategoryId { get; set; }
 
     }
 }
