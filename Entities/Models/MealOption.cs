@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-  public  class MealOptions
+  public  class MealOption
     {
         public int MealOptId { get; set; }
         [Required]

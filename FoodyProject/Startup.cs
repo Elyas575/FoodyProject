@@ -33,7 +33,6 @@ namespace FoodyProject
             services.ConfigureIISIntegration();
            
 
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

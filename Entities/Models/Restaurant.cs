@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    public class Resturant
+    public class Restaurant
     {
         [Required(ErrorMessage = "Resturant Id is a required field.")]
         [MaxLength(60, ErrorMessage = "Maximum length for the Id is 60 characters")]

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    class Categories
+    public class Category
     {  
         public string SeaFood { get; set; }
         public string Pizza { get; set; }
