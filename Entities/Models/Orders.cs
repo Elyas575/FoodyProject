@@ -17,8 +17,6 @@ namespace Entities.Models
         public int  MaeilId { get; set; }
 
 
-        [Required(ErrorMessage = "Company name is a required field.")]
-        [MaxLength(200, ErrorMessage = "Maximum length for Order Description is 200 characters.")] 
         public string OrederDescription { get; set; }
 
 

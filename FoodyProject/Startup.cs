@@ -1,5 +1,7 @@
+using FoodyProject.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +29,11 @@ namespace FoodyProject
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.ConfigureCors();
+            services.ConfigureIISIntegration();
+           
+
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -39,12 +46,21 @@ namespace FoodyProject
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FoodyProject v1"));
+                app.UseDeveloperExceptionPage();            
+            }
+            else
+            {
+                app.UseHsts();
             }
 
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
+            app.UseCors("CorsPolicy");
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.All
+            });
 
             app.UseRouting();
 
