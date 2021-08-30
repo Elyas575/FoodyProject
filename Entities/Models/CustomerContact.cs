@@ -10,12 +10,12 @@ namespace Entities.Models
    public class CustomerContact
     {
         public Guid CustomerContactId { get; set; }
-        [Required(ErrorMessage = "Phone number should be added")]
 
+        [Required(ErrorMessage = "CustomerAddress is a required field.")]
+        [MaxLength(60, ErrorMessage = "Maximum length for the CustomerAddress is 60 characters.")]
         public string CustomerAddress { get; set; }
-        [Required(ErrorMessage = "Customer Address is a required field ")]
 
-        public int ResturantContactId { get; set; }
+        public int RestaurantContactId { get; set; }
 
 
     }

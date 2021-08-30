@@ -29,7 +29,7 @@ namespace Entities.Models
         [Required(ErrorMessage = "password is a required field ")]
         [MaxLength(60, ErrorMessage = "maximun length dor passwod is 60 charchters ")]
 
-        public int  Password { get; set; }
+        public string Password { get; set; }
 
 
        

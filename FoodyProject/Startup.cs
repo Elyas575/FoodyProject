@@ -31,7 +31,8 @@ namespace FoodyProject
 
             services.ConfigureCors();
             services.ConfigureIISIntegration();
-           
+            services.ConfigureSqlContext(Configuration);
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
