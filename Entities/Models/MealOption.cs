@@ -16,7 +16,9 @@ namespace Entities.Models
         public string MealSize { get; set; }
         public string Extra { get; set; }
 
-        public virtual Meal Meal { get; set; }
+        [ForeignKey(nameof(Order))]
+        public Guid Orderid { get; set; }
+        public Order Order { get; set; }
 
     }
 }
