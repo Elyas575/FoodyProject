@@ -13,34 +13,14 @@ namespace Entities.Models
         [Column("OrderId")]
 
         public Guid Orderid { get; set; }
-
         public int  MaeilId { get; set; }
-
-
-        public string OrederDescription { get; set; }
-
-
-      
+        public string OrederDescription { get; set; }   
         public int MailId { get; set; }
-
-
         public int Ammount { get; set;  }
-
-
         public int TypeOfPayment { get; set;  }
-
         public int TimeOfDelivery { get; set; } 
-
         public string  Status { get; set; }
        
-
-
-
-
-
-
-
-
 
 
 
