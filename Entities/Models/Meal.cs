@@ -17,7 +17,7 @@ namespace Entities.Models
 
         public string Description { get; set; }
       
-        public string Price { get; set; }
+        public int Price { get; set; }
 
         public string Picture { get; set; }
 
