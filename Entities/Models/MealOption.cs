@@ -11,7 +11,7 @@ namespace Entities.Models
   public  class MealOption
     {
         
-        [ForeignKey("Meal")]
+       [Key]
         public Guid MealOptiontId { get; set; }
         public string MealSize { get; set; }
         public string Extra { get; set; }
