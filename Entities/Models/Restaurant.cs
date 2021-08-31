@@ -10,8 +10,8 @@ namespace Entities.Models
 {
     public class Restaurant
     {
-        [Column("RestaurantId")]
-        public Guid Id { get; set; }
+        
+        public Guid RestaurantId { get; set; }
 
         [Required(ErrorMessage = "Resturant name is a required field.")]
         [MaxLength(60, ErrorMessage = "Maximum length for the Name is 60 characters.")]

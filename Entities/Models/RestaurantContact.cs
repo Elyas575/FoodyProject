@@ -10,7 +10,7 @@ namespace Entities.Models
 {
    public class RestaurantContact
     {
-        [Column("RestaurantContactId")]
+       
         public Guid RestaurantContactId { get; set; }
 
         [Required(ErrorMessage = "PhoneNumber is a required field.")]

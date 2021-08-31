@@ -10,13 +10,14 @@ namespace Entities.Models
 {
   public  class MealOption
     {
-        [Column("MealOptiontId")]
+        
         [ForeignKey("Meal")]
         public Guid MealOptiontId { get; set; }
         public string MealSize { get; set; }
         public string Extra { get; set; }
 
-        public virtual Meal Meal { get; set; }
-
+        [ForeignKey(nameof(Meal))]
+        public Guid MealId { get; set; }
+        public Meal Meal { get; set; }
     }
 }

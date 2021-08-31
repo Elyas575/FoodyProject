@@ -10,7 +10,7 @@ namespace Entities.Models
 {
    public class Order
     {
-        [Column("OrderId")]
+       
 
 
         [ForeignKey("Customer")]

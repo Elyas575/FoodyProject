@@ -9,7 +9,7 @@ namespace Entities.Models
 {
     public class Category
     {
-        [Column("CategoryId")]
+       
         public Guid CategoryId { get; set; }
         public string CategoryName { get; set; }
 

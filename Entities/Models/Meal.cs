@@ -10,8 +10,8 @@ namespace Entities.Models
 {
     public class Meal
     {
-        [Column("MealId")]
-        public Guid Id { get; set; }
+        
+        public Guid MealId { get; set; }
 
         public string Name { get; set; }
 
@@ -25,6 +25,6 @@ namespace Entities.Models
         public Guid CategoryId { get; set; }
         public Category Category { get; set; }
 
-        public virtual MealOption MealOption { get; set; }
+        public virtual ICollection<MealOption> MealOptions { get; set; }
     }
 }

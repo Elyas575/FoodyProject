@@ -10,8 +10,9 @@ namespace Entities.Models
 {
     public class Customer
     {
-        [Column("CustomerId")]
-        public Guid Id { get; set; }
+        [Key]
+        
+        public Guid CustomerId { get; set; }
 
         [Required(ErrorMessage = "Customer name is a required field.")]
         [MaxLength(60, ErrorMessage = "Maximum length for the Name is 60 characters.")]
@@ -30,7 +31,9 @@ namespace Entities.Models
         [MaxLength(60, ErrorMessage = "maximun length dor passwod is 60 charchters ")]
 
         public string Password { get; set; }
+
         public virtual Order Order { get; set; }
+
         public ICollection<CustomerContact> CustomerContacts { get; set; }
 
 
