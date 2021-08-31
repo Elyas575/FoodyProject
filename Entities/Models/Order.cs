@@ -13,7 +13,7 @@ namespace Entities.Models
         [Column("OrderId")]
 
         public Guid Orderid { get; set; }
-        public int  MaeilId { get; set; }
+        public int  MeailId { get; set; }
         public string OrederDescription { get; set; }   
         
 
