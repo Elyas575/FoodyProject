@@ -15,20 +15,20 @@ namespace Entities.Models
         public Guid Orderid { get; set; }
         public int  MaeilId { get; set; }
         public string OrederDescription { get; set; }   
-        public int MailId { get; set; }
+        
 
-        public int  MaelId { get; set; }
+        
 
 
         public string OrderDescription { get; set; }
 
 
       
-        public int MailId { get; set; }
+        
 
 
       
-        public int MailId { get; set; }
+        
 
 
 
