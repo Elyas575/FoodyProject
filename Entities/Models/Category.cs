@@ -15,7 +15,8 @@ namespace Entities.Models
 
         [ForeignKey(nameof(Restaurant))]
         public Guid RestaurantId { get; set; }
-        public Restaurant Restaurant { get; set; }
+        public Restaurant Restaurants { get; set; }
+        public ICollection<Meal> Meals { get; set; }
 
     }
 }
