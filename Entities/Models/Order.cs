@@ -13,13 +13,9 @@ namespace Entities.Models
         [Column("OrderId")]
 
         public Guid Orderid { get; set; }
-        public int  MeailId { get; set; }
+        public int  MealId { get; set; }
         public string OrederDescription { get; set; }   
-        
-
-        
-
-
+       
         public string OrderDescription { get; set; }
 
 
