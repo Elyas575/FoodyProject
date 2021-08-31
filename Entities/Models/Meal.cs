@@ -21,5 +21,7 @@ namespace Entities.Models
         public string Price { get; set; }
 
         public string Picture { get; set; }
+
+        public virtual MealOption MealOption { get; set; }
     }
 }
