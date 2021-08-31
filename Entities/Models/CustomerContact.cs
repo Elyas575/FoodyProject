@@ -16,8 +16,11 @@ namespace Entities.Models
         [Required(ErrorMessage = "CustomerAddress is a required field.")]
         [MaxLength(60, ErrorMessage = "Maximum length for the CustomerAddress is 60 characters.")]
         public string CustomerAddress { get; set; }
-
         public int RestaurantContactId { get; set; }
+        [ForeignKey(nameof(Customer))]
+        public Guid CustomerId { get; set; }
+        public Customer Customer { get; set; }
+
 
 
     }

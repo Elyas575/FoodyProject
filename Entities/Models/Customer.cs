@@ -30,9 +30,9 @@ namespace Entities.Models
         [MaxLength(60, ErrorMessage = "maximun length dor passwod is 60 charchters ")]
 
         public string Password { get; set; }
-
-
         public virtual Order Order { get; set; }
+        public ICollection<CustomerContact> CustomerContacts { get; set; }
+
 
 
 
