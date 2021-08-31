@@ -34,9 +34,10 @@ namespace Entities.Models
         public string Password { get; set; }
 
 
-        public virtual Order Order { get; set; }
+      
 
         public ICollection<CustomerContact> CustomerContacts { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
 
 

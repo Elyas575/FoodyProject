@@ -24,8 +24,11 @@ namespace Entities.Models
 
         public ICollection<MealOption> MealOptions { get; set; }
 
-        public virtual Customer Customer   { get; set; }
-           
+        [ForeignKey(nameof(Customer))]
+        public Guid CustomerId { get; set; }
+        public Customer Customer { get; set; }
+
+
 
 
 
