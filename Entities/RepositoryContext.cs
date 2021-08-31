@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities
+namespace Entities 
 {
     public class RepositoryContext : DbContext
     {
@@ -15,12 +15,8 @@ namespace Entities
         : base(options)
         {
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-           
-        }
-
+         
+       
         public DbSet<Restaurant> Resturants { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
