@@ -15,7 +15,7 @@ namespace Entities
         : base(options)
         {
         }
-
+         
        
         public DbSet<Restaurant> Resturants { get; set; }
         public DbSet<Customer> Customers { get; set; }
