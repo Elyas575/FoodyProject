@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,7 @@ namespace Entities.Models
 {
     public class Restaurant
     {
-        [Required(ErrorMessage = "Resturant Id is a required field.")]
-        [MaxLength(60, ErrorMessage = "Maximum length for the Id is 60 characters")]
+        [Column("RestaurantId")]
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Resturant name is a required field.")]
@@ -39,17 +39,8 @@ namespace Entities.Models
         [MaxLength(60, ErrorMessage = "Maximum length for the MinPrice is 60 characters")]
         public int MinPrice { get; set; }
 
-        [Required(ErrorMessage = "Resturant Taste is a required field.")]
-        [MaxLength(60, ErrorMessage = "Maximum length for the Taste is 60 characters")]
-        public int Taste { get; set; }
+        public ICollection<Category> Categories { get; set; }
 
-        [Required(ErrorMessage = "Resturant Speed is a required field.")]
-        [MaxLength(60, ErrorMessage = "Maximum length for the Speed is 60 characters")]
-        public int Speed { get; set; }
-
-        [Required(ErrorMessage = "Resturant PrceForValue is a required field.")]
-        [MaxLength(60, ErrorMessage = "Maximum length for the PrceForValue is 60 characters")]
-        public int PrceForValue { get; set; }
 
     }
 }
