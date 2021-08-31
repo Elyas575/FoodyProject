@@ -1,13 +1,12 @@
-﻿using Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repositoy
+namespace Contracts
 {
-   public class RestaurantRepository : IRestaurantRepository
+   public class ICategoryRepository
     {
     }
 }
