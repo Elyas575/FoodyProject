@@ -1,4 +1,5 @@
-﻿using Entities.Models;
+﻿using Entities.Configuration;
+using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace Entities
         : base(options)
         {
         }
+         
+       
         public DbSet<Restaurant> Resturants { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
