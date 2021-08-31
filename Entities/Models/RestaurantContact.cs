@@ -16,6 +16,5 @@ namespace Entities.Models
         public int RestaurantId { get; set; }
 
 
-
     }
 }

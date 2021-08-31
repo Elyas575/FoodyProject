@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-   public  class Order
+   public class Order
     {
         [Column("OrderId")]
 
