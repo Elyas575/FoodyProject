@@ -12,7 +12,7 @@ namespace Entities.Models
     {
         
        [Key]
-        public Guid MealOptiontId { get; set; }
+        public Guid MealOptionId { get; set; }
         public string MealSize { get; set; }
         public string Extra { get; set; }
 
