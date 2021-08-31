@@ -15,7 +15,7 @@ namespace Entities.Models
 
         [ForeignKey("Customer")]
 
-
+         
         public Guid OrderId { get; set; }
         public int  MealId { get; set; }
         public string OrederDescription { get; set; }   
