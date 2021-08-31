@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repositoy
 {
-    public class MealRepository :  IMealRepository
+   public class MealRepository :  IMealRepository
     {
     }
 }

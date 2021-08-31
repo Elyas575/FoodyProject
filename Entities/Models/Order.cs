@@ -8,11 +8,14 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-   public  class Order
+   public class Order
     {
         [Column("OrderId")]
 
         public Guid Orderid { get; set; }
+        public int  MaeilId { get; set; }
+        public string OrederDescription { get; set; }   
+        public int MailId { get; set; }
 
         public int  MaelId { get; set; }
 
@@ -20,15 +23,71 @@ namespace Entities.Models
         public string OrderDescription { get; set; }
 
 
-        public int Ammount { get; set;  }
+      
+        public int MailId { get; set; }
 
 
-        public int TypeOfPayment { get; set;  }
+      
+        public int MailId { get; set; }
 
-        public int TimeOfDelivery { get; set; } 
 
-        public string  Status { get; set; }
-       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }
