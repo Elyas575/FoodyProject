@@ -14,20 +14,20 @@ namespace Entities
         : base(options)
         {
         }
-        public DbSet<Restaurant> resturants { get; set; }
-        public DbSet<Customer> customers { get; set; }
+        public DbSet<Restaurant> Resturants { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
-        public DbSet<CustomerContact> customerContacts { get; set; }
+        public DbSet<CustomerContact> CustomerContacts { get; set; }
 
         public DbSet<Meal> Meals { get; set; }
 
-        public DbSet<MealOption> mealOptions { get; set; }
+        public DbSet<MealOption> MealOptions { get; set; }
 
-        public DbSet<Order> orders { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public DbSet<RestaurantContact> RestaurantContacts { get; set; }
 
-        public DbSet<Category> categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 
 }
