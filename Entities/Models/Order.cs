@@ -14,81 +14,17 @@ namespace Entities.Models
 
 
         [ForeignKey("Customer")]
-
-         
         public Guid OrderId { get; set; }
+
         public int  MealId { get; set; }
-        public string OrederDescription { get; set; }   
-       
+        
         public string OrderDescription { get; set; }
 
         public ICollection<Meal> Meals { get; set; }
 
+        public ICollection<MealOption> MealOptions { get; set; }
+
         public virtual Customer Customer   { get; set; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
