@@ -46,7 +46,7 @@ namespace FoodyProject.Migrations
                 {
                     CustomerContactId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CustomerAddress = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    RestaurantContactId = table.Column<int>(type: "int", nullable: false),
+                    CustomerPhone = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>

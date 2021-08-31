@@ -83,7 +83,7 @@ namespace FoodyProject.Migrations
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("RestaurantContactId")
+                    b.Property<int>("CustomerPhone")
                         .HasColumnType("int");
 
                     b.HasKey("CustomerContactId");

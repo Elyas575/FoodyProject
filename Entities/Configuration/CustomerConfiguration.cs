@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class EmployeeConfiguration : IEntityTypeConfiguration<Customer>
+    public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     { 
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
