@@ -11,7 +11,7 @@ namespace Entities.Models
    public class Order
     {
        
-
+        
 
         
         public Guid OrderId { get; set; }
