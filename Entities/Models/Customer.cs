@@ -27,10 +27,12 @@ namespace Entities.Models
 
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "password is a required field ")]
+     
+        [Required(ErrorMessage = "Password is required")]
         [MaxLength(60, ErrorMessage = "maximun length dor passwod is 60 charchters ")]
-
+        [DataType(DataType.Password)]
         public string Password { get; set; }
+
 
         public virtual Order Order { get; set; }
 
