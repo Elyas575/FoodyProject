@@ -12,19 +12,29 @@ namespace Entities.Models
     {
         [Column("OrderId")]
 
-        public Guid Orderid { get; set; }
+
+        [ForeignKey("Customer")]
+
+
+        public Guid OrderId { get; set; }
         public int  MealId { get; set; }
         public string OrederDescription { get; set; }   
        
         public string OrderDescription { get; set; }
 
+        public ICollection<Meal> Meals { get; set; }
 
-      
-        
+        public virtual Customer Customer   { get; set; }
 
 
-      
-        
+
+
+
+
+
+
+
+
 
 
 

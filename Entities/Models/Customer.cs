@@ -32,6 +32,9 @@ namespace Entities.Models
         public string Password { get; set; }
 
 
-       
+        public virtual Order Order { get; set; }
+
+
+
     }
 }
