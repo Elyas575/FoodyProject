@@ -18,13 +18,14 @@ namespace Entities.Models
        
         public string OrderDescription { get; set; }
 
-
-      
-        
+        public ICollection<MealOption> MealOptions { get; set; }
 
 
-      
-        
+
+
+
+
+
 
 
 
