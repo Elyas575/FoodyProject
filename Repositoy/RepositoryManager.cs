@@ -25,13 +25,13 @@ namespace Repository
         {
             _repositoryContext = repositoryContext;
         }
-
+ fff
         public ICategoryRepository Category
         {
             get
             {
                 if (_categoryRepository == null)
-                    _categoryRepository = new CategoryRepository(_repositoryContext);
+                    _categoryRepository = new CategoryRepository( _repositoryContext);
                 return _categoryRepository;
             }
         }

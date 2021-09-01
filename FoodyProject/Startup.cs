@@ -32,6 +32,7 @@ namespace FoodyProject
             services.ConfigureCors();
             services.ConfigureIISIntegration();
             services.ConfigureSqlContext(Configuration);
+            services.ConfigureRepositoryManager();
 
 
             services.AddControllers();
