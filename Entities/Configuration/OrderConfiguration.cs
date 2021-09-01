@@ -18,7 +18,7 @@ namespace Entities.Configuration
                 new Order
                 {
                     OrderId = new Guid("80ajuca8-664d-5b20-b5de-024985497d4a"),
-                    MealId = 50,
+                    MealId = new Guid(""),
                     OrderDescription = "this is the order description",
 
                 },
@@ -26,14 +26,14 @@ namespace Entities.Configuration
                 new Order
                 {
                     OrderId = new Guid("80ajuca8-664d-5b20-b5de-024985497d4a"),
-                    MealId = 51,
+                    MealId = new Guid(),
                     OrderDescription = "this is the order description",
                 },
 
                 new Order
                 {
                     OrderId = new Guid("80apjca8-664d-5b20-b5de-024987697d4b"),
-                    MealId = 52,
+                    MealId = new Guid(),
                     OrderDescription = "this is the order description",
                 }
 
