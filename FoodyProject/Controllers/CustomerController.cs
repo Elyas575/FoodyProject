@@ -16,28 +16,21 @@ namespace FoodyProject.Controllers
         private readonly IRepositoryManager _repository;
         private readonly IMapper _mapper;
 
-
+          
         public CustomerController(IRepositoryManager repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
                 }
         [HttpGet]
-        public IActionResult GetAllCustomers()
+        public IActionResult GetCompanies()
         {
-            try
-            {
-                var customers = _repository.Customer.GetAllCustomers(trackChanges: false);           
-                var customersDto = _mapper.Map<IEnumerable<CustomerDto>>(customers);
-                return Ok(customers);
-            }
-
-            catch (Exception )
-            {
-                return StatusCode(500, "Internal server error");
-            }
-
-
+            var companies = _repository.Customer.GetAllCustomers(trackChanges: false);
+            var companiesDto = _mapper.Map<IEnumerable<CustomerDto>>(companies);
+            return Ok(companiesDto);
         }
+
+
     }
-}
+
+    }
