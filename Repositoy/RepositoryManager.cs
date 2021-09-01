@@ -25,7 +25,7 @@ namespace Repository
         {
             _repositoryContext = repositoryContext;
         }
- fff
+
         public ICategoryRepository Category
         {
             get
