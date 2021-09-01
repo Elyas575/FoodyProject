@@ -55,6 +55,8 @@ namespace FoodyProject
             {
                 app.UseHsts();
             }
+            app.ConfigureExceptionHandler();
+
 
             app.UseHttpsRedirection();
 
