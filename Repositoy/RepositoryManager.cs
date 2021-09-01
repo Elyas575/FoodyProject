@@ -91,7 +91,7 @@ namespace Repository
         {
             get
             {
-                if (_restaurantContactRepository== null)
+                if (_restaurantContactRepository == null)
                     _restaurantContactRepository = new RestaurantContactRepository(_repositoryContext);
                 return _restaurantContactRepository;
             }

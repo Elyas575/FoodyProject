@@ -7,6 +7,7 @@ using Contracts;
 using Entities;
 using Entities.Models;
 using Repository;
+using Repositoy;
 
 namespace Repository
 {
