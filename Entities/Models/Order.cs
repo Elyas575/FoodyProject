@@ -10,10 +10,6 @@ namespace Entities.Models
 {
    public class Order
     {
-       
-        
-
-        
         public Guid OrderId { get; set; }
 
         public Guid  MealId { get; set; }
@@ -27,12 +23,5 @@ namespace Entities.Models
         [ForeignKey(nameof(Customer))]
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; }
-
-
-
-
-
-
-
     }
 }
