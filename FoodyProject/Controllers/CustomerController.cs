@@ -21,26 +21,20 @@ namespace FoodyProject.Controllers
         {
             _repository = repository;
             _mapper = mapper;
-
-        }
+                }
         [HttpGet]
         public IActionResult GetAllCustomers()
         {
             try
             {
-                var customers = _repository.Customer.GetAllCustomers(trackChanges: false);
-              
-
+                var customers = _repository.Customer.GetAllCustomers(trackChanges: false);           
                 var customersDto = _mapper.Map<IEnumerable<CustomerDto>>(customers);
                 return Ok(customers);
             }
 
-
             catch (Exception )
             {
-
                 return StatusCode(500, "Internal server error");
-
             }
 
 
