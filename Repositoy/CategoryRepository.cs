@@ -2,7 +2,7 @@
 using Contracts;
 using Entities;
 using Entities.Models;
-
+using Repository;
 
 namespace Repositoy
 {
