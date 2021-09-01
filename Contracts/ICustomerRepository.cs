@@ -10,5 +10,6 @@ namespace Contracts
     public interface ICustomerRepository
     {
         IEnumerable<Customer> GetAllCustomers(bool trackChanges);
+
     }
 }
