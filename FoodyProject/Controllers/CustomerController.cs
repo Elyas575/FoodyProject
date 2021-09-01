@@ -1,4 +1,6 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
+using Entities.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,10 +14,13 @@ namespace FoodyProject.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly IRepositoryManager _repository;
+        private readonly IMapper _mapper;
 
-        public CustomerController(IRepositoryManager repository)
+
+        public CustomerController(IRepositoryManager repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
 
         }
         [HttpGet]
@@ -23,8 +28,11 @@ namespace FoodyProject.Controllers
         {
             try
             {
-                var customer = _repository.Customer.GetAllCustomers(trackChanges: false);
-                return Ok(customer);
+                var customers = _repository.Customer.GetAllCustomers(trackChanges: false);
+              
+
+                var customersDto = _mapper.Map<IEnumerable<CustomerDto>>(customers);
+                return Ok(customers);
             }
 
 
