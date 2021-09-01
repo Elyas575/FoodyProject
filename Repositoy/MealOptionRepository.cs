@@ -1,5 +1,4 @@
-﻿using Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-   public class MealRepository :  IMealRepository
+    public class MealOptionRepository
     {
     }
 }

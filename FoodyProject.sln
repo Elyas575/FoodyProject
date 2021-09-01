@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodyProject", "FoodyProjec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{DDF66737-61EC-498A-9A22-4468982B3928}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositoy", "Repositoy\Repositoy.csproj", "{EFAF0B36-0556-4E7F-82A9-0B5EDB8D4DFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repositoy\Repository.csproj", "{EFAF0B36-0556-4E7F-82A9-0B5EDB8D4DFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{E77CDB69-55CF-4CFB-969F-9FBA0EB2213E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{E77CDB69-55CF-4CFB-969F-9FBA0EB2213E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
