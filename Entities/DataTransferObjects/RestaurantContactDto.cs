@@ -10,7 +10,5 @@ namespace Entities.DataTransferObjects
     {
         public Guid RestaurantContactId { get; set; }
         public int PhoneNumber { get; set; }
-
-
     }
 }
