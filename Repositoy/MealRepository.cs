@@ -1,13 +1,15 @@
-﻿using Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Contracts;
+using Entities;
+using Entities.Models;
 
-namespace Repository
+namespace Repositoy
 {
-   public class MealRepository :  IMealRepository
+    public class MealRepository : RepositoryBase<Meal>, IMealRepository
     {
+        public MealRepository(RepositoryContext repositoryContext)
+        : base(repositoryContext)
+        {
+        }
     }
 }

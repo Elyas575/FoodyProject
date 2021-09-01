@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Contracts;
+using Entities;
+using Entities.Models;
 
-namespace Repository
+
+namespace Repositoy
 {
-   public class CategoryRepository
+    public class CategoryRepository : RepositoryBase<Category>, ICategoryRepository
     {
+        public CategoryRepository(RepositoryContext repositoryContext)
+        : base(repositoryContext)
+        {
+        }
     }
 }
