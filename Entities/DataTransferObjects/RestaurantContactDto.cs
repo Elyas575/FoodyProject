@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.DataTransferObjects
 {
-    class RestaurantContactDto
+   public  class RestaurantContactDto
     {
         public Guid RestaurantContactId { get; set; }
         public int PhoneNumber { get; set; }
