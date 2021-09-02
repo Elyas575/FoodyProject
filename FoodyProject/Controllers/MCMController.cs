@@ -11,35 +11,35 @@ using Entities.Models;
 
 namespace FoodyProject.Controllers
 {
-    [Route("api/mcmcontroller")]
+    [Route("api/categorycontroller")]
     [ApiController]
     public class MCMController : ControllerBase
     {
-        private readonly IRepositoryManager _repository;
-        private readonly IMapper _mapper;
+                private readonly IRepositoryManager _repository;
+                private readonly IMapper _mapper;
 
-        public MCMController(IRepositoryManager repository, IMapper mapper)
-        {
-            _repository = repository;
-            _mapper = mapper;
-
-        }
-
-
-        [HttpGet]
-        public IActionResult GetAllCategories()
-        {
-            var categories = _repository.Category.GetAllCategories(trackChanges: false);
-
-            var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
-
-            return Ok(categoryDto);
-        }
-        /*
-                [HttpGet("{id}", Name = "CategoryById")]
-                public IActionResult GetCategory(Guid id)
+                public MCMController(IRepositoryManager repository, IMapper mapper)
                 {
-                    var company = _repository.Category.GetCategory(id, trackChanges: false);
+                    _repository = repository;
+                    _mapper = mapper;
+
+                }
+
+
+                [HttpGet]
+                public IActionResult GetAllCategories()
+                {
+                    var categories = _repository.Category.GetAllCategories(trackChanges: false);
+
+                    var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
+
+                    return Ok(categoryDto);
+                }
+        
+                [HttpGet("{id}", Name = "CategoryById")]
+                public IActionResult GetCategory(Guid categoryid)
+                {
+                    var company = _repository.Category.GetCategory(categoryid, trackChanges: false);
 
                         var companyDto = _mapper.Map<CategoryDto>(company);
 
@@ -67,11 +67,25 @@ namespace FoodyProject.Controllers
                     return CreatedAtRoute("CategoryById", new { id = categoryToReturn.CategoryId }, categoryToReturn);
                 }
 
-        
-               ///////////////////////// Meal /////////////////////////
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCategory(Guid categoryId)
+        {
+            var category = HttpContext.Items["category"] as Category;
 
-               [HttpGet]
-               public IActionResult GetAllMeals(Guid categoryId)
+
+            _repository.Category.DeleteCategory(category);
+
+            _repository.Save();
+
+            return NoContent();
+        }
+
+
+        ///////////////////////// Meal /////////////////////////
+
+        [Route("api/mealcontroller")]
+        [HttpGet]
+        public IActionResult GetAllMeals(Guid categoryId)
                {
                    var category = _repository.Category.GetCategory(categoryId, trackChanges: false);
 
@@ -138,8 +152,6 @@ namespace FoodyProject.Controllers
                    },
                    mealToReturn);
                }
-
-        */
        
     }
 }

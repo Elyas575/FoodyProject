@@ -13,5 +13,8 @@ namespace Contracts
         Category GetCategory(Guid categoryId, bool trackChanges);
 
         void CreatCategory(Category category);
+
+        void DeleteCategory(Category category);
+
     }
 }
