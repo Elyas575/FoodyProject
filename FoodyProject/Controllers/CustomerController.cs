@@ -21,11 +21,11 @@ namespace FoodyProject.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public IActionResult GetAllCustomers()
+        public IActionResult GetCompanies()
         {
-            var customers = _repository.Customer.GetAllCustomers(trackChanges: false);
-            var customersdto = _mapper.Map<IEnumerable<CustomerDto>>(customers);
-            return Ok(customers);
+            var companies = _repository.Customer.GetAllCustomers(trackChanges: false);
+            var companiesDto = _mapper.Map<IEnumerable<CustomerDto>>(companies);
+            return Ok(companiesDto);
         }
     }
 }
