@@ -14,24 +14,18 @@ namespace FoodyProject.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly IRepositoryManager _repository;
-        private readonly IMapper _mapper;
-
-          
+        private readonly IMapper _mapper; 
         public CustomerController(IRepositoryManager repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-
         }
         [HttpGet]
-        public IActionResult GetAllCustomers ()
+        public IActionResult GetCompanies()
         {
-            var customers = _repository.Customer.GetAllCustomers(trackChanges: false);
-            var customersDto = _mapper.Map<IEnumerable<CustomerDto>>(customers);
-            return Ok(customersDto);
+            var companies = _repository.Customer.GetAllCustomers(trackChanges: false);
+            var companiesDto = _mapper.Map<IEnumerable<CustomerDto>>(companies);
+            return Ok(companiesDto);
         }
-
-
     }
-
-    }
+}
