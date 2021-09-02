@@ -11,5 +11,18 @@ namespace Contracts
     {
         IEnumerable<Customer> GetAllCustomers(bool trackChanges);
 
+
+
+
+        Customer GetCustomer(Guid customerId, bool trackChanges);
+
+       
+
+
+        void CreateCustomer(Customer customer);
+     
+        void DeleteCustomer(Customer customer);
+
+
     }
 }
