@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,12 @@ namespace Contracts
 {
    public interface ICategoryRepository
     {
+        IEnumerable<Category> GetAllCategories(bool trackChanges);
+        Category GetCategory(Guid categoryId, bool trackChanges);
+
+        void CreatCategory(Category category);
+
+        void DeleteCategory(Category category);
+
     }
 }

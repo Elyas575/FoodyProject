@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Entities.DataTransferObjects
 {
-   public  class OrderDto
+    public class CategoryForCreationDto
     {
-        public Guid OrderId { get; set; }
+        public string CategoryName { get; set; }
 
-        public Guid MealId { get; set; }
-
-        public string OrderDescription { get; set; }
+        public Guid RestaurantId { get; set; }
     }
 }

@@ -17,32 +17,26 @@ namespace Entities.Configuration
             (
             new CustomerContact
             {
-                CustomerContactId = new Guid("80abbca8-664d-4b20-b5de-024735495l4s"),
+                CustomerContactId = new Guid("9562a45f-4413-43b2-a2c2-39ddfb2b45bc"),
                 CustomerPhone = 0533654251,
                 CustomerAddress = " Prime Living",
-                CustomerId   = new Guid ("80abbca8-664d-4b20-b5de-024705497d4a "),
-
-
-
+                CustomerId = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
             },
             new CustomerContact
             {
-                CustomerContactId = new Guid("86dba8c0-d178-41e7-938c-ed49778fb25d"),
+                CustomerContactId = new Guid("ca023307-3d14-44aa-ab5a-8d0618495723"),
                 CustomerPhone = 0566585452 ,
                 CustomerAddress = "EMU Campus",
-                CustomerId = new Guid ( "86dba8c0-5252-41e7-938c-ed49778fb52a"), 
+                CustomerId = new Guid("86dba8c0-d178-41e7-938c-ed49778fb52a"),
 
 
             },
             new CustomerContact
             {
-                CustomerContactId = new Guid("86dba8c0-d178-41e7-938c-ed49778fb52a"),
+                CustomerContactId = new Guid(" fa47c6b3-1f89-43e7-9b5f-ca7543f88f49 "),
                 CustomerPhone = 0566585452,
                 CustomerAddress = "EMU Campus",
                 CustomerId = new Guid("021ca3c1-0deb-4afd-ae94-2159a8479811"),
-            
-
-
             }
             );
         }

@@ -17,7 +17,7 @@ namespace Entities.Configuration
             (
                  new Restaurant
                  {
-                     RestaurantId = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
+                     RestaurantId = new Guid("7e712d21-6559-4fd2-bc73-6ed7eaa17ed7"),
                      Name = "Ekor",
                      Email = "ekor@gmail.com",
                      Password = "11223344",
@@ -28,7 +28,7 @@ namespace Entities.Configuration
                  },
                     new Restaurant
                     {
-                        RestaurantId = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
+                        RestaurantId = new Guid("7e712d90-6559-4fd2-bc73-6ed7eaa17ea3"),
                         Name = "Burger Point",
                         Email = "burgerpoint@gmail.com",
                         Password = "55667788",

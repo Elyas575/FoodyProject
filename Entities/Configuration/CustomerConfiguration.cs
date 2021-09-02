@@ -21,7 +21,7 @@ namespace Entities
                 Name = "Duja",
                 Email = "dojashelabyh@gmail.com",
                 Password = "1223344",
-
+                Address = "ekener 1 room 28",
 
             },
             new Customer
@@ -30,6 +30,7 @@ namespace Entities
                 Name = "Tameem foody",
                 Email = "tameem@gmail.com",
                 Password = "123456789",
+                Address = "ekener 1 room 28",
 
             },
             new Customer
@@ -38,6 +39,7 @@ namespace Entities
                 Name = "farhad foody",
                 Email = "farhad@gmail.com",
                 Password = "147852369",
+                Address = "ekener 1 room 28",
 
             }
             );

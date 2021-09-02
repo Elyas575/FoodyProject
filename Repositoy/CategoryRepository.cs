@@ -1,8 +1,10 @@
-﻿
-using Contracts;
+﻿using Contracts;
 using Entities;
 using Entities.Models;
 using Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Repositoy
 {
@@ -12,5 +14,22 @@ namespace Repositoy
         : base(repositoryContext)
         {
         }
+
+        public IEnumerable<Category> GetAllCategories(bool trackChanges) =>
+             FindAll(trackChanges)
+             .OrderBy(c => c.CategoryName)
+             .ToList();
+
+        public Category GetCategory(Guid categoryId, bool trackChanges) =>
+             FindByCondition(c => c.CategoryId.Equals(categoryId), trackChanges)
+             .SingleOrDefault();
+
+        public void CreatCategory(Category category) => Create(category);
+
+        public void DeleteCategory(Category category)
+        {
+            Delete(category);
+        }
+
     }
 }
