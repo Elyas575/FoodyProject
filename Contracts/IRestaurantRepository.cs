@@ -10,6 +10,7 @@ namespace Contracts
     public interface IRestaurantRepository
     {
 
-        
+        void CreateRestaurant(Restaurant restaurant);
+       
     }
 }

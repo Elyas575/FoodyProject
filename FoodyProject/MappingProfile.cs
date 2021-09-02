@@ -10,6 +10,8 @@ namespace FoodyProject
 {
     public class MappingProfile : Profile
     {
-       
+  
+     
+
     }
 }

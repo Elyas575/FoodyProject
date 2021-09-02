@@ -15,7 +15,11 @@ namespace Repository
         public RestaurantRepository(RepositoryContext repositoryContext)
         : base(repositoryContext)
         {
+
         }
+        public void CreateRestaurant(Restaurant restaurant) => Create(restaurant);
+
+
     }
 
 }
