@@ -14,10 +14,13 @@ namespace Entities
         : base(options)
         {
         }
+<<<<<<< HEAD
+=======
 
   
 
 
+>>>>>>> dc07ab4fcb8ea4f3523fd2d15cd918233a278ec3
         public DbSet<Restaurant> Resturants { get; set; }
         public DbSet<Customer> Customers { get; set; }
 

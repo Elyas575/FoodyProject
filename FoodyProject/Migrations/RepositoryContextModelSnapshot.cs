@@ -76,9 +76,7 @@ namespace FoodyProject.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CustomerAddress")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
@@ -108,7 +106,7 @@ namespace FoodyProject.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("OrderId")
+                    b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Picture")
@@ -128,7 +126,7 @@ namespace FoodyProject.Migrations
 
             modelBuilder.Entity("Entities.Models.MealOption", b =>
                 {
-                    b.Property<Guid>("MealOptiontId")
+                    b.Property<Guid>("MealOptionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -141,10 +139,10 @@ namespace FoodyProject.Migrations
                     b.Property<string>("MealSize")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("OrderId")
+                    b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("MealOptiontId");
+                    b.HasKey("MealOptionId");
 
                     b.HasIndex("MealId");
 
@@ -162,8 +160,8 @@ namespace FoodyProject.Migrations
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("MealId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("MealId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("OrderDescription")
                         .HasColumnType("nvarchar(max)");
@@ -267,11 +265,15 @@ namespace FoodyProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Order", null)
+                    b.HasOne("Entities.Models.Order", "Order")
                         .WithMany("Meals")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Entities.Models.MealOption", b =>
@@ -284,7 +286,9 @@ namespace FoodyProject.Migrations
 
                     b.HasOne("Entities.Models.Order", null)
                         .WithMany("MealOptions")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Meal");
                 });
