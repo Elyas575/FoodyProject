@@ -24,11 +24,11 @@ namespace FoodyProject.Controllers
 
         }
         [HttpGet]
-        public IActionResult GetCompanies()
+        public IActionResult GetAllCustomers ()
         {
-            var companies = _repository.Customer.GetAllCustomers(trackChanges: false);
-            var companiesDto = _mapper.Map<IEnumerable<CustomerDto>>(companies);
-            return Ok(companiesDto);
+            var customers = _repository.Customer.GetAllCustomers(trackChanges: false);
+            var customersDto = _mapper.Map<IEnumerable<CustomerDto>>(customers);
+            return Ok(customersDto);
         }
 
 

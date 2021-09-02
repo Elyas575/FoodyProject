@@ -10,6 +10,7 @@ namespace FoodyProject
 {
     public class MappingProfile : Profile
     {
+        CreatMap<CategoryForCreationDto, Category>;
        
     }
 }
