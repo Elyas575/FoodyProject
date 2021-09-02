@@ -17,7 +17,7 @@ namespace Entities
             (
             new Meal
             {
-                MealId = new Guid("8"),
+                MealId = new Guid("40ead250-3678-46c9-b733-1b9d79c43f0b"),
                 Name = "Chicken fried rice",
                 Description = "Chicken fried rice with chicken",
                 Price = 48,
@@ -26,7 +26,7 @@ namespace Entities
             },
             new Meal
             {
-                MealId = new Guid("6"),
+                MealId = new Guid("80abbca8-664d-4b20-b5de-02470549654e"),
                 Name = "Menu burger",
                 Description = "Chicken burger",
                 Price = 45,
@@ -35,7 +35,7 @@ namespace Entities
             },
             new Meal
             {
-                MealId = new Guid("7"),
+                MealId = new Guid("80abbca8-664d-4b20-b5de-024705497d4e"),
                 Name = "Pizza",
                 Description = "BBQ pizza",
                 Price = 58,

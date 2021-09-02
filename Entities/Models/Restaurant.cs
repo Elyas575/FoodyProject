@@ -27,9 +27,6 @@ namespace Entities.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-   
-     
-
         [Required(ErrorMessage = "Resturant Address is a required field.")]
         [MaxLength(200, ErrorMessage = "Maximum length for the Address is 200 characters")]
         public string Address { get; set; }
@@ -43,9 +40,7 @@ namespace Entities.Models
         [Required(ErrorMessage = "Resturant MinPrice is a required field.")]
         [MaxLength(60, ErrorMessage = "Maximum length for the MinPrice is 60 characters")]
         public int MinPrice { get; set; }
-
         public ICollection<Category> Categories { get; set; }
-
         public ICollection<RestaurantContact> RestaurantContacts { get; set; }
 
 

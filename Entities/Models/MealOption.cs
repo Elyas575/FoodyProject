@@ -14,6 +14,7 @@ namespace Entities.Models
        [Key]
         public Guid MealOptionId { get; set; }
         public string MealSize { get; set; }
+        public Guid OrderId { get; set; }
         public string Extra { get; set; }
 
         [ForeignKey(nameof(Meal))]

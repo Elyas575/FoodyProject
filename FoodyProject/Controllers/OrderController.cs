@@ -10,31 +10,25 @@ using System;
 namespace FoodyProject.Controllers
 {
 
-    [Route("api/companies")]
+    [Route("api/orders")]
     [ApiController]
     public class OrderController : ControllerBase
     {
         private readonly IRepositoryManager _repository;
-           private readonly IMapper _mapper;
-        public OrderController(IRepositoryManager repository,IMapper mapper)
+        private readonly IMapper _mapper;
+        public OrderController(IRepositoryManager repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
+
         [HttpGet]
         public IActionResult GetAllOrders()
         {
-            try
-            {
-                var orders = _repository.Order.GetAllOrders(trackChanges: false);
-                return Ok(orders);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Internal server error");
-            }
+            var orders = _repository.Order.GetAllOrders(trackChanges: false);
+            return Ok(orders);
         }
-        [HttpGet] public IActionResult GetOrder(int id) {
+        [HttpGet("{id}")] public IActionResult GetOrder(Guid id) {
 
             var order =  _repository.Order.GetOrder(id);
 

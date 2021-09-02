@@ -23,6 +23,10 @@ namespace Entities.Models
         [ForeignKey(nameof(Category))]
         public Guid CategoryId { get; set; }
         public Category Category { get; set; }
+
+        [ForeignKey(nameof(Order))]
+        public Guid OrderId { get; set; }
+        public Order Order { get; set; }
         public virtual ICollection<MealOption> MealOptions { get; set; }
     }
 }

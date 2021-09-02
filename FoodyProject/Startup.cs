@@ -56,6 +56,8 @@ namespace FoodyProject
             {
                 app.UseHsts();
             }
+         
+
             app.ConfigureExceptionHandler();
 
 
