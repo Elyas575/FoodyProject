@@ -27,9 +27,6 @@ namespace Entities.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-   
-     
-
         [Required(ErrorMessage = "Resturant Address is a required field.")]
         [MaxLength(200, ErrorMessage = "Maximum length for the Address is 200 characters")]
         public string Address { get; set; }

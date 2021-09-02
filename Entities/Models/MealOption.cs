@@ -19,5 +19,9 @@ namespace Entities.Models
         [ForeignKey(nameof(Meal))]
         public Guid MealId { get; set; }
         public Meal Meal { get; set; }
+
+        [ForeignKey(nameof(Order))]
+        public Guid OrderId { get; set; }
+        public Order Order { get; set; }
     }
 }
