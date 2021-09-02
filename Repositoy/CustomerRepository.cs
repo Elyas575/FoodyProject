@@ -18,21 +18,13 @@ namespace Repository
         }
 
 
-<<<<<<< HEAD
-                    public IEnumerable<Customer> GetAllCustomers(bool trackChanges) =>
+
+        public IEnumerable<Customer> GetAllCustomers(bool trackChanges) =>
              FindAll(trackChanges)
              .OrderBy(c => c.Name)
              .ToList();
-                }
-=======
-            public IEnumerable<Customer> GetAllCustomers(bool trackChanges) =>
-             FindAll(trackChanges)
-             .OrderBy(c => c.Name)
-             .ToList();
-            }
->>>>>>> dc07ab4fcb8ea4f3523fd2d15cd918233a278ec3
-
-
-
+                
+      }
+      
 }
 

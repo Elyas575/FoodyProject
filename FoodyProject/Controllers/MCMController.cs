@@ -35,7 +35,7 @@ namespace FoodyProject.Controllers
 
             return Ok(categoryDto);
         }
-        
+        /*
                 [HttpGet("{id}", Name = "CategoryById")]
                 public IActionResult GetCategory(Guid id)
                 {
@@ -139,7 +139,7 @@ namespace FoodyProject.Controllers
                    mealToReturn);
                }
 
-
+        */
        
     }
 }
