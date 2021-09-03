@@ -12,7 +12,7 @@ namespace Entities.Models
     {
         public Guid OrderId { get; set; }
 
-        public Guid  MealId { get; set; }
+        
         
         public string OrderDescription { get; set; }
 
