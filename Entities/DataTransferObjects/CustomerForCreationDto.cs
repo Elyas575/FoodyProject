@@ -9,7 +9,8 @@ namespace Entities.DataTransferObjects
 {
     public class CustomerForCreationDto
     {
-      
+        public Guid Id { get; set; }
+
         public string Name { get; set; }
 
        

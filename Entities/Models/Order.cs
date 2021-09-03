@@ -12,13 +12,12 @@ namespace Entities.Models
     {
         public Guid OrderId { get; set; }
 
-        
+       
         
         public string OrderDescription { get; set; }
 
         public ICollection<Meal> Meals { get; set; }
 
-        public ICollection<MealOption> MealOptions { get; set; }
 
         [ForeignKey(nameof(Customer))]
         public Guid CustomerId { get; set; }

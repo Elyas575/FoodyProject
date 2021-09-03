@@ -19,7 +19,7 @@ namespace Repository
         private IMealRepository _mealRepository;
         private IOrderRepository _orderRepository;
         private IRestaurantRepository _restaurantRepository;
-        private IMealOptionRepository _mealOptionRepository;
+       
         private IRestaurantContactRepository _restaurantContactRepository;
 
         public RepositoryManager(RepositoryContext repositoryContext)
@@ -57,15 +57,7 @@ namespace Repository
             }
         }
 
-        public IMealOptionRepository MealOption
-        {
-            get
-            {
-                if (_mealOptionRepository == null)
-                    _mealOptionRepository = new MealOptionRepository(_repositoryContext);
-                return _mealOptionRepository;
-            }
-        }
+       
 
         public IMealRepository Meal
         {

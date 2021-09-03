@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodyProject.Migrations
 {
-    public partial class init5 : Migration
+    public partial class init10 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -146,33 +146,6 @@ namespace FoodyProject.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "MealOptions",
-                columns: table => new
-                {
-                    MealOptionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MealSize = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Extra = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MealId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MealOptions", x => x.MealOptionId);
-                    table.ForeignKey(
-                        name: "FK_MealOptions_Meals_MealId",
-                        column: x => x.MealId,
-                        principalTable: "Meals",
-                        principalColumn: "MealId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MealOptions_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "OrderId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_RestaurantId",
                 table: "Categories",
@@ -182,16 +155,6 @@ namespace FoodyProject.Migrations
                 name: "IX_CustomerContacts_CustomerId",
                 table: "CustomerContacts",
                 column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MealOptions_MealId",
-                table: "MealOptions",
-                column: "MealId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MealOptions_OrderId",
-                table: "MealOptions",
-                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Meals_CategoryId",
@@ -220,13 +183,10 @@ namespace FoodyProject.Migrations
                 name: "CustomerContacts");
 
             migrationBuilder.DropTable(
-                name: "MealOptions");
+                name: "Meals");
 
             migrationBuilder.DropTable(
                 name: "RestaurantContacts");
-
-            migrationBuilder.DropTable(
-                name: "Meals");
 
             migrationBuilder.DropTable(
                 name: "Categories");

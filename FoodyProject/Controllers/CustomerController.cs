@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FoodyProject.Controllers
 {
-    [Route("api/customer")]
+    [Route("api/customers")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
