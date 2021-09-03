@@ -50,9 +50,7 @@ namespace FoodyProject.Controllers
         public IActionResult CreateCustomer([FromBody] CustomerForCreationDto customer)
         {
             if (customer == null)
-            {
-                
-                
+            {                       
             return BadRequest("CompanyForCreationDto object is null");
             }
             var customerEntity = _mapper.Map<Customer>(customer);
@@ -60,10 +58,11 @@ namespace FoodyProject.Controllers
             _repository.Save();
             var customerToReturn = _mapper.Map<CustomerDto>(customerEntity);
             return CreatedAtRoute("CustomerById", new { id = customerToReturn.CustomerId },customerToReturn);
+
         }
 
 
-
+       /*
         [HttpDelete("{id}")]
         public IActionResult DeleteCustomerForRestaurant(Guid customerId, Guid id)
         {
@@ -74,6 +73,6 @@ namespace FoodyProject.Controllers
             }
 
             return Ok();
-        }
+        }*/
     }
 }

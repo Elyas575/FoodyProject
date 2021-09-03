@@ -18,9 +18,12 @@ namespace FoodyProject
 
             CreateMap<RestaurantForCreationDto, Restaurant>();
             CreateMap<Restaurant, RestaurantDto>();
-            
-            CreateMap<CategoryForCreationDto, Category>();
-            CreateMap<Category, CategoryDto>();
+            CreateMap<RestaurantForCreationDto, Restaurant>();
+            CreateMap<Customer, CustomerDto>();
+            CreateMap<OrderForCreationDto, Order>();
+
+
+
         }
     }
 }
