@@ -59,7 +59,7 @@ namespace FoodyProject.Controllers
             _repository.Customer.CreateCustomer(customerEntity);
             _repository.Save();
             var customerToReturn = _mapper.Map<CustomerDto>(customerEntity);
-            return CreatedAtRoute("CustomerById", new { id = customerToReturn.CustomerId },customerToReturn);
+            return CreatedAtRoute("CustomerById", new { id = customerToReturn.CustomerId }, customerToReturn);
 
         }
 
