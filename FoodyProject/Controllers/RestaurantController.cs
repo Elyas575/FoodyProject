@@ -31,7 +31,7 @@ namespace FoodyProject.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateRestaurant([FromBody]  RestuarantForCreationDto restaurant)
+        public IActionResult CreateRestaurant([FromBody]  RestaurantForCreationDto restaurant)
         {
             if (restaurant == null)
             {
