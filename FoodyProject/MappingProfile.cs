@@ -10,8 +10,16 @@ namespace FoodyProject
 {
     public class MappingProfile : Profile
     {
-  
-     
 
+        public MappingProfile()
+            {
+
+        CreateMap<RestuarantForCreationDto, Restaurant>();
+
+
+
+            }
+
+       
     }
 }

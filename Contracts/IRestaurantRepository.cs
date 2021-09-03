@@ -10,7 +10,11 @@ namespace Contracts
     public interface IRestaurantRepository
     {
 
+
+        Restaurant GetRestaurant(Guid restaurantId, bool trackChanges);
+        IEnumerable<Restaurant> GetAllRestaurant(bool trackChanges);
+        void DeleteRestaurant(Restaurant restaurant);
         void CreateRestaurant(Restaurant restaurant);
-       
+
     }
 }

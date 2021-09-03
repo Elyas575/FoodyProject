@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Entities.DataTransferObjects
 {
-    public class RestuarantForCreationDto
-    { 
-
+    public class RestaurantForUpdateDto
+    {
         public string Name { get; set; }
 
         public string Email { get; set; }
@@ -18,8 +17,5 @@ namespace Entities.DataTransferObjects
         public string Logo { get; set; }
         public int AvgDeliveryTime { get; set; }
         public int MinPrice { get; set; }
-
-
     }
-
 }

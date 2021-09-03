@@ -16,6 +16,11 @@ namespace Repository
         : base(repositoryContext)
         {
         }
+
+        public RestaurantContact GetRestaurantContactForRestaurant(Guid restaurantconatctId, bool trackChanges) =>
+           FindByCondition(c => c.RestaurantContactId.Equals(restaurantconatctId), trackChanges)
+           .SingleOrDefault();
+
     }
 }
 
