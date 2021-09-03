@@ -111,7 +111,7 @@ namespace FoodyProject.Controllers
             var restaurantEntity = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: true);
            
             _mapper.Map(restaurant, restaurantEntity);
-            _repository.Save();
+            _repository.Save(); 
             return NoContent();
         }
 
