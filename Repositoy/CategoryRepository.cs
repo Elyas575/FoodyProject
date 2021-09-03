@@ -21,7 +21,7 @@ namespace Repositoy
 
 
         public Category GetCategory(Guid restaurantId, Guid categoryId, bool trackChanges) =>
-             FindByCondition(c => c.RestaurantId.Equals(restaurantId) && c.CategoryId.Equals(categoryId), trackChanges)
+             FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.CategoryId.Equals(categoryId), trackChanges)
              .SingleOrDefault();
 
         public void CreatCategory(Guid restaurantId, Category category)
