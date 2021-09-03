@@ -114,18 +114,48 @@ namespace FoodyProject.Controllers
             _mapper.Map(restaurant, restaurantEntity);
             _repository.Save(); 
             return NoContent();
-        }   
+        }
 
 
 
-        ////////////////////////////////////////////// Patch method ////////////////////////////////////////
-        
+        /////////////////////////////////////////      Create Restaurant Contact        ///////////////////////////////////// 
+
+
+        [HttpPost]
+        public IActionResult CreateRestaurantContact(Guid restaurantId, [FromBody] RestaurantForCreationDto restaurantcontact)
+        {
+            if (restaurantcontact == null)
+            {
+              
+                return BadRequest("EmployeeForCreationDto object is null");
+            }
+            var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
+            if (restaurant == null)
+            {
+   
+            return NotFound();
+            }
+            var restaurantcontactEntity = _mapper.Map<RestaurantContact>(restaurantcontact);
+
+            _repository.RestaurantContact.CreateRestaurantContact(restaurantId, restaurantcontactEntity);
+            _repository.Save();
+
+           
+ var restaurantcontactToReturn = _mapper.Map<RestaurantContactDto>(restaurantcontactEntity);
+            return CreatedAtRoute("GetEmployeeForCompany", new
+            {
+                restaurantId,
+                id =
+          restaurantcontactToReturn.RestaurantContactId
+            }, restaurantcontactToReturn);
+        }
 
 
 
 
 
-      
+
+
 
 
 
