@@ -10,10 +10,7 @@ namespace Entities.Models
 {
    public class Order
     {
-        public Guid OrderId { get; set; }
-
-       
-        
+        public Guid OrderId { get; set; }             
         public string OrderDescription { get; set; }
 
         public ICollection<Meal> Meals { get; set; }
