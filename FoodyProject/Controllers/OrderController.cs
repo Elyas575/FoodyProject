@@ -21,7 +21,6 @@ namespace FoodyProject.Controllers
             _repository = repository;
             _mapper = mapper;
         }
-
         [HttpGet]
         public IActionResult GetAllOrders()
         {
@@ -65,13 +64,16 @@ namespace FoodyProject.Controllers
 
             
  var orderToReturn = _mapper.Map<OrderDto>(orderEntity);
-            return CreatedAtRoute("CreateOrder", new
-            {
-                customerId,
-                id =
-          orderToReturn.OrderId
-            }, orderToReturn);
+
+            return CreatedAtRoute("",new
+                {
+                    customerId,
+                    id = orderToReturn.OrderId
+                },
+                orderToReturn);
         }
+
+
 
         [HttpDelete("{OrderId}")]
         public IActionResult DeleteOrder(Guid restaurantId, Guid id)
