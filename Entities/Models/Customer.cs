@@ -38,6 +38,6 @@ namespace Entities.Models
 
         public ICollection<CustomerContact> CustomerContacts { get; set; }
         public ICollection<Order> Orders { get; set; }
-        public object Id { get; set; }
+     
     }
 }

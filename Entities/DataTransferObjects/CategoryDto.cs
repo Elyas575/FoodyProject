@@ -10,5 +10,7 @@ namespace Entities.DataTransferObjects
     {
         public Guid CategoryId { get; set; }
         public string CategoryName { get; set; }
+
+        public Guid RestaurantId { get; set; }
     }
 }
