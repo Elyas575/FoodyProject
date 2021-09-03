@@ -14,21 +14,25 @@ namespace Repository
         : base(repositoryContext)
         {
         }
+        public Order GetOrder(Guid id, bool trackChanges) =>
+             FindByCondition(c => c.OrderId.Equals(id), trackChanges)
+             .SingleOrDefault();
+
+
+        public void CreateOrder(Guid customerId,   Order order)
+        {
+            order.CustomerId = customerId;
+            Create(order);
+        }
+
 
         public IEnumerable<Order> GetAllOrders(bool trackChanges) =>
-     FindAll(trackChanges)
-     .OrderBy(c => c.OrderId)
-     .ToList();
+         FindAll(trackChanges)
+         .OrderBy(c => c.OrderId)
+         .ToList();
 
-        public void CreateOrder(Order order)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CreateOrders(Order order)
-        {
-            throw new NotImplementedException();
-        }
+     
+      
        
         public void DeleteOrder(Order order)
         {
@@ -41,19 +45,7 @@ namespace Repository
         }
 
     
-        public Task<IEnumerable<Order>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges)
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        public Order GetOrder(Guid companyId, bool trackChanges)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Order GetOrder(Guid id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

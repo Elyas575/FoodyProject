@@ -34,7 +34,7 @@ namespace Repository
 
 
         public Customer GetCustomer(Guid customerId, bool trackChanges) =>
-             FindByCondition(c => c.Id.Equals(customerId) , trackChanges)
+             FindByCondition(c => c.CustomerId.Equals(customerId) , trackChanges)
             .SingleOrDefault();
       
     }
