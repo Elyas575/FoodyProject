@@ -16,20 +16,13 @@ namespace FoodyProject
         {
 
             CreateMap<CustomerForCreationDto, Customer>();
+            CreateMap<RestuarantForCreationDto, Restaurant>();
+
+
 
         }
     }
 }
 
-        public MappingProfile()
-            {
+ 
 
-        CreateMap<RestuarantForCreationDto, Restaurant>();
-
-
-
-            }
-
-       
-    }
-}
