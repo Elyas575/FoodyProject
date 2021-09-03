@@ -25,40 +25,61 @@ namespace FoodyProject.Controllers
 
                 }
 
-
+        
                 [HttpGet]
-                public IActionResult GetAllCategories()
+                public IActionResult GetAllCategories(Guid restaurantId)
                 {
-                    var categories = _repository.Category.GetAllCategories(trackChanges: false);
+                    var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
+                    if (restaurant == null)
+                    {
+             
+                    return NotFound();
+                    }
 
-                    var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
+                    var categoryFromDto = _repository.Category.GetAllCategories(restaurantId, trackChanges: false);
+
+                    var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categoryFromDto);
 
                     return Ok(categoryDto);
                 }
         
                 [HttpGet("{id}", Name = "CategoryById")]
-                public IActionResult GetCategory(Guid categoryid)
+                public IActionResult GetCategory(Guid restauratnId, Guid categoryId)
                 {
-                    var company = _repository.Category.GetCategory(categoryid, trackChanges: false);
+                    var restaurant = _repository.Restaurant.GetRestaurant(restauratnId, trackChanges: false);
+                    if (restaurant == null)
+                    {
+                        return NotFound();
+                    }
+                    var categoryDb = _repository.Category.GetCategory(restauratnId, categoryId, trackChanges: false);
+                    if (categoryDb == null)
+                    {
+                        return NotFound();
+                    }
+                    var category = _mapper.Map<CategoryDto>(categoryDb);
 
-                        var companyDto = _mapper.Map<CategoryDto>(company);
-
-                        return Ok(companyDto);
+                    return Ok(category);
 
                 }
 
        
                 [HttpPost]
-                public IActionResult CreateCategory([FromBody] CategoryForCreationDto category)
+                public IActionResult CreateCategory(Guid restaurantId,[FromBody] CategoryForCreationDto category)
                 {
                     if (category == null)
                     {
                         return BadRequest("CategoryForCreationDto object is null");
                     }
 
-                    var categoryEntity = _mapper.Map<Category>(category);
+                    var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
+                    if (restaurant == null)
+                    {                        
+                    return NotFound();
+                    }
 
-                    _repository.Category.CreatCategory(categoryEntity);
+            var categoryEntity = _mapper.Map<Category>(category);
+
+                    _repository.Category.CreatCategory(restaurantId, categoryEntity);
 
                     _repository.Save();
 
@@ -66,7 +87,7 @@ namespace FoodyProject.Controllers
 
                     return CreatedAtRoute("CategoryById", new { id = categoryToReturn.CategoryId }, categoryToReturn);
                 }
-
+        /*
         [HttpDelete("{id}")]
         public IActionResult DeleteCategory(Guid categoryId)
         {
@@ -152,6 +173,6 @@ namespace FoodyProject.Controllers
                    },
                    mealToReturn);
                }
-       
+       */
     }
 }
