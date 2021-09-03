@@ -58,10 +58,11 @@ namespace FoodyProject.Controllers
             _repository.Save();
             var customerToReturn = _mapper.Map<CustomerDto>(customerEntity);
             return CreatedAtRoute("CustomerById", new { id = customerToReturn.CustomerId },customerToReturn);
+
         }
 
 
-
+       /*
         [HttpDelete("{id}")]
         public IActionResult DeleteCustomerForRestaurant(Guid customerId, Guid id)
         {
@@ -72,6 +73,6 @@ namespace FoodyProject.Controllers
             }
 
             return Ok();
-        }
+        }*/
     }
 }
