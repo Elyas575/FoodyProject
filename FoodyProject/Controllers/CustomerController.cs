@@ -50,9 +50,7 @@ namespace FoodyProject.Controllers
         public IActionResult CreateCustomer([FromBody] CustomerForCreationDto customer)
         {
             if (customer == null)
-            {
-                
-                
+            {                       
             return BadRequest("CompanyForCreationDto object is null");
             }
             var customerEntity = _mapper.Map<Customer>(customer);
