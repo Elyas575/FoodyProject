@@ -160,9 +160,6 @@ namespace FoodyProject.Migrations
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("MealId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("OrderDescription")
                         .HasColumnType("nvarchar(max)");
 
@@ -284,13 +281,15 @@ namespace FoodyProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Order", null)
+                    b.HasOne("Entities.Models.Order", "Order")
                         .WithMany("MealOptions")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Meal");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Entities.Models.Order", b =>
