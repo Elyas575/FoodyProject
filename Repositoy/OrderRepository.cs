@@ -19,11 +19,12 @@ namespace Repository
              .SingleOrDefault();
 
 
-        public void CreateOrder(Order order, bool trackchanges) =>
-       FindByCondition(c => c.OrderId.Equals(order), trackchanges)
-   .SingleOrDefault();
+        public void CreateOrder(Guid customerId,   Order order)
+        {
+            order.CustomerId = customerId;
+            Create(order);
+        }
 
-    
 
         public IEnumerable<Order> GetAllOrders(bool trackChanges) =>
          FindAll(trackChanges)
@@ -31,10 +32,7 @@ namespace Repository
          .ToList();
 
      
-        public void CreateOrders(Order order)
-        {
-            throw new NotImplementedException();
-        }
+      
        
         public void DeleteOrder(Order order)
         {
@@ -47,10 +45,7 @@ namespace Repository
         }
 
     
-        public Task<IEnumerable<Order>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges)
-        {
-            throw new NotImplementedException();
-        }
+       
 
     }
 }

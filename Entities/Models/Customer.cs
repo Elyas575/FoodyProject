@@ -11,7 +11,6 @@ namespace Entities.Models
     public class Customer
     {
         [Key]
-        
         public Guid CustomerId { get; set; }
 
         [Required(ErrorMessage = "Customer name is a required field.")]

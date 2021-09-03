@@ -10,7 +10,7 @@ using System;
 namespace FoodyProject.Controllers
 {
 
-    [Route("api/orders")]
+    [Route("api/customer/{customerId}/orders")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -21,7 +21,6 @@ namespace FoodyProject.Controllers
             _repository = repository;
             _mapper = mapper;
         }
-
         [HttpGet]
         public IActionResult GetAllOrders()
         {
@@ -43,25 +42,48 @@ namespace FoodyProject.Controllers
 
                 return Ok(companyDto);
             }
-
         }
         [HttpPost]
-        public IActionResult CreateOrder([FromBody] OrderDto order, bool trackChanges)
+        public IActionResult CreateOrder(Guid customerId, [FromBody] OrderForCreationDto order)
         {
             if (order == null)
             {
-                return BadRequest("object is null");
+                
+                return BadRequest("EmployeeForCreationDto object is null");
             }
+            var customer = _repository.Customer.GetCustomer(customerId, trackChanges: false);
+            if (customer == null)
+            {
+                
+            return NotFound();
+            }
+            var orderEntity = _mapper.Map<Order>(order);
 
-            var orderentity = _mapper.Map<Order>(order);
-
-            _repository.Order.CreateOrder(orderentity, trackChanges);
-
+            _repository.Order.CreateOrder(customerId, orderEntity);
             _repository.Save();
 
-            var Ordertoreturn = _mapper.Map<OrderDto>(orderentity);
+            
+ var orderToReturn = _mapper.Map<OrderDto>(orderEntity);
 
-            return CreatedAtRoute("OrderById", new { id = Ordertoreturn.OrderDescription}, Ordertoreturn);
+            return CreatedAtRoute("",new
+                {
+                    customerId,
+                    id = orderToReturn.OrderId
+                },
+                orderToReturn);
+        }
+
+
+
+        [HttpDelete("{OrderId}")]
+        public IActionResult DeleteOrder(Guid restaurantId, Guid id)
+        {
+
+            var order = _repository.Order.GetOrder(restaurantId, trackChanges: false);
+
+            _repository.Order.DeleteOrder(order);
+            _repository.Save();
+            return NoContent();
         }
     }
 }
