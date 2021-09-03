@@ -26,6 +26,10 @@ namespace Repositoy
 
         public void CreatCategory(Category category) => Create(category);
 
+        public void DeleteCategory(Category category)
+        {
+            Delete(category);
+        }
 
     }
 }

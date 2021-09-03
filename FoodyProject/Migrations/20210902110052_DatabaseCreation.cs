@@ -45,7 +45,7 @@ namespace FoodyProject.Migrations
                 columns: table => new
                 {
                     CustomerContactId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CustomerAddress = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    CustomerAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CustomerPhone = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -65,7 +65,7 @@ namespace FoodyProject.Migrations
                 columns: table => new
                 {
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MealId = table.Column<int>(type: "int", nullable: false),
+                    MealId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OrderDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -128,7 +128,7 @@ namespace FoodyProject.Migrations
                     Price = table.Column<int>(type: "int", nullable: false),
                     Picture = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -144,22 +144,22 @@ namespace FoodyProject.Migrations
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "OrderId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "MealOptions",
                 columns: table => new
                 {
-                    MealOptiontId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MealOptionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MealSize = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Extra = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MealId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    MealId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MealOptions", x => x.MealOptiontId);
+                    table.PrimaryKey("PK_MealOptions", x => x.MealOptionId);
                     table.ForeignKey(
                         name: "FK_MealOptions_Meals_MealId",
                         column: x => x.MealId,
@@ -171,7 +171,7 @@ namespace FoodyProject.Migrations
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "OrderId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
