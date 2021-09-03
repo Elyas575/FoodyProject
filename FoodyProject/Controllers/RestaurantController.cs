@@ -26,7 +26,7 @@ namespace FoodyProject.Controllers
         }
 
 
-        ////////////////////////////////////// Crate Restaurant //////////////////////////////////
+        ////////////////////////////////////// Create Restaurant //////////////////////////////////
 
 
 
@@ -44,6 +44,8 @@ namespace FoodyProject.Controllers
             var restaurantToReturn = _mapper.Map<RestaurantDto>(restaurantEntity);
             return CreatedAtRoute("RestaurantById", new { id = restaurantToReturn.RestaurantId },
            restaurantToReturn);
+
+
         }
 
 
@@ -58,7 +60,7 @@ namespace FoodyProject.Controllers
 
 
 
-        /////////////////////////// Get All Restaurant //////////////////////////////////
+        /////////////////////////// Get All Restaurants //////////////////////////////////
 
         [HttpGet]
         public IActionResult GetAllRestaurant()
@@ -87,7 +89,7 @@ namespace FoodyProject.Controllers
         }
          
 
-        ///////////////////////////// 
+        ///////////////////////////// Get restaurant by id ///////////////////////////////////////
         [HttpGet("{id}", Name = "RestaurantById")]
         public IActionResult GetRestaurantById(Guid id)
         {
@@ -112,6 +114,10 @@ namespace FoodyProject.Controllers
             _repository.Save();
             return NoContent();
         }
+
+
+
+        ////////////////////////////////////////////// Patch method ////////////////////////////////////////
 
 
 
