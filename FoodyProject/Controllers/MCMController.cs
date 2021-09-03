@@ -11,7 +11,7 @@ using Entities.Models;
 
 namespace FoodyProject.Controllers
 {
-    [Route("api/categorycontroller")]
+    [Route("api/restaurant/{restaurantId}/category")]
     [ApiController]
     public class MCMController : ControllerBase
     {
@@ -85,7 +85,7 @@ namespace FoodyProject.Controllers
 
                     var categoryToReturn = _mapper.Map<CategoryDto>(categoryEntity);
 
-                    return CreatedAtRoute("CategoryById", new { id = categoryToReturn.CategoryId }, categoryToReturn);
+                    return CreatedAtRoute("CategoryById", new { restaurantId, id = categoryToReturn.CategoryId }, categoryToReturn);
                 }
         /*
         [HttpDelete("{id}")]
