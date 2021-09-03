@@ -10,6 +10,6 @@ namespace Entities.DataTransferObjects
     {
         public string CategoryName { get; set; }
 
-        public Guid RestaurantId { get; set; }
+       
     }
 }
