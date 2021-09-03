@@ -160,9 +160,6 @@ namespace FoodyProject.Migrations
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("MealId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("OrderDescription")
                         .HasColumnType("nvarchar(max)");
 

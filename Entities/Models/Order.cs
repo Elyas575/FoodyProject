@@ -12,8 +12,7 @@ namespace Entities.Models
     {
         public Guid OrderId { get; set; }
 
-       // [ForeignKey(nameof(MealId))]
-        public Guid  MealId { get; set; }
+        
         
         public string OrderDescription { get; set; }
 

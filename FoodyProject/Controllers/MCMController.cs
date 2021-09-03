@@ -82,9 +82,9 @@ namespace FoodyProject.Controllers
 
 
         ///////////////////////// Meal /////////////////////////
-
-        [Route("api/mealcontroller")]
-        [HttpGet]
+        
+        
+        [HttpGet("meal/{Id}")]
         public IActionResult GetAllMeals(Guid categoryId)
                {
                    var category = _repository.Category.GetCategory(categoryId, trackChanges: false);

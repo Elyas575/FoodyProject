@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodyProject.Migrations
 {
-    public partial class DatabaseCreation : Migration
+    public partial class init5 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -65,7 +65,6 @@ namespace FoodyProject.Migrations
                 columns: table => new
                 {
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MealId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OrderDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -153,9 +152,9 @@ namespace FoodyProject.Migrations
                 {
                     MealOptionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MealSize = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Extra = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MealId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    MealId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
