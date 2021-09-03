@@ -27,6 +27,6 @@ namespace Entities.Models
         [ForeignKey(nameof(Order))]
         public Guid OrderId { get; set; }
         public Order Order { get; set; }
-        public virtual ICollection<MealOption> MealOptions { get; set; }
+   
     }
 }

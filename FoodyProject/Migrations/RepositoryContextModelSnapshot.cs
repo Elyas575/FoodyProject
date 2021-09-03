@@ -124,33 +124,6 @@ namespace FoodyProject.Migrations
                     b.ToTable("Meals");
                 });
 
-            modelBuilder.Entity("Entities.Models.MealOption", b =>
-                {
-                    b.Property<Guid>("MealOptionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Extra")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("MealId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("MealSize")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("MealOptionId");
-
-                    b.HasIndex("MealId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("MealOptions");
-                });
-
             modelBuilder.Entity("Entities.Models.Order", b =>
                 {
                     b.Property<Guid>("OrderId")
@@ -273,25 +246,6 @@ namespace FoodyProject.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Entities.Models.MealOption", b =>
-                {
-                    b.HasOne("Entities.Models.Meal", "Meal")
-                        .WithMany("MealOptions")
-                        .HasForeignKey("MealId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.Order", "Order")
-                        .WithMany("MealOptions")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Meal");
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("Entities.Models.Order", b =>
                 {
                     b.HasOne("Entities.Models.Customer", "Customer")
@@ -326,15 +280,8 @@ namespace FoodyProject.Migrations
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("Entities.Models.Meal", b =>
-                {
-                    b.Navigation("MealOptions");
-                });
-
             modelBuilder.Entity("Entities.Models.Order", b =>
                 {
-                    b.Navigation("MealOptions");
-
                     b.Navigation("Meals");
                 });
 

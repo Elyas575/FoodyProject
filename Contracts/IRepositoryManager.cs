@@ -12,7 +12,7 @@ namespace Contracts
         ICustomerContactRepository CustomerContact { get; }
         ICustomerRepository Customer { get; }
         IMealRepository Meal { get; }
-        IMealOptionRepository MealOption { get; }
+      
         IOrderRepository Order { get; }
         IRestaurantRepository Restaurant { get; }
         IRestaurantContactRepository RestaurantContact { get; }
