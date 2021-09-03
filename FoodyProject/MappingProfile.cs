@@ -29,6 +29,8 @@ namespace FoodyProject
 
 
 
+            CreateMap<Meal, MealDto>();
+            CreateMap<CategoryForUpdateDto, Category>();
 
 
 

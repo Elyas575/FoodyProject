@@ -10,7 +10,7 @@ using System;
 namespace FoodyProject.Controllers
 {
 
-    [Route("api/customer/{customerId}/orders")]
+    [Route("api/customers/{customerId}/orders")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -23,7 +23,7 @@ namespace FoodyProject.Controllers
         }
         [HttpGet]
         public IActionResult GetAllOrders()
-        {
+        {  
             var orders = _repository.Order.GetAllOrders(trackChanges: false);
             return Ok(orders);
         }
@@ -36,7 +36,7 @@ namespace FoodyProject.Controllers
             {
                 return NotFound();
             }
-            else
+        else
             {
                 var companyDto = _mapper.Map<OrderDto>(order);
 
@@ -60,26 +60,22 @@ namespace FoodyProject.Controllers
             var orderEntity = _mapper.Map<Order>(order);
 
             _repository.Order.CreateOrder(customerId, orderEntity);
-            _repository.Save();
-
-            
- var orderToReturn = _mapper.Map<OrderDto>(orderEntity);
-
+            _repository.Save();      
+            var orderToReturn = _mapper.Map<OrderDto>(orderEntity);
             return CreatedAtRoute("",new
                 {
                     customerId,
-                    id = orderToReturn.OrderId
-                },
+                    id = orderToReturn.OrderId },
                 orderToReturn);
         }
 
 
 
         [HttpDelete("{OrderId}")]
-        public IActionResult DeleteOrder(Guid restaurantId, Guid id)
+        public IActionResult DeleteOrder(Guid orderId, Guid id)
         {
 
-            var order = _repository.Order.GetOrder(restaurantId, trackChanges: false);
+            var order = _repository.Order.GetOrder(orderId, trackChanges: false);
 
             _repository.Order.DeleteOrder(order);
             _repository.Save();
