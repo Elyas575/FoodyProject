@@ -49,18 +49,6 @@ namespace FoodyProject.Controllers
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
         /////////////////////////// Get All Restaurants //////////////////////////////////
 
         [HttpGet]
@@ -166,7 +154,7 @@ namespace FoodyProject.Controllers
 
 
         [HttpPost("{restaurantId}/RestaurantContact")]
-        public IActionResult CreateRestaurantContact(Guid restaurantId, [FromBody] RestaurantForCreationDto restaurantcontact)
+        public IActionResult CreateRestaurantContact(Guid restaurantId, [FromBody] RestaurantContactForCreationDto restaurantcontact)
         {
             if (restaurantcontact == null)
             {
@@ -186,9 +174,7 @@ namespace FoodyProject.Controllers
 
 
             var restaurantcontactToReturn = _mapper.Map<RestaurantContactDto>(restaurantcontactEntity);
-            return CreatedAtRoute("RestaurantContactById", new
-            {
-                restaurantId,    id =   restaurantcontactToReturn.RestaurantContactId  }, restaurantcontactToReturn);
+            return CreatedAtRoute("RestaurantContactById", new { restaurantId, id = restaurantcontactToReturn.RestaurantContactId  }, restaurantcontactToReturn);
         }
 
     }
