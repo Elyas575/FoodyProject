@@ -8,8 +8,8 @@ namespace Entities.DataTransferObjects
 {
     public class RestaurantContactForCreationDto
     {
-        public string PhoneNumber { get; set; }
-        public Guid RestaurantContactId { get; set; }
+        public int PhoneNumber { get; set; }
+       
 
 
     }
