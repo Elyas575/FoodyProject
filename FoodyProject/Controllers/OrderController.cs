@@ -68,9 +68,6 @@ namespace FoodyProject.Controllers
                     id = orderToReturn.OrderId },
                 orderToReturn);
         }
-
-
-
         [HttpDelete("{OrderId}")]
         public IActionResult DeleteOrder(Guid orderId, Guid id)
         {
@@ -81,6 +78,35 @@ namespace FoodyProject.Controllers
             _repository.Save();
             return NoContent();
         }
+
+
+        [HttpPut("{id}")]
+          
+        public IActionResult UpdateOrderForCustomer(Guid customerId, Guid orderId, [FromBody] OrderForUpdateDto order)
+        {
+            if (order == null)
+            {
+           
+                return BadRequest("Orderfordto object is null");
+            }
+            var customer = _repository.Customer.GetCustomer(customerId, trackChanges: false);
+            if (customer == null)
+            {
+       
+            return NotFound();
+            }
+
+            var orderEntity = _repository.Order.GetOrder(customerId, trackChanges: true);
+            if (orderEntity == null)
+            {
+            
+                return NotFound();
+            }
+            _mapper.Map(order, orderEntity);
+            _repository.Save();
+            return NoContent();
+        }
+
     }
 }
      
