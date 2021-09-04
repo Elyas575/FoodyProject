@@ -24,6 +24,11 @@ namespace FoodyProject
             CreateMap<OrderForCreationDto, Order>();
             CreateMap<CategoryForCreationDto, Category>();
             CreateMap<Category, CategoryDto>();
+            CreateMap<RestaurantContactForCreationDto, RestaurantContact>();
+            CreateMap<RestaurantContact, RestaurantContactDto>();
+
+
+
             CreateMap<Meal, MealDto>();
             CreateMap<CategoryForUpdateDto, Category>();
 
@@ -32,7 +37,7 @@ namespace FoodyProject
 
 
 
-
+             
 
         }
     }

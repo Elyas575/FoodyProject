@@ -21,6 +21,13 @@ namespace Repository
            FindByCondition(c => c.RestaurantContactId.Equals(restaurantconatctId), trackChanges)
            .SingleOrDefault();
 
+
+        public void CreateRestaurantContact(Guid restaurantId, RestaurantContact restaurantcontact)
+        {
+            restaurantcontact.RestaurantId = restaurantId;
+            Create(restaurantcontact);
+        }
+
     }
 }
 

@@ -9,7 +9,13 @@ namespace Contracts
     public interface IRestaurantContactRepository
     {
         RestaurantContact GetRestaurantContactForRestaurant(Guid restaurantContactId, bool trackChanges);
-        
+
+        void CreateRestaurantContact(Guid restaurantId, RestaurantContact restaurantcontact);
+
+
+
+
+
 
 
 
