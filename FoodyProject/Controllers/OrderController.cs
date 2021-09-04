@@ -10,7 +10,7 @@ using System;
 namespace FoodyProject.Controllers
 {
 
-    [Route("api/customers/{customerId}/orders")]
+    [Route("api/orders")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -23,32 +23,31 @@ namespace FoodyProject.Controllers
         }
         [HttpGet]
         public IActionResult GetAllOrders()
-        {  
+        {
             var orders = _repository.Order.GetAllOrders(trackChanges: false);
             return Ok(orders);
         }
         [HttpGet("{id}", Name = "OrderById")]
         public IActionResult GetOrder(Guid id, bool trackchanges) {
 
-            var order =  _repository.Order.GetOrder(id, trackchanges);
+            var order = _repository.Order.GetOrder(id, trackchanges);
 
             if (order == null)
             {
                 return NotFound();
             }
-        else
+            else
             {
                 var companyDto = _mapper.Map<OrderDto>(order);
 
                 return Ok(companyDto);
             }
         }
-        [HttpPost]
+        [HttpPost("customers/{customerId}")]
         public IActionResult CreateOrder(Guid customerId, [FromBody] OrderForCreationDto order)
         {
             if (order == null)
-            {
-                
+            {              
                 return BadRequest("EmployeeForCreationDto object is null");
             }
             var customer = _repository.Customer.GetCustomer(customerId, trackChanges: false);
@@ -63,18 +62,10 @@ namespace FoodyProject.Controllers
             _repository.Save();      
             var orderToReturn = _mapper.Map<OrderDto>(orderEntity);
             return CreatedAtRoute("",new
-                {
-                    customerId,
-                    id = orderToReturn.OrderId },
-                orderToReturn);
-        }
-
-
-
+                {customerId,id = orderToReturn.OrderId }, orderToReturn); }
         [HttpDelete("{OrderId}")]
         public IActionResult DeleteOrder(Guid orderId, Guid id)
         {
-
             var order = _repository.Order.GetOrder(orderId, trackChanges: false);
 
             _repository.Order.DeleteOrder(order);

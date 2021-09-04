@@ -31,13 +31,13 @@ namespace FoodyProject.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateRestaurant([FromBody]  RestaurantForCreationDto restaurant)
+        public IActionResult CreateRestaurant([FromBody] RestaurantForCreationDto restaurant)
         {
             if (restaurant == null)
             {
 
-                
-            return BadRequest("RestaurantForCreationDto object is null");
+
+                return BadRequest("RestaurantForCreationDto object is null");
             }
             var restaurantEntity = _mapper.Map<Restaurant>(restaurant);
             _repository.Restaurant.CreateRestaurant(restaurantEntity);
@@ -88,7 +88,7 @@ namespace FoodyProject.Controllers
             _repository.Save();
             return NoContent();
         }
-         
+
 
         ///////////////////////////// Get restaurant by id ///////////////////////////////////////
         [HttpGet("{id}", Name = "RestaurantById")]
@@ -107,70 +107,91 @@ namespace FoodyProject.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateEmployeeForCompany(Guid restaurantId, Guid id, [FromBody] RestaurantForUpdateDto restaurant)
         {
-            
-           
+
+
             var restaurantEntity = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: true);
-           
+
             _mapper.Map(restaurant, restaurantEntity);
-            _repository.Save(); 
+            _repository.Save();
             return NoContent();
         }
 
+        ///////////////////////////////////////// Get all Restaurant Contact  /////////////////////////////////////////
+
+
+
+
+        [HttpGet("{restaurantId}/contacts")]
+        public IActionResult GetAllRestaurantContact(Guid restaurantId)
+        {
+            var company = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
+            if (company == null)
+            {
+
+                return NotFound();
+            }
+            var restaurantcontactFromDb = _repository.RestaurantContact.GetAllRestaurantContact(restaurantId,
+           trackChanges: false);
+            return Ok(restaurantcontactFromDb);
+        }
+
+
+
+
+
+        ////////////////////////////////////////// Get a Single Restaurant Contact For a Restaurant /////////////////////////////////////
+        [HttpGet("{restaurantId}/contact", Name = "RestaurantContactById")]
+       
+        public IActionResult GetRestaurantContact(Guid restaurantId, Guid id)
+        {
+            var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
+            if (restaurant == null)
+            {
+
+                return NotFound();
+            }
+            var restaurantcontactDb = _repository.RestaurantContact.GetRestaurantContact(restaurantId, id, trackChanges:
+           false);
+            if (restaurantcontactDb == null)
+            {
+
+                return NotFound();
+            }
+            var restaurantcontact = _mapper.Map<RestaurantContactDto>(restaurantcontactDb);
+            return Ok(restaurantcontact);
+        }
 
 
         /////////////////////////////////////////      Create Restaurant Contact        ///////////////////////////////////// 
 
 
-        [HttpPost]
+        [HttpPost("{restaurantId}/RestaurantContact")]
         public IActionResult CreateRestaurantContact(Guid restaurantId, [FromBody] RestaurantForCreationDto restaurantcontact)
         {
             if (restaurantcontact == null)
             {
-              
-                return BadRequest("EmployeeForCreationDto object is null");
+
+                return BadRequest("RestaurantContactForCreationDto object is null");
             }
             var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
             if (restaurant == null)
             {
-   
-            return NotFound();
+
+                return NotFound();
             }
             var restaurantcontactEntity = _mapper.Map<RestaurantContact>(restaurantcontact);
 
             _repository.RestaurantContact.CreateRestaurantContact(restaurantId, restaurantcontactEntity);
             _repository.Save();
 
-           
- var restaurantcontactToReturn = _mapper.Map<RestaurantContactDto>(restaurantcontactEntity);
-            return CreatedAtRoute("GetEmployeeForCompany", new
+
+            var restaurantcontactToReturn = _mapper.Map<RestaurantContactDto>(restaurantcontactEntity);
+            return CreatedAtRoute("RestaurantContactById", new
             {
-                restaurantId,
-                id =
-          restaurantcontactToReturn.RestaurantContactId
-            }, restaurantcontactToReturn);
+                restaurantId,    id =   restaurantcontactToReturn.RestaurantContactId  }, restaurantcontactToReturn);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
-}  
+}
+       
         

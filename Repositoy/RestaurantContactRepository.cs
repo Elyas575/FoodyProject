@@ -17,9 +17,16 @@ namespace Repository
         {
         }
 
-        public RestaurantContact GetRestaurantContactForRestaurant(Guid restaurantconatctId, bool trackChanges) =>
-           FindByCondition(c => c.RestaurantContactId.Equals(restaurantconatctId), trackChanges)
-           .SingleOrDefault();
+        public IEnumerable<RestaurantContact> GetAllRestaurantContact(Guid restaurantId, bool trackChanges) =>
+ FindByCondition(e => e.RestaurantId.Equals(restaurantId), trackChanges)
+ .OrderBy(e => e.PhoneNumber);
+
+
+        public RestaurantContact GetRestaurantContact(Guid restaurantId, Guid id, bool trackChanges) =>
+ FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.RestaurantContactId.Equals(id),
+trackChanges)
+ .SingleOrDefault();
+
 
 
         public void CreateRestaurantContact(Guid restaurantId, RestaurantContact restaurantcontact)
@@ -27,6 +34,9 @@ namespace Repository
             restaurantcontact.RestaurantId = restaurantId;
             Create(restaurantcontact);
         }
+
+
+
 
     }
 }

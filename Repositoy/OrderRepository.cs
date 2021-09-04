@@ -14,8 +14,8 @@ namespace Repository
         : base(repositoryContext)
         {
         }
-        public Order GetOrder(Guid id, bool trackChanges) =>
-             FindByCondition(c => c.OrderId.Equals(id), trackChanges)
+        public Order GetOrder(Guid orderid, bool trackChanges) =>
+             FindByCondition(c => c.OrderId.Equals(orderid), trackChanges)
              .SingleOrDefault();
 
 
@@ -39,10 +39,7 @@ namespace Repository
             Delete(order);
         }
 
-        public void DeleteOrders(Order orders)
-        {
-            Delete(orders);
-        }
+     
 
     
        
