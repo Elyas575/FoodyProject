@@ -5,8 +5,6 @@ using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FoodyProject.Controllers
 {
@@ -29,8 +27,8 @@ namespace FoodyProject.Controllers
             return Ok(customerDto);
         }
 
-
-        [HttpGet("{id}")]
+        
+        [HttpGet("{id}",Name = "CustomerById")]
         public  IActionResult GetCustomer(Guid id)
         {
             var customer =  _repository.Customer.GetCustomer(id, trackChanges: false);
@@ -55,32 +53,32 @@ namespace FoodyProject.Controllers
             }
             var customerEntity = _mapper.Map<Customer>(customer);
             _repository.Customer.CreateCustomer(customerEntity);
-            try
-            {
+        
+          
             _repository.Save();
-            }
-            catch(Exception ex)
-            {
-
-            }
+          
+  
             var customerToReturn = _mapper.Map<CustomerDto>(customerEntity);
-           
-           return Ok(customerToReturn);
-
+            return CreatedAtRoute("CustomerById", new { id = customerToReturn.CustomerId }, customerToReturn);
+           // return Ok(customerToReturn);
+          
         }
 
 
-       /*
-        [HttpDelete("{id}")]
-        public IActionResult DeleteCustomerForRestaurant(Guid customerId, Guid id)
+       
+        [HttpDelete("{customerId}")]
+        public IActionResult DeleteCustomerForRestaurant(Guid customerId)
         {
             var customer =  _repository.Customer.GetCustomer(customerId, trackChanges: false);
             if (customer == null)
             {
                 return NotFound();
             }
+            _repository.Customer.DeleteCustomer(customer);
+            _repository.Save();
+
 
             return Ok();
-        }*/
+        }
     }
 }
