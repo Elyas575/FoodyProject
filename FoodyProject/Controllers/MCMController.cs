@@ -137,11 +137,13 @@ namespace FoodyProject.Controllers
             _repository.Save();
             return NoContent();
         }
+        
 
+        
 
                                              ///////////////////////// Meal /////////////////////////
 
-
+        /*
 
         [HttpGet("{Id}/meal")]
         public IActionResult GetAllMeals(Guid restaurantId, Guid categoryId)
@@ -287,6 +289,6 @@ namespace FoodyProject.Controllers
             return NoContent();
 
 
-        }
+        } */
     }
 }

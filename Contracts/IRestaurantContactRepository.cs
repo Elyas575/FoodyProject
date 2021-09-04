@@ -8,9 +8,13 @@ namespace Contracts
 {
     public interface IRestaurantContactRepository
     {
-        RestaurantContact GetRestaurantContactForRestaurant(Guid restaurantContactId, bool trackChanges);
+
+        IEnumerable<RestaurantContact> GetAllRestaurantContact(Guid restaurantId, bool trackChanges);
+        RestaurantContact GetRestaurantContact(Guid restaurantId, Guid id, bool trackChanges);
+
 
         void CreateRestaurantContact(Guid restaurantId, RestaurantContact restaurantcontact);
+    }
 
 
 
@@ -21,4 +25,4 @@ namespace Contracts
 
 
     }
-}
+
