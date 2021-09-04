@@ -10,7 +10,7 @@ using AutoMapper;
 using Entities.Models;
 
 namespace FoodyProject.Controllers
-{
+{ 
     [Route("api/restaurant/{restaurantId}/category")]
     [ApiController]
     public class MCMController : ControllerBase
