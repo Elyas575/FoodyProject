@@ -35,30 +35,18 @@ namespace FoodyProject.Controllers
         {
             if (restaurant == null)
             {
-
-
                 return BadRequest("RestaurantForCreationDto object is null");
             }
             var restaurantEntity = _mapper.Map<Restaurant>(restaurant);
             _repository.Restaurant.CreateRestaurant(restaurantEntity);
             _repository.Save();
+
             var restaurantToReturn = _mapper.Map<RestaurantDto>(restaurantEntity);
             return CreatedAtRoute("RestaurantById", new { id = restaurantToReturn.RestaurantId },
            restaurantToReturn);
 
 
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
         /////////////////////////// Get All Restaurants //////////////////////////////////
@@ -185,12 +173,12 @@ namespace FoodyProject.Controllers
 
             _repository.RestaurantContact.CreateRestaurantContact(restaurantId, restaurantcontactEntity);
             _repository.Save();
-
-
             var restaurantcontactToReturn = _mapper.Map<RestaurantContactDto>(restaurantcontactEntity);
             return CreatedAtRoute("RestaurantContactById", new
             {
-                restaurantId,    id =   restaurantcontactToReturn.RestaurantContactId  }, restaurantcontactToReturn);
+                restaurantId,id = restaurantcontactToReturn.RestaurantContactId  }, restaurantcontactToReturn);
+
+
         }
 
     }
