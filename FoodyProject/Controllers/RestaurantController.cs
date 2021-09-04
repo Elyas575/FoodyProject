@@ -156,7 +156,7 @@ namespace FoodyProject.Controllers
             {
 
                 return NotFound();
-            }
+            } 
             var restaurantcontact = _mapper.Map<RestaurantContactDto>(restaurantcontactDb);
             return Ok(restaurantcontact);
         }
