@@ -139,9 +139,9 @@ namespace FoodyProject.Controllers
         }
 
 
-                                             ///////////////////////// Meal /////////////////////////
+        ///////////////////////// Meal /////////////////////////
 
-
+        /*
 
         [HttpGet("{Id}/meal")]
         public IActionResult GetAllMeals(Guid restaurantId, Guid categoryId)
@@ -287,6 +287,7 @@ namespace FoodyProject.Controllers
             return NoContent();
 
 
-        }
+        }*/
     }
+
 }
