@@ -166,8 +166,10 @@ namespace FoodyProject.Controllers
 
 
         [HttpPost("{restaurantId}/RestaurantContact")]
-        public IActionResult CreateRestaurantContact(Guid restaurantId, [FromBody] RestaurantForCreationDto restaurantcontact)
+        public IActionResult CreateRestaurantContact(Guid restaurantId, [FromBody] RestaurantContactForCreationDto restaurantcontact)
         {
+/*resturatn = company 
+ * resturantcontact = employee */     
             if (restaurantcontact == null)
             {
 
