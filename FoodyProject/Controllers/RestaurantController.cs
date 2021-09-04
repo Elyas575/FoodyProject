@@ -35,13 +35,12 @@ namespace FoodyProject.Controllers
         {
             if (restaurant == null)
             {
-
-
                 return BadRequest("RestaurantForCreationDto object is null");
             }
             var restaurantEntity = _mapper.Map<Restaurant>(restaurant);
             _repository.Restaurant.CreateRestaurant(restaurantEntity);
             _repository.Save();
+
             var restaurantToReturn = _mapper.Map<RestaurantDto>(restaurantEntity);
             return CreatedAtRoute("RestaurantById", new { id = restaurantToReturn.RestaurantId },
            restaurantToReturn);
@@ -144,7 +143,7 @@ namespace FoodyProject.Controllers
             {
 
                 return NotFound();
-            }
+            } 
             var restaurantcontact = _mapper.Map<RestaurantContactDto>(restaurantcontactDb);
             return Ok(restaurantcontact);
         }
@@ -156,6 +155,8 @@ namespace FoodyProject.Controllers
         [HttpPost("{restaurantId}/RestaurantContact")]
         public IActionResult CreateRestaurantContact(Guid restaurantId, [FromBody] RestaurantContactForCreationDto restaurantcontact)
         {
+/*resturatn = company 
+ * resturantcontact = employee */     
             if (restaurantcontact == null)
             {
 
@@ -171,8 +172,6 @@ namespace FoodyProject.Controllers
 
             _repository.RestaurantContact.CreateRestaurantContact(restaurantId, restaurantcontactEntity);
             _repository.Save();
-
-
             var restaurantcontactToReturn = _mapper.Map<RestaurantContactDto>(restaurantcontactEntity);
             return CreatedAtRoute("RestaurantContactById", new { restaurantId, id = restaurantcontactToReturn.RestaurantContactId  }, restaurantcontactToReturn);
         }
