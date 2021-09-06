@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using Repositoy;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,14 @@ namespace Repository
         {
 
         }
-        public IEnumerable<Restaurant> GetAllRestaurant(bool trackChanges) =>
-           FindAll(trackChanges)
+        public async Task <IEnumerable<Restaurant>> GetAllRestaurantAsync(bool trackChanges) =>
+          await FindAll(trackChanges)
            .OrderBy(c => c.Name)
-           .ToList();
+           .ToListAsync();
 
-        public Restaurant GetRestaurant(Guid restaurantId, bool trackChanges) =>
-             FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
-             .SingleOrDefault();
+        public async Task <Restaurant> GetRestaurantAsync(Guid restaurantId, bool trackChanges) =>
+            await FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
+             .SingleOrDefaultAsync();
 
 
 

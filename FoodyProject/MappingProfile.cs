@@ -39,10 +39,14 @@ namespace FoodyProject
            
 
 
+            CreateMap<RestaurantContactForUpdateDto, RestaurantContact>();
 
-           
 
-           
+
+
+
+
+
 
 
 

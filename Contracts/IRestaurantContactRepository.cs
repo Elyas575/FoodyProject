@@ -9,11 +9,13 @@ namespace Contracts
     public interface IRestaurantContactRepository
     {
 
-        IEnumerable<RestaurantContact> GetAllRestaurantContact(Guid restaurantId, bool trackChanges);
-        RestaurantContact GetRestaurantContact(Guid restaurantId, Guid id, bool trackChanges);
+        Task<IEnumerable<RestaurantContact>>  GetAllRestaurantContactAsync(Guid restaurantId, bool trackChanges);
+        Task<RestaurantContact> GetRestaurantContactAsync(Guid restaurantId, Guid id, bool trackChanges);
 
 
         void CreateRestaurantContact(Guid restaurantId, RestaurantContact restaurantcontact);
+
+        void DeleteRestaurantContact(RestaurantContact restaurantcontact); 
     }
 
 
