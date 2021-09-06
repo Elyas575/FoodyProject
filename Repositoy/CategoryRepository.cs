@@ -1,10 +1,12 @@
 ﻿using Contracts;
 using Entities;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Repositoy
 {
@@ -15,14 +17,16 @@ namespace Repositoy
         {
         }
 
-        public IEnumerable<Category> GetAllCategories(Guid restaurantId, bool trackChanges) =>
-          FindByCondition(e => e.RestaurantId.Equals(restaurantId), trackChanges)
-          .OrderBy(e => e.CategoryName);
+        public async Task<IEnumerable<Category>> GetAllCategoriesAsync(Guid restaurantId, bool trackChanges) =>
+          await FindAll(trackChanges)
+          .OrderBy(c => c.CategoryName)
+           .ToListAsync();
 
 
-        public Category GetCategory(Guid restaurantId, Guid categoryId, bool trackChanges) =>
-             FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.CategoryId.Equals(categoryId), trackChanges)
-             .SingleOrDefault();
+
+        public async Task <Category> GetCategoryAsync(Guid restaurantId, Guid categoryId, bool trackChanges) =>
+             await FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.CategoryId.Equals(categoryId), trackChanges)
+             .SingleOrDefaultAsync();
 
         public void CreatCategory(Guid restaurantId, Category category)
         {
