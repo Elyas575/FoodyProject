@@ -43,7 +43,7 @@ namespace FoodyProject.Controllers
             return Ok(categoryDto);
         }
 
-        [HttpGet("{restauratnId}/{categoryId}", Name = "CategoryById")]
+        [HttpGet("{restauratnId}/category/{categoryId}", Name = "CategoryById")]
         public async Task<IActionResult> GetCategoryAsync(Guid restauratnId, Guid categoryId)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restauratnId, trackChanges: false);
@@ -82,14 +82,14 @@ namespace FoodyProject.Controllers
 
             var categoryEntity = _mapper.Map<Category>(category);
 
-            _repository.Category.CreatCategory(restaurantId, categoryEntity);
+            _repository.Category.CreateCategory(restaurantId, categoryEntity);
 
             await _repository.SaveAsync();
 
 
             var categoryToReturn = _mapper.Map<CategoryDto>(categoryEntity);
 
-            return CreatedAtRoute("CategoryById", new { restaurantId, id = categoryToReturn.CategoryId }, categoryToReturn);
+            return Ok(categoryToReturn);
         }
     }
 }
