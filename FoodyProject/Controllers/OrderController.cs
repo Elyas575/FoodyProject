@@ -92,7 +92,7 @@ namespace FoodyProject.Controllers
                
                 return BadRequest(" object is null");
             }
-            var customer = _repository.Customer.GetCustomer(customerid, trackChanges: false);
+            var customer = _repository.Customer.GetCustomerAsync(customerid, trackChanges: false);
             if (customer == null)
             {
               
@@ -105,7 +105,7 @@ namespace FoodyProject.Controllers
                 return NotFound();
             }
             _mapper.Map(order, orderEntity);
-            _repository.save();
+           await _repository.SaveAsync();
             return NoContent();
         }
     }
