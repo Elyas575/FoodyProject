@@ -31,15 +31,17 @@ namespace FoodyProject.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateRestaurant([FromBody] RestaurantForCreationDto restaurant)
+        public async  Task<IActionResult> CreateRestaurant([FromBody] RestaurantForCreationDto restaurant)
         {
             if (restaurant == null)
             {
                 return BadRequest("RestaurantForCreationDto object is null");
             }
+
             var restaurantEntity = _mapper.Map<Restaurant>(restaurant);
             _repository.Restaurant.CreateRestaurant(restaurantEntity);
-            _repository.Save();
+            await _repository.SaveAsync();
+
 
             var restaurantToReturn = _mapper.Map<RestaurantDto>(restaurantEntity);
             return CreatedAtRoute("RestaurantById", new { id = restaurantToReturn.RestaurantId },
@@ -65,14 +67,15 @@ namespace FoodyProject.Controllers
         //////////////////////////Delete Restaurant///////////////////////
 
         [HttpDelete("{restaurantid}")]
-        public IActionResult DeleteRestaurant(Guid restaurantId, Guid id)
+        public async  Task<IActionResult> DeleteRestaurant(Guid restaurantId, Guid id)
         {
 
             var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
 
 
             _repository.Restaurant.DeleteRestaurant(restaurant);
-            _repository.Save();
+            await _repository.SaveAsync();
+
             return NoContent();
         }
 
@@ -92,14 +95,15 @@ namespace FoodyProject.Controllers
         /////////////////////////////// update restuarant ////////////////////////////////
 
         [HttpPut("{id}")]
-        public IActionResult UpdateEmployeeForCompany(Guid restaurantId, Guid id, [FromBody] RestaurantForUpdateDto restaurant)
+        public async Task<IActionResult> UpdateEmployeeForCompany(Guid restaurantId, Guid id, [FromBody] RestaurantForUpdateDto restaurant)
         {
 
 
             var restaurantEntity = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: true);
 
             _mapper.Map(restaurant, restaurantEntity);
-            _repository.Save();
+            await _repository.SaveAsync();
+
             return NoContent();
         }
 
@@ -111,8 +115,8 @@ namespace FoodyProject.Controllers
         [HttpGet("{restaurantId}/contacts")]
         public IActionResult GetAllRestaurantContact(Guid restaurantId)
         {
-            var company = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
-            if (company == null)
+            var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
+            if (restaurant == null)
             {
 
                 return NotFound();
@@ -153,7 +157,7 @@ namespace FoodyProject.Controllers
 
 
         [HttpPost("{restaurantId}/RestaurantContact")]
-        public IActionResult CreateRestaurantContact(Guid restaurantId, [FromBody] RestaurantContactForCreationDto restaurantcontact)
+        public async Task<IActionResult> CreateRestaurantContact(Guid restaurantId, [FromBody] RestaurantContactForCreationDto restaurantcontact)
         {
 /*resturatn = company 
  * resturantcontact = employee */     
@@ -171,7 +175,8 @@ namespace FoodyProject.Controllers
             var restaurantcontactEntity = _mapper.Map<RestaurantContact>(restaurantcontact);
 
             _repository.RestaurantContact.CreateRestaurantContact(restaurantId, restaurantcontactEntity);
-            _repository.Save();
+            await _repository.SaveAsync();
+
             var restaurantcontactToReturn = _mapper.Map<RestaurantContactDto>(restaurantcontactEntity);
             return CreatedAtRoute("RestaurantContactById", new { restaurantId, id = restaurantcontactToReturn.RestaurantContactId  }, restaurantcontactToReturn);
         }

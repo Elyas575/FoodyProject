@@ -27,15 +27,20 @@ namespace Repository
             Delete(customer);
         }
 
-        public IEnumerable<Customer> GetAllCustomers(bool trackChanges) =>
-              FindAll(trackChanges)
+        public async Task<IEnumerable<Customer>> GetAllCustomersAsync(bool trackChanges) =>
+              await FindAll(trackChanges)
               .OrderBy(c => c.Name)
-              .ToList();
+              .ToListAsync();
+
+        public async Task<IEnumerable<Customer>> GetByIdsAsync(IEnumerable<Guid> ids, bool
+        trackChanges) =>
+         await FindByCondition(c => ids.Contains(c.CustomerId), trackChanges)
+         .ToListAsync();
 
 
-        public Customer GetCustomer(Guid customerId, bool trackChanges) =>
-             FindByCondition(c => c.CustomerId.Equals(customerId) , trackChanges)
-            .SingleOrDefault();
+        public async Task<Customer> GetCustomerAsync(Guid customerId, bool trackChanges) =>
+             await FindByCondition(c => c.CustomerId.Equals(customerId) , trackChanges)
+            .SingleOrDefaultAsync();
       
     }
 

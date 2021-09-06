@@ -16,7 +16,7 @@ namespace Contracts
         IOrderRepository Order { get; }
         IRestaurantRepository Restaurant { get; }
         IRestaurantContactRepository RestaurantContact { get; }
-        void Save();
+        Task SaveAsync();
 
 
     }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,18 @@ namespace FoodyProject.Extensions
 
 
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
- services.AddScoped<IRepositoryManager, RepositoryManager>(); 
+ services.AddScoped<IRepositoryManager, RepositoryManager>();
+
+        public static void ConfigureSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(s =>
+            {
+                s.SwaggerDoc("v1", new OpenApiInfo { Title = "FoodyProject", Version = "v1" });
+
+
+            });
+        }
     }
 }
+        
+    
