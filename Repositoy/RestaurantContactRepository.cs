@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using Repositoy;
 using System;
 using System.Collections.Generic;
@@ -12,20 +13,21 @@ namespace Repository
 {
     public class RestaurantContactRepository : RepositoryBase<RestaurantContact>, IRestaurantContactRepository
     {
-        public RestaurantContactRepository(RepositoryContext repositoryContext)
+        public  RestaurantContactRepository(RepositoryContext repositoryContext)
         : base(repositoryContext)
         {
         }
 
-        public IEnumerable<RestaurantContact> GetAllRestaurantContact(Guid restaurantId, bool trackChanges) =>
- FindByCondition(e => e.RestaurantId.Equals(restaurantId), trackChanges)
- .OrderBy(e => e.PhoneNumber);
+        public async Task <IEnumerable<RestaurantContact>> GetAllRestaurantContactAsync(Guid restaurantId, bool trackChanges) =>
+         await FindAll(trackChanges)
+         .OrderBy(e => e.PhoneNumber)
+            .ToListAsync();
 
 
-        public RestaurantContact GetRestaurantContact(Guid restaurantId, Guid id, bool trackChanges) =>
- FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.RestaurantContactId.Equals(id),
+        public async Task <RestaurantContact> GetRestaurantContactAsync(Guid restaurantId, Guid id, bool trackChanges) =>
+ await FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.RestaurantContactId.Equals(id),
 trackChanges)
- .SingleOrDefault();
+ .SingleOrDefaultAsync();
 
 
 
@@ -34,6 +36,13 @@ trackChanges)
             restaurantcontact.RestaurantId = restaurantId;
             Create(restaurantcontact);
         }
+
+        public void DeleteRestaurantContact(RestaurantContact restaurantcontact)
+        {
+            Delete(restaurantcontact);
+        }
+
+
 
 
 

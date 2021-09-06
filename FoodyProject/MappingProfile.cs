@@ -14,10 +14,14 @@ namespace FoodyProject
 
 
         {
+            CreateMap<RestaurantForUpdateDto, Restaurant>();
+
             CreateMap<CustomerForCreationDto, Customer>();
 
             
             CreateMap<Restaurant, RestaurantDto>();
+
+
 
             CreateMap<RestaurantForCreationDto, Restaurant>();
             CreateMap<Customer, CustomerDto>();
@@ -35,10 +39,14 @@ namespace FoodyProject
             CreateMap<OrderForUpdateDto, Order>();
 
 
+            CreateMap<RestaurantContactForUpdateDto, RestaurantContact>();
 
-           
 
-           
+
+
+
+
+
 
 
 

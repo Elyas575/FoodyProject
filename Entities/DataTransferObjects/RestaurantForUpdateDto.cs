@@ -17,5 +17,9 @@ namespace Entities.DataTransferObjects
         public string Logo { get; set; }
         public int AvgDeliveryTime { get; set; }
         public int MinPrice { get; set; }
+
+
+        public IEnumerable<RestaurantContactForCreationDto> RestaurantContact { get; set; } 
+
     }
 }
