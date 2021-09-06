@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using Repositoy;
 using System;
 using System.Collections.Generic;
@@ -23,15 +24,17 @@ namespace Repository
             Create(customercontact);
         }
 
-        public IEnumerable<CustomerContact> GetAllCustomerContact(Guid customerId, bool trackChanges) =>
-        FindByCondition(c => c.CustomerId.Equals(customerId), trackChanges)
-        .OrderBy(c => c.CustomerAddress);
+        public async Task<IEnumerable<CustomerContact>> GetAllCustomersContactAsync(Guid customerId, bool trackChanges) =>
+        await FindAll(trackChanges)
+        .OrderBy(c => c.CustomerContactId)
+        .ToListAsync();
 
 
-        public CustomerContact GetCustomerContact(Guid customerId, Guid id, bool trackChanges) =>
-         FindByCondition(c => c.CustomerId.Equals(customerId) && c.CustomerContactId.Equals(id),
+
+        public async Task<CustomerContact> GetCustomerContactAsync(Guid customerId, Guid id, bool trackChanges) =>
+         await FindByCondition(c => c.CustomerId.Equals(customerId) && c.CustomerContactId.Equals(id),
         trackChanges)
-         .SingleOrDefault();
+         .SingleOrDefaultAsync();
     }
 
 }
