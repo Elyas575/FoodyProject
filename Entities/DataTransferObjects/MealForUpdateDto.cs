@@ -8,6 +8,7 @@ namespace Entities.DataTransferObjects
 {
     public class MealForUpdateDto
     {
+        public string MealOptions { get; set; }
         public string Name { get; set; }
 
         public string Description { get; set; }

@@ -9,7 +9,7 @@ namespace Entities.DataTransferObjects
    public class MealDto
     {
         public Guid MealId { get; set; }
-
+        public string MealOptions { get; set; }
         public string Name { get; set; }
 
         public string Description { get; set; }

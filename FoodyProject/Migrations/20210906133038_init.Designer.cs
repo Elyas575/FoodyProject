@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodyProject.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20210903114449_init")]
+    [Migration("20210906133038_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,6 +103,9 @@ namespace FoodyProject.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MealOptions")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

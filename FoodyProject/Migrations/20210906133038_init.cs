@@ -124,6 +124,7 @@ namespace FoodyProject.Migrations
                     MealId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MealOptions = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<int>(type: "int", nullable: false),
                     Picture = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
