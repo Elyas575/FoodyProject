@@ -37,9 +37,11 @@ namespace FoodyProject.Controllers
             {
                 return BadRequest("RestaurantForCreationDto object is null");
             }
+
             var restaurantEntity = _mapper.Map<Restaurant>(restaurant);
             _repository.Restaurant.CreateRestaurant(restaurantEntity);
             await _repository.SaveAsync();
+
 
             var restaurantToReturn = _mapper.Map<RestaurantDto>(restaurantEntity);
             return CreatedAtRoute("RestaurantById", new { id = restaurantToReturn.RestaurantId },

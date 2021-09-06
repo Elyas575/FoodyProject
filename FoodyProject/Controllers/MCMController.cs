@@ -65,7 +65,7 @@ namespace FoodyProject.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateCategory(Guid restaurantId, [FromBody] CategoryForCreationDto category)
+        public async Task <IActionResult> CreateCategory(Guid restaurantId, [FromBody] CategoryForCreationDto category)
         {
             if (category == null)
             {
@@ -82,7 +82,8 @@ namespace FoodyProject.Controllers
 
             _repository.Category.CreatCategory(restaurantId, categoryEntity);
 
-            _repository.Save();
+            await _repository.SaveAsync();
+
 
             var categoryToReturn = _mapper.Map<CategoryDto>(categoryEntity);
 
@@ -90,7 +91,7 @@ namespace FoodyProject.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteCategory(Guid restaurantId, Guid categoryId)
+        public async  Task<IActionResult> DeleteCategory(Guid restaurantId, Guid categoryId)
         {
             var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -105,14 +106,15 @@ namespace FoodyProject.Controllers
             }
 
             _repository.Category.DeleteCategory(categoryDb);
-            _repository.Save();
+            await _repository.SaveAsync();
+
 
             return NoContent();
         }
 
 
         [HttpPut("{id}")]
-        public IActionResult UpdateCategoryForRestaurant(Guid restaurantId, Guid categoryId, [FromBody] CategoryForUpdateDto category)
+        public async  Task<IActionResult> UpdateCategoryForRestaurant(Guid restaurantId, Guid categoryId, [FromBody] CategoryForUpdateDto category)
         {
             if (category == null)
             {
@@ -134,7 +136,8 @@ namespace FoodyProject.Controllers
             }
 
             _mapper.Map(category, categoryEntity);
-            _repository.Save();
+            await _repository.SaveAsync();
+
             return NoContent();
         }
         

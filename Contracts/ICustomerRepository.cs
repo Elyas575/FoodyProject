@@ -1,17 +1,18 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Contracts
 {
     public interface ICustomerRepository
     {
-        IEnumerable<Customer> GetAllCustomers(bool trackChanges);
+        Task<IEnumerable<Customer>> GetAllCustomersAsync(bool trackChanges);
 
 
 
 
-        Customer GetCustomer(Guid customerId, bool trackChanges);
+        Task<Customer> GetCustomerAsync(Guid customerId, bool trackChanges);
 
        
 
