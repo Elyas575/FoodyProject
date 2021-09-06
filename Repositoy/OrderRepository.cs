@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Contracts;
 using Entities;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
@@ -14,18 +15,19 @@ namespace Repository
         : base(repositoryContext)
         {
         }
-        public Order GetOrder(Guid orderid, bool trackChanges) =>
-             FindByCondition(c => c.OrderId.Equals(orderid), trackChanges)
-             .SingleOrDefault();
+        public async Task <Order>  GetOrderAsync(Guid orderid, bool trackChanges) =>
+             await FindByCondition(c => c.OrderId.Equals(orderid), trackChanges)
+             .SingleOrDefaultAsync();
 
         /*  getting a single order for resturant */
 
      
         /* fix this u should get all orders for one resturant */
-        public IEnumerable<Order> GetAllOrders(bool trackChanges) =>
-         FindAll(trackChanges)
+        public async Task<IEnumerable<Order>> GetAllOrdersAsync(bool trackChanges) =>
+        await FindAll(trackChanges)
          .OrderBy(c => c.OrderId)
-         .ToList();
+         .ToListAsync();
+    
 
         /* fix this u should get all orders for one resturant */
         public void CreateOrder(Guid customerId, Order order)
@@ -39,10 +41,10 @@ namespace Repository
             Delete(order);
         }
 
-        public IEnumerable<Order> GetOrdersForRestaurantByMealId(Guid MealId, bool trackchanges)
+
+        public Task<IEnumerable<Order>> GetOrdersForRestaurantByMealIdAsync(Guid MealId, bool trackchanges)
         {
             throw new NotImplementedException();
         }
-
     }
 }

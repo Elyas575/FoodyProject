@@ -24,15 +24,15 @@ namespace FoodyProject.Controllers
         [HttpGet]
 
         /*  this should be get all orders for one restaurant*/
-        public IActionResult GetAllOrders()
+        public async Task<IActionResult>  GetAllOrdersAsync()
         {
-            var orders = _repository.Order.GetAllOrders(trackChanges: false);
+            var orders =await _repository.Order.GetAllOrdersAsync(trackChanges: false);
             return Ok(orders);
         }
         [HttpGet("{id}", Name = "OrderById")]
-        public IActionResult GetOrder(Guid id, bool trackchanges) {
+        public async Task <IActionResult> GetOrderAsync(Guid id, bool trackchanges) {
 
-            var order = _repository.Order.GetOrder(id, trackchanges);
+            var order = await _repository.Order.GetOrderAsync(id, trackchanges);
 
             if (order == null)
             {
@@ -40,9 +40,9 @@ namespace FoodyProject.Controllers
             }
             else
             {
-                var companyDto = _mapper.Map<OrderDto>(order);
+                var orderdto = _mapper.Map<OrderDto>(order);
 
-                return Ok(companyDto);
+                return Ok(orderdto);
             }
         }
         [HttpPost("customers/{customerId}")]
@@ -74,7 +74,7 @@ namespace FoodyProject.Controllers
         [HttpDelete("{OrderId}")]
         public async  Task<IActionResult> DeleteOrder(Guid orderId, Guid id)
         {
-            var order = _repository.Order.GetOrder(orderId, trackChanges: false);
+            var order = await _repository.Order.GetOrderAsync(orderId, trackChanges: false);
 
             _repository.Order.DeleteOrder(order);
             await _repository.SaveAsync();
@@ -82,7 +82,7 @@ namespace FoodyProject.Controllers
             return NoContent();
         }
 
-        [HttpPut("c/{customerid}/{orderid}")]
+        [HttpPut("customers/{customerid}/{orderid}")]
 
   
         public async Task<IActionResult> UpdateOrderForCustomer(Guid customerid, Guid orderid, [FromBody]OrderForUpdateDto order)
@@ -92,13 +92,13 @@ namespace FoodyProject.Controllers
                
                 return BadRequest(" object is null");
             }
-            var customer = _repository.Customer.GetCustomerAsync(customerid, trackChanges: false);
+            var customer = await _repository.Customer.GetCustomerAsync(customerid, trackChanges: false);
             if (customer == null)
             {
               
             return NotFound();
             }
-            var orderEntity = _repository.Order.GetOrder(orderid, trackChanges: true);
+            var orderEntity = await _repository.Order.GetOrderAsync(orderid, trackChanges: true);
             if (orderEntity == null)
             {
        
