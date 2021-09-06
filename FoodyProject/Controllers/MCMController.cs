@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Entities.DataTransferObjects;
 using AutoMapper;
 using Entities.Models;
-
+/*
 namespace FoodyProject.Controllers
 { 
     [Route("api/restaurant/{restaurantId}/category")]
@@ -290,7 +290,7 @@ namespace FoodyProject.Controllers
             return NoContent();
 
 
-        }*/
+        }
     }
 
-}
+}*/
