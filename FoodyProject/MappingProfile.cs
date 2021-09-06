@@ -14,6 +14,9 @@ namespace FoodyProject
 
 
         {
+            CreateMap<OrderForUpdateDto, Order>();
+            CreateMap<OrderForCreationDto, Order>();
+
             CreateMap<CustomerForCreationDto, Customer>();
 
             
@@ -22,7 +25,7 @@ namespace FoodyProject
             CreateMap<RestaurantForCreationDto, Restaurant>();
             CreateMap<Customer, CustomerDto>();
             CreateMap<Order, OrderDto>();
-            CreateMap<OrderForCreationDto, Order>();  
+           
             CreateMap<CategoryForCreationDto, Category>();
             CreateMap<Category, CategoryDto>();
 
@@ -32,7 +35,7 @@ namespace FoodyProject
             CreateMap<Meal, MealDto>();
             CreateMap<CategoryForUpdateDto, Category>();
 
-            CreateMap<OrderForUpdateDto, Order>();
+           
 
 
 

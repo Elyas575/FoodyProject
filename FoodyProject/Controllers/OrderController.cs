@@ -22,6 +22,8 @@ namespace FoodyProject.Controllers
             _mapper = mapper;
         }
         [HttpGet]
+
+        /*  this should be get all orders for one restaurant*/
         public IActionResult GetAllOrders()
         {
             var orders = _repository.Order.GetAllOrders(trackChanges: false);
@@ -79,7 +81,35 @@ namespace FoodyProject.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("c/{customerid}/{orderid}")]
+
+  
+        public async Task<IActionResult> UpdateOrderForCustomer(Guid customerid, Guid orderid, [FromBody]OrderForUpdateDto order)
+        {
+            if (order == null)
+            {
+               
+                return BadRequest(" object is null");
+            }
+            var customer = _repository.Customer.GetCustomer(customerid, trackChanges: false);
+            if (customer == null)
+            {
+              
+            return NotFound();
+            }
+            var orderEntity = _repository.Order.GetOrder(orderid, trackChanges: true);
+            if (orderEntity == null)
+            {
+       
+                return NotFound();
+            }
+            _mapper.Map(order, orderEntity);
+            _repository.save();
+            return NoContent();
+        }
     }
+
 }
      
 
