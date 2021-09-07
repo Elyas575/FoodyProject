@@ -113,50 +113,38 @@ namespace FoodyProject.Controllers
 
             return NoContent();
         }
-
-    }
-}
-  
-        
-
-      
-/*
-        [HttpPut("{id}")]
+        [HttpPut("{restaurantId}/{categoryId}")]
         public async Task<IActionResult> UpdateCategoryForRestaurant(Guid restaurantId, Guid categoryId, [FromBody] CategoryForUpdateDto category)
         {
             if (category == null)
             {
                 return BadRequest("CategoryForUpdateDto object is null");
             }
-                return BadRequest("CategoryForUpdateDto object is null");
-            }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory(Guid restaurantId, Guid categoryId)
-        {
-            var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
+            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
+
             if (restaurant == null)
             {
                 return NotFound();
             }
 
-            var categoryDb = _repository.Category.GetCategory(restaurantId, categoryId, trackChanges: false);
-            if (categoryDb == null)
+            var categoryEntity = await _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: true);
+
+            if (categoryEntity == null)
             {
                 return NotFound();
             }
 
-            _repository.Category.DeleteCategory(categoryDb);
+            _mapper.Map(category, categoryEntity);
             await _repository.SaveAsync();
-
 
             return NoContent();
         }
+    }
 
-
-        
-}
-        
+}      
+/*
+    
 
         ///////////////////////// Meal /////////////////////////
 
