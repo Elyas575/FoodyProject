@@ -8,8 +8,7 @@ namespace Entities.DataTransferObjects
 { /* we arent using this anymore its inside the meal table */
    public class MealOptionDto
     {
-   
-        public Guid MealOptionId { get; set; }
+        public int MealOptionId { get; set; }
         public string MealSize { get; set; }
         public string Extra { get; set; }
     }

@@ -13,12 +13,10 @@ namespace Entities.Models
        [Key]
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-        public string RestaurantId { get; set; }
+        public int RestaurantId { get; set; }
 
         [ForeignKey(nameof(Restaurant))]
         public virtual Restaurant Restaurants { get; set; }     
         public virtual ICollection<Meal> Meals { get; set; }
-        
-
     }
 }

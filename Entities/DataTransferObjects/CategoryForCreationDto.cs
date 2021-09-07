@@ -9,7 +9,5 @@ namespace Entities.DataTransferObjects
     public class CategoryForCreationDto
     {
         public string CategoryName { get; set; }
-
-       
     }
 }

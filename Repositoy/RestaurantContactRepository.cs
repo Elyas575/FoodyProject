@@ -13,25 +13,22 @@ namespace Repository
 {
     public class RestaurantContactRepository : RepositoryBase<RestaurantContact>, IRestaurantContactRepository
     {
-        public  RestaurantContactRepository(RepositoryContext repositoryContext)
+        public RestaurantContactRepository(RepositoryContext repositoryContext)
         : base(repositoryContext)
         {
         }
 
-        public async Task <IEnumerable<RestaurantContact>> GetAllRestaurantContactAsync(string restaurantId, bool trackChanges) =>
+        public async Task<IEnumerable<RestaurantContact>> GetAllRestaurantContactAsync(int restaurantId, bool trackChanges) =>
          await FindAll(trackChanges)
          .OrderBy(e => e.PhoneNumber)
             .ToListAsync();
 
+        public async Task<RestaurantContact> GetRestaurantContactAsync(int restaurantId, int id, bool trackChanges) =>
+         await FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.RestaurantContactId.Equals(id),
+         trackChanges)
+        .SingleOrDefaultAsync();
 
-        public async Task <RestaurantContact> GetRestaurantContactAsync(string restaurantId, string id, bool trackChanges) =>
- await FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.RestaurantContactId.Equals(id),
-trackChanges)
- .SingleOrDefaultAsync();
-
-
-
-        public void CreateRestaurantContact(string restaurantId, RestaurantContact restaurantcontact)
+        public void CreateRestaurantContact(int restaurantId, RestaurantContact restaurantcontact)
         {
             restaurantcontact.RestaurantId = restaurantId;
             Create(restaurantcontact);
@@ -41,13 +38,5 @@ trackChanges)
         {
             Delete(restaurantcontact);
         }
-
-
-
-
-
-
     }
 }
-
-

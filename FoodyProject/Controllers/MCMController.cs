@@ -20,12 +20,10 @@ namespace FoodyProject.Controllers
         {
             _repository = repository;
             _mapper = mapper;
-
         }
 
-
         [HttpGet("{restaurantId}/categories")]
-        public async Task<IActionResult> GetAllCategoriesAsync(string restaurantId)
+        public async Task<IActionResult> GetAllCategoriesAsync(int restaurantId)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -42,7 +40,7 @@ namespace FoodyProject.Controllers
         }
 
         [HttpGet("{restaurantId}/category/{categoryId}", Name = "CategoryById")]
-        public async Task<IActionResult> GetCategoryAsync(string restaurantId, string categoryId)
+        public async Task<IActionResult> GetCategoryAsync(int restaurantId, int categoryId)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -58,14 +56,10 @@ namespace FoodyProject.Controllers
             var category = _mapper.Map<CategoryDto>(categoryDb);
 
             return Ok(category);
-
         }
-
-
-
-
+        
         [HttpPost("{restaurantId}/Category")]
-        public async Task<IActionResult> CreateCategory(string restaurantId, [FromBody] CategoryForCreationDto category)
+        public async Task<IActionResult> CreateCategory(int restaurantId, [FromBody] CategoryForCreationDto category)
         {
             if (category == null)
             {
@@ -91,7 +85,7 @@ namespace FoodyProject.Controllers
         }
 
         [HttpDelete("{restaurantId}/category/{categoryId}")]
-        public async Task<IActionResult> DeleteCategory(string restaurantId, string categoryId)
+        public async Task<IActionResult> DeleteCategory(int restaurantId, int categoryId)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -108,13 +102,12 @@ namespace FoodyProject.Controllers
             _repository.Category.DeleteCategory(categoryDb);
             await _repository.SaveAsync();
 
-
             return NoContent();
         }
 
 
         [HttpGet("{restaurantId}/category/{categoryId}/meal")]
-        public async Task<IActionResult> GetAllMealsAsync(string restaurantId, string categoryId)
+        public async Task<IActionResult> GetAllMealsAsync(int restaurantId, int categoryId)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -135,7 +128,7 @@ namespace FoodyProject.Controllers
         }
 
         [HttpGet("{restaurantId}/category/{categoryId}/meal/{mealId}", Name = "GetMealForCategory")]
-        public async Task<IActionResult> GetMealAsync(string restaurantId, string categoryId, string mealId)
+        public async Task<IActionResult> GetMealAsync(int restaurantId, int categoryId, int mealId)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -162,9 +155,8 @@ namespace FoodyProject.Controllers
             return Ok(meal);
         }
 
-
         [HttpPost("{restaurantId}/category/{categoryId}/meal")]
-        public async Task<IActionResult> CreateMealForCategory(string restaurantId, string categoryId, [FromBody] MealForCreationDto meal)
+        public async Task<IActionResult> CreateMealForCategory(int restaurantId, int categoryId, [FromBody] MealForCreationDto meal)
         {
             if (meal == null)
             {
@@ -194,9 +186,8 @@ namespace FoodyProject.Controllers
             return CreatedAtRoute("GetMealForCategory", new { categoryId, mealId = mealEntity.MealId }, mealToReturn);
         }
 
-
         [HttpDelete("{restaurantId}/category/{categoryId}/meal/{mealId}")]
-        public async Task<IActionResult> DeleteMealAsync(string restaurantId, string categoryId, string mealId)
+        public async Task<IActionResult> DeleteMealAsync(int restaurantId, int categoryId, int mealId)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -222,12 +213,7 @@ namespace FoodyProject.Controllers
             return NoContent();
         }
     }
-
 }
-
-
-
-
 
 /*
         [HttpPut("{id}")]

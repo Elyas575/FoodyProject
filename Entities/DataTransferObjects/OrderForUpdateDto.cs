@@ -9,6 +9,5 @@ namespace Entities.DataTransferObjects
     public class OrderForUpdateDto
     {
         public string OrderDescription { get; set; }
-
     }
 }

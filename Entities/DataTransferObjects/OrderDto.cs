@@ -8,10 +8,8 @@ namespace Entities.DataTransferObjects
 {
    public  class OrderDto
     {
-        public Guid OrderId { get; set; }
-
-        public Guid MealId { get; set; }
-
+        public int OrderId { get; set; }
+        public int MealId { get; set; }
         public string OrderDescription { get; set; }
     }
 }

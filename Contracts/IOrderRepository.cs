@@ -8,22 +8,10 @@ namespace Contracts
 {
     public interface IOrderRepository
     {
-
-       Task<IEnumerable<Order>>  GetAllOrdersAsync(bool trackChanges);
-        Task<Order> GetOrderAsync(string orderId,bool trackChanges);
-
+        Task<IEnumerable<Order>>  GetAllOrdersAsync(bool trackChanges);
+        Task<Order> GetOrderAsync(int orderId,bool trackChanges);
         /*  getting a single order for resturant, order = employee, resturant = meals */
-
-
-
-
-
-        void CreateOrder(string customerId, Order order);
-
+        void CreateOrder(int customerId, Order order);
         void DeleteOrder(Order order);
-   
-      
-            
-
     }
 }

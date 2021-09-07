@@ -7,11 +7,8 @@ namespace Contracts
 {
     public interface ICustomerContactRepository
     {
-
-        Task<IEnumerable<CustomerContact>> GetAllCustomersContactAsync(string customerId, bool trackChanges);
-        Task<CustomerContact> GetCustomerContactAsync(string customerId, string id, bool trackChanges);
-
-
-        void CreateCustomerContact(string customerId, CustomerContact customercontact);
+        Task<IEnumerable<CustomerContact>> GetAllCustomersContactAsync(int customerId, bool trackChanges);
+        Task<CustomerContact> GetCustomerContactAsync(int customerId, int id, bool trackChanges);
+        void CreateCustomerContact(int customerId, CustomerContact customercontact);
     }
 }

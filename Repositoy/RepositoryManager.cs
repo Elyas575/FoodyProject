@@ -19,7 +19,6 @@ namespace Repository
         private IMealRepository _mealRepository;
         private IOrderRepository _orderRepository;
         private IRestaurantRepository _restaurantRepository;
-       
         private IRestaurantContactRepository _restaurantContactRepository;
 
         public RepositoryManager(RepositoryContext repositoryContext)
@@ -56,8 +55,6 @@ namespace Repository
                 return _customerRepository;
             }
         }
-
-       
 
         public IMealRepository Meal
         {
@@ -101,8 +98,5 @@ namespace Repository
         }
 
         public Task SaveAsync() => _repositoryContext.SaveChangesAsync();
-
-
-
     }
 }

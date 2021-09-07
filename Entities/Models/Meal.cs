@@ -12,12 +12,12 @@ namespace Entities.Models
     {
         [Key]
         public int MealId { get; set; }
-        public string OrderId { get; set; }
-        public string CategoryId { get; set; }
+        public int OrderId { get; set; }
+        public int CategoryId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string MealOptions { get; set; } 
-        public int Price { get; set; }
+        public float Price { get; set; }
         public string Picture { get; set; }
 
         [ForeignKey(nameof(CategoryId))]

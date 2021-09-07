@@ -8,12 +8,9 @@ namespace Contracts
 {
    public interface ICategoryRepository
     {
-         Task<IEnumerable<Category>> GetAllCategoriesAsync(string restaurantId, bool trackChanges);
-         Task <Category> GetCategoryAsync(string restaurantId, string categoryId, bool trackChanges);
-
-        void CreateCategory(string restaurantId, Category category);
-
+        Task<IEnumerable<Category>> GetAllCategoriesAsync(int restaurantId, bool trackChanges);
+        Task <Category> GetCategoryAsync(int restaurantId, int categoryId, bool trackChanges);
+        void CreateCategory(int restaurantId, Category category);
         void DeleteCategory(Category category);
-
     }
 }

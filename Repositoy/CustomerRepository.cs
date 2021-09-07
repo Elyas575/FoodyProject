@@ -21,7 +21,6 @@ namespace Repository
 
         public void CreateCustomer(Customer customer) => Create(customer);
 
-
         public void DeleteCustomer(Customer customer)
         {
             Delete(customer);
@@ -38,13 +37,8 @@ namespace Repository
          .ToListAsync();
 
 
-        public async Task<Customer> GetCustomerAsync(string customerId, bool trackChanges) =>
+        public async Task<Customer> GetCustomerAsync(int customerId, bool trackChanges) =>
              await FindByCondition(c => c.CustomerId.Equals(customerId) , trackChanges)
             .SingleOrDefaultAsync();
-      
     }
-
-
-
 }
-

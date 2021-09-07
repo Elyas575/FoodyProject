@@ -25,31 +25,23 @@ namespace FoodyProject.Extensions
 
         public static void ConfigureIISIntegration(this IServiceCollection services) => services.Configure<IISOptions>(options =>
          {
-
          });
 
-
         public static void ConfigureSqlContext(this IServiceCollection services,
-  IConfiguration configuration) =>
-   services.AddDbContext<RepositoryContext>(opts =>
-   opts.UseSqlServer(configuration.GetConnectionString("sqlConnection"), b =>
-  b.MigrationsAssembly("FoodyProject")));
-
-
+        IConfiguration configuration) =>
+        services.AddDbContext<RepositoryContext>(opts =>
+        opts.UseSqlServer(configuration.GetConnectionString("sqlConnection"), b =>
+        b.MigrationsAssembly("FoodyProject")));
 
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
- services.AddScoped<IRepositoryManager, RepositoryManager>();
+        services.AddScoped<IRepositoryManager, RepositoryManager>();
 
         public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(s =>
             {
                 s.SwaggerDoc("v1", new OpenApiInfo { Title = "FoodyProject", Version = "v1" });
-
-
             });
         }
     }
 }
-        
-    

@@ -29,9 +29,8 @@ namespace FoodyProject.Controllers
             return Ok(customerDto);
         }
 
-
         [HttpGet("{customerId}", Name = "CustomerById")]
-        public async Task<IActionResult> GetCustomerAsync(string customerId)
+        public async Task<IActionResult> GetCustomerAsync(int customerId)
         {
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
@@ -55,22 +54,14 @@ namespace FoodyProject.Controllers
             }
             var customerEntity = _mapper.Map<Customer>(customer);
             _repository.Customer.CreateCustomer(customerEntity);
-
-
             await _repository.SaveAsync();
-
-
-
             var customerToReturn = _mapper.Map<CustomerDto>(customerEntity);
             return CreatedAtRoute("CustomerById", new { id = customerToReturn.CustomerId }, customerToReturn);
             // return Ok(customerToReturn);
-
         }
 
-
-
         [HttpDelete("{customerId}")]
-        public async Task<IActionResult> DeleteCustomerForRestaurant(string customerId)
+        public async Task<IActionResult> DeleteCustomerForRestaurant(int customerId)
         {
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
@@ -79,16 +70,12 @@ namespace FoodyProject.Controllers
             }
             _repository.Customer.DeleteCustomer(customer);
             await _repository.SaveAsync();
-
-
-
             return Ok();
         }
 
         //CreateCustomerContact//
-
         [HttpPost("{customerId}/CustomerContact")]
-        public async Task<IActionResult> CreateCustomerContact(string customerId, [FromBody] CustomerContactForCreationDto customercontact)
+        public async Task<IActionResult> CreateCustomerContact(int customerId, [FromBody] CustomerContactForCreationDto customercontact)
         {
             if (customercontact == null)
             {
@@ -107,16 +94,12 @@ namespace FoodyProject.Controllers
             _repository.CustomerContact.CreateCustomerContact(customerId, customercontactEntity);
             await _repository.SaveAsync();
 
-
-
             var customercontactToReturn = _mapper.Map<CustomerContactDto>(customercontactEntity);
             return CreatedAtRoute("CustomerContactById", new { customerId, id = customercontactToReturn.CustomerContactId }, customercontactToReturn);
-
-
         }
 
         [HttpGet("{customerId}/contacts")]
-        public async Task<IActionResult> GetAllCustomersContactAsync(string customerId)
+        public async Task<IActionResult> GetAllCustomersContactAsync(int customerId)
         {
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
@@ -131,7 +114,7 @@ namespace FoodyProject.Controllers
 
         [HttpGet("{customerId}/contact", Name = "CustomerContactById")]
 
-        public async Task<IActionResult> GetCustomerContactAsync(string customerId, string id)
+        public async Task<IActionResult> GetCustomerContactAsync(int customerId, int id)
         {
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
@@ -151,7 +134,7 @@ namespace FoodyProject.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomerContact (string customerId, string id)
+        public async Task<IActionResult> DeleteCustomerContact (int customerId, int id)
         {
             var customercontact = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customercontact == null)
@@ -164,10 +147,9 @@ namespace FoodyProject.Controllers
 
             return NoContent();
         }
-
        
         [HttpPut("{customerid}")]
-        public async Task<IActionResult> UpdateCustomerContactForCustomer(string customerid, string customercontactid, [FromBody] CustomerContactForUpdateDto customercontact)
+        public async Task<IActionResult> UpdateCustomerContactForCustomer(int customerid, int customercontactid, [FromBody] CustomerContactForUpdateDto customercontact)
         {
             if (customercontact == null)
             {

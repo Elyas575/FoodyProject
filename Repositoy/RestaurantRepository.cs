@@ -23,23 +23,13 @@ namespace Repository
            .OrderBy(c => c.Name)
            .ToListAsync();
 
-        public async Task <Restaurant> GetRestaurantAsync(string restaurantId, bool trackChanges) =>
+        public async Task <Restaurant> GetRestaurantAsync(int restaurantId, bool trackChanges) =>
             await FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
              .SingleOrDefaultAsync();
-
-
-
-
         public void DeleteRestaurant(Restaurant restaurant)
         {
             Delete(restaurant);
         }
-
-
         public void CreateRestaurant(Restaurant restaurant) => Create(restaurant);
-
-
-
     }
-
 }

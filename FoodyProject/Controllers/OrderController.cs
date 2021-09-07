@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace FoodyProject.Controllers
 {
-
     [Route("api/orders")]
     [ApiController]
     public class OrderController : ControllerBase
@@ -29,8 +28,9 @@ namespace FoodyProject.Controllers
             var orders =await _repository.Order.GetAllOrdersAsync(trackChanges: false);
             return Ok(orders);
         }
+
         [HttpGet("{id}", Name = "OrderById")]
-        public async Task <IActionResult> GetOrderAsync(string id, bool trackchanges) {
+        public async Task <IActionResult> GetOrderAsync(int id, bool trackchanges) {
 
             var order = await _repository.Order.GetOrderAsync(id, trackchanges);
 
@@ -45,8 +45,9 @@ namespace FoodyProject.Controllers
                 return Ok(orderdto);
             }
         }
+
         [HttpPost("customers/{customerId}")]
-        public async  Task<IActionResult> CreateOrder(string customerId, [FromBody] OrderForCreationDto order)
+        public async  Task<IActionResult> CreateOrder(int customerId, [FromBody] OrderForCreationDto order)
         {
             if (order == null)
             {              
@@ -66,13 +67,12 @@ namespace FoodyProject.Controllers
             _repository.Order.CreateOrder(customerId, orderEntity);
             await _repository.SaveAsync();
 
-
             var orderToReturn = _mapper.Map<OrderDto>(orderEntity);
             return CreatedAtRoute("",new
             {customerId,id = orderToReturn.OrderId }, orderToReturn); }
 
         [HttpDelete("{OrderId}")]
-        public async  Task<IActionResult> DeleteOrder(string orderId, string id)
+        public async  Task<IActionResult> DeleteOrder(int orderId, string id)
         {
             var order = await _repository.Order.GetOrderAsync(orderId, trackChanges: false);
 
@@ -83,9 +83,7 @@ namespace FoodyProject.Controllers
         }
 
         [HttpPut("customers/{customerid}/{orderid}")]
-
-  
-        public async Task<IActionResult> UpdateOrderForCustomer(string customerid, string orderid, [FromBody]OrderForUpdateDto order)
+        public async Task<IActionResult> UpdateOrderForCustomer(int customerid, int orderid, [FromBody]OrderForUpdateDto order)
         {
             if (order == null)
             {
@@ -109,8 +107,4 @@ namespace FoodyProject.Controllers
             return NoContent();
         }
     }
-
 }
-     
-
- 
