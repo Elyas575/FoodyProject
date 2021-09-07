@@ -27,7 +27,7 @@ namespace Repositoy
              await FindByCondition(e => e.CategoryId.Equals(categoryId) && e.MealId.Equals(mealId), trackChanges)
              .SingleOrDefaultAsync();
 
-        public void CreateMealForCategory(Guid categoryId, Meal meal)
+        public void CreateMealForCategory(Guid restaurantId, Guid categoryId, Meal meal)
         {
             meal.CategoryId = categoryId;
             Create(meal);

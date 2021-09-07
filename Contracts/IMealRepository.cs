@@ -12,7 +12,7 @@ namespace Contracts
        Task< IEnumerable<Meal>> GetAllMealsAsync(Guid restaurantId, Guid categoryId, bool trackChanges);
         Task <Meal> GetMealAsync(Guid restaurantId, Guid categoryId, Guid mealId, bool trackChanges);
 
-        void CreateMealForCategory(Guid categoryId, Meal meal);
+        void CreateMealForCategory(Guid restaurantId, Guid categoryId, Meal meal);
         void DeleteMeal(Meal meal);
     }
 }
