@@ -15,13 +15,11 @@ namespace Repository
         : base(repositoryContext)
         {
         }
-        public async Task <Order>  GetOrderAsync(Guid orderid, bool trackChanges) =>
+        public async Task <Order>  GetOrderAsync(int orderid, bool trackChanges) =>
              await FindByCondition(c => c.OrderId.Equals(orderid), trackChanges)
              .SingleOrDefaultAsync();
 
         /*  getting a single order for resturant */
-
-     
         /* fix this u should get all orders for one resturant */
         public async Task<IEnumerable<Order>> GetAllOrdersAsync(bool trackChanges) =>
         await FindAll(trackChanges)
@@ -30,7 +28,7 @@ namespace Repository
     
 
         /* fix this u should get all orders for one resturant */
-        public void CreateOrder(Guid customerId, Order order)
+        public void CreateOrder(int customerId, Order order)
         {
             order.CustomerId = customerId;
             Create(order);
@@ -39,12 +37,6 @@ namespace Repository
         public void DeleteOrder(Order order)
         {
             Delete(order);
-        }
-
-
-        public Task<IEnumerable<Order>> GetOrdersForRestaurantByMealIdAsync(Guid MealId, bool trackchanges)
-        {
-            throw new NotImplementedException();
         }
     }
 }

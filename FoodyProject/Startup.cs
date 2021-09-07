@@ -29,16 +29,12 @@ namespace FoodyProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(Startup));
-
             services.ConfigureCors();
             services.ConfigureIISIntegration();
             services.ConfigureSqlContext(Configuration);
             services.ConfigureRepositoryManager();
             services.AddAutoMapper(typeof(Startup));
             services.ConfigureSwagger();
-
-
-
             services.AddControllers();
             /*services.AddSwaggerGen(c =>
             {
@@ -57,13 +53,9 @@ namespace FoodyProject
             {
                 app.UseHsts();
             }
-         
 
             app.ConfigureExceptionHandler();
-
-
             app.UseHttpsRedirection();
-
             app.UseStaticFiles();
             app.UseCors("CorsPolicy");
             app.UseForwardedHeaders(new ForwardedHeadersOptions
@@ -72,9 +64,7 @@ namespace FoodyProject
             });
 
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -84,7 +74,6 @@ namespace FoodyProject
             app.UseSwaggerUI(s =>
             {
                 s.SwaggerEndpoint("/swagger/v1/swagger.json", "FoodyProject");
-                
             });
         }
     }

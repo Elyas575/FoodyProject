@@ -8,7 +8,7 @@ namespace Entities.DataTransferObjects
 {
    public  class RestaurantContactDto
     {
-        public Guid RestaurantContactId { get; set; }
+        public int RestaurantContactId { get; set; }
         public int PhoneNumber { get; set; }
     }
 }

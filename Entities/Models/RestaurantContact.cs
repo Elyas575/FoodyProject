@@ -10,17 +10,14 @@ namespace Entities.Models
 {
    public class RestaurantContact
     {
-       
-        public Guid RestaurantContactId { get; set; }
+        public int RestaurantContactId { get; set; }
+        public int RestaurantId { get; set; }
 
         [Required(ErrorMessage = "PhoneNumber is a required field.")]
         [MaxLength(60, ErrorMessage = "Maximum length for the PhoneNumber is 60 characters.")]
         public int PhoneNumber { get; set; }
 
-        [ForeignKey(nameof(Restaurant))]
-        public Guid RestaurantId { get; set; }
+        [ForeignKey(nameof(RestaurantId))]
         public Restaurant Restaurant { get; set; }
-
-
     }
 }

@@ -29,9 +29,8 @@ namespace FoodyProject.Controllers
             return Ok(customerDto);
         }
 
-
         [HttpGet("{customerId}", Name = "CustomerById")]
-        public async Task<IActionResult> GetCustomerAsync(Guid customerId)
+        public async Task<IActionResult> GetCustomerAsync(int customerId)
         {
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
@@ -55,22 +54,14 @@ namespace FoodyProject.Controllers
             }
             var customerEntity = _mapper.Map<Customer>(customer);
             _repository.Customer.CreateCustomer(customerEntity);
-
-
             await _repository.SaveAsync();
-
-
-
             var customerToReturn = _mapper.Map<CustomerDto>(customerEntity);
             return CreatedAtRoute("CustomerById", new { id = customerToReturn.CustomerId }, customerToReturn);
             // return Ok(customerToReturn);
-
         }
 
-
-
         [HttpDelete("{customerId}")]
-        public async Task<IActionResult> DeleteCustomerForRestaurant(Guid customerId)
+        public async Task<IActionResult> DeleteCustomerForRestaurant(int customerId)
         {
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
@@ -79,59 +70,49 @@ namespace FoodyProject.Controllers
             }
             _repository.Customer.DeleteCustomer(customer);
             await _repository.SaveAsync();
-
-
-
             return Ok();
         }
 
-        //CreateCustomerContact//
-
+        ///  Create Customer Contact  
+        ///  
         [HttpPost("{customerId}/CustomerContact")]
-        public async Task<IActionResult> CreateCustomerContact(Guid customerId, [FromBody] CustomerContactForCreationDto customercontact)
+        public async Task<IActionResult> CreateCustomerContact(int customerId, [FromBody] CustomerContactForCreationDto customercontact)
         {
+
             if (customercontact == null)
             {
-
-                return BadRequest("customerContactForCreationDto object is null");
+                return BadRequest("CustomerContactForCreationDto object is null");
             }
-            var customer = _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
+            var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
             {
-
                 return NotFound();
             }
-
             var customercontactEntity = _mapper.Map<CustomerContact>(customercontact);
 
             _repository.CustomerContact.CreateCustomerContact(customerId, customercontactEntity);
             await _repository.SaveAsync();
 
-
-
             var customercontactToReturn = _mapper.Map<CustomerContactDto>(customercontactEntity);
-            return CreatedAtRoute("CustomerContactById", new { customerId, id = customercontactToReturn.CustomerContactId }, customercontactToReturn);
-
-
+            //return CreatedAtRoute("CustomerContactById", new { customerId, id = customercontactToReturn.CustomerContactId }, customercontactToReturn);
+            return Ok(customercontactToReturn);
         }
 
-        [HttpGet("{customerId}/contacts")]
-        public async Task<IActionResult> GetAllCustomersContactAsync(Guid customerId)
-        {
-            var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
-            if (customer == null)
-            {
 
-                return NotFound();
-            }
-            var customercontactFromDb = _repository.CustomerContact.GetAllCustomersContactAsync(customerId,
-           trackChanges: false);
+        //// Get all Customer Contact  
+        ///
+        [HttpGet("contacts")]
+        public async Task<IActionResult> GetAllCustomerContactAsync()
+        {
+            var customer = await _repository.Customer.GetAllCustomersAsync(trackChanges: false);
+            var customercontactFromDb = await _repository.CustomerContact.GetAllCustomerContactAsync(trackChanges: false);
             return Ok(customercontactFromDb);
         }
+       // Get a Single Customer Contact 
 
-        [HttpGet("{customerId}/contact", Name = "CustomerContactById")]
+        [HttpGet("{customerId}/contacts/{id}", Name = "CustomerContactById")]
 
-        public async Task<IActionResult> GetCustomerContactAsync(Guid customerId, Guid id)
+        public async Task<IActionResult> GetCustomerContactAsync(int customerId, int id)
         {
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
@@ -139,8 +120,7 @@ namespace FoodyProject.Controllers
 
                 return NotFound();
             }
-            var customercontactDb = await _repository.CustomerContact.GetCustomerContactAsync(customerId, id, trackChanges:
-           false);
+            var customercontactDb = await _repository.CustomerContact.GetCustomerContactAsync(customerId, id, trackChanges: false);
             if (customercontactDb == null)
             {
 
@@ -150,8 +130,8 @@ namespace FoodyProject.Controllers
             return Ok(customercontact);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomerContact (Guid customerId, Guid id)
+            [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCustomer (int customerId, int id)
         {
             var customercontact = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customercontact == null)
@@ -164,10 +144,9 @@ namespace FoodyProject.Controllers
 
             return NoContent();
         }
-
        
         [HttpPut("{customerid}")]
-        public async Task<IActionResult> UpdateCustomerContactForCustomer(Guid customerid, Guid customercontactid, [FromBody] CustomerContactForUpdateDto customercontact)
+        public async Task<IActionResult> UpdateCustomerContactForCustomer(int customerid, int customercontactid, [FromBody] CustomerContactForUpdateDto customercontact)
         {
             if (customercontact == null)
             {
@@ -179,8 +158,7 @@ namespace FoodyProject.Controllers
             {  
             return NotFound();
             }
-            var customercontactentity = _repository.CustomerContact.GetCustomerContactAsync(customerid, customercontactid, trackChanges:
-           true);
+            var customercontactentity = _repository.CustomerContact.GetCustomerContactAsync(customerid, customercontactid);
             if (customercontactentity == null)
             {
              

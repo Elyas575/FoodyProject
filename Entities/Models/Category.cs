@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -9,16 +10,13 @@ namespace Entities.Models
 {
     public class Category
     {
-       
-        public Guid CategoryId { get; set; }
+       [Key]
+        public int CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public int RestaurantId { get; set; }
 
         [ForeignKey(nameof(Restaurant))]
-        public Guid RestaurantId { get; set; }
-        public Restaurant Restaurants { get; set; }
-        
-        public ICollection<Meal> Meals { get; set; }
-        
-
+        public virtual Restaurant Restaurants { get; set; }     
+        public virtual ICollection<Meal> Meals { get; set; }
     }
 }

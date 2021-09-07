@@ -18,16 +18,16 @@ namespace Repositoy
         {
         }
 
-        public async Task<IEnumerable<Meal>> GetAllMealsAsync(Guid restaurantId, Guid categoryId, bool trackChanges) =>
-              await FindAll(trackChanges)
-               .OrderBy(c => c.Name)
-               .ToListAsync();
+        public async Task <IEnumerable<Meal> >GetAllMealsAsync(int restaurantId, int categoryId, bool trackChanges) =>
+             await FindAll(trackChanges)
+            .OrderBy(c => c.Name)
+            .ToListAsync();
 
-        public async Task<Meal> GetMealAsync(Guid restaurantId, Guid categoryId, Guid mealId, bool trackChanges) =>
-            await FindByCondition(m => m.CategoryId.Equals(categoryId) && m.MealId.Equals(mealId), trackChanges)
+        public async Task <Meal> GetMealAsync(int restaurantId, int categoryId, int mealId, bool trackChanges) =>
+             await FindByCondition(e => e.CategoryId.Equals(categoryId) && e.MealId.Equals(mealId), trackChanges)
              .SingleOrDefaultAsync();
 
-        public void CreateMealForCategory(Guid categoryId, Meal meal)
+        public void CreateMealForCategory(int categoryId, Meal meal)
         {
             meal.CategoryId = categoryId;
             Create(meal);
@@ -37,6 +37,11 @@ namespace Repositoy
         {
             Delete(meal);
 
+        }
+
+        public void CreateMealForCategory(int restaurantId, int categoryId, Meal meal)
+        {
+            throw new NotImplementedException();
         }
     }
 }

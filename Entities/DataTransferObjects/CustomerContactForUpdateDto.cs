@@ -9,7 +9,6 @@ namespace Entities.DataTransferObjects
   public  class CustomerContactForUpdateDto
     {
         public string CustomerAddress { get; set; }
-
         public int CustomerPhone { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Entities.Models
     public class Customer
     {
         [Key]
-        public Guid CustomerId { get; set; }
+        public int CustomerId { get; set; }
 
         [Required(ErrorMessage = "Customer name is a required field.")]
         [MaxLength(60, ErrorMessage = "Maximum length for the Name is 60 characters.")]
@@ -26,7 +26,6 @@ namespace Entities.Models
 
         public string Email { get; set; }
 
-     
         [Required(ErrorMessage = "Password is required")]
         [MaxLength(60, ErrorMessage = "maximun length dor passwod is 60 charchters ")]
         [DataType(DataType.Password)]

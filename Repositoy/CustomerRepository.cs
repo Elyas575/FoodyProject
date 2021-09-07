@@ -21,7 +21,6 @@ namespace Repository
 
         public void CreateCustomer(Customer customer) => Create(customer);
 
-
         public void DeleteCustomer(Customer customer)
         {
             Delete(customer);
@@ -32,19 +31,14 @@ namespace Repository
               .OrderBy(c => c.Name)
               .ToListAsync();
 
-        public async Task<IEnumerable<Customer>> GetByIdsAsync(IEnumerable<Guid> ids, bool
+        public async Task<IEnumerable<Customer>> GetByIdsAsync(IEnumerable<string> ids, bool
         trackChanges) =>
-         await FindByCondition(c => ids.Contains(c.CustomerId), trackChanges)
+         await FindByCondition(c => ids.ToList().Contains(c.CustomerId.ToString()), trackChanges)
          .ToListAsync();
 
 
-        public async Task<Customer> GetCustomerAsync(Guid customerId, bool trackChanges) =>
+        public async Task<Customer> GetCustomerAsync(int customerId, bool trackChanges) =>
              await FindByCondition(c => c.CustomerId.Equals(customerId) , trackChanges)
             .SingleOrDefaultAsync();
-      
     }
-
-
-
 }
-

@@ -17,18 +17,16 @@ namespace Repositoy
         {
         }
 
-        public async Task<IEnumerable<Category>> GetAllCategoriesAsync(Guid restaurantId, bool trackChanges) =>
+        public async Task<IEnumerable<Category>> GetAllCategoriesAsync(int restaurantId, bool trackChanges) =>
           await FindAll(trackChanges)
           .OrderBy(c => c.CategoryName)
            .ToListAsync();
 
-
-
-        public async Task <Category> GetCategoryAsync(Guid restaurantId, Guid categoryId, bool trackChanges) =>
+        public async Task <Category> GetCategoryAsync(int restaurantId, int categoryId, bool trackChanges) =>
              await FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.CategoryId.Equals(categoryId), trackChanges)
              .SingleOrDefaultAsync();
 
-        public void CreateCategory(Guid restaurantId, Category category)
+        public void CreateCategory(int restaurantId, Category category)
         {
             category.RestaurantId = restaurantId;
             Create(category);

@@ -10,25 +10,20 @@ namespace Entities.Models
 {
     public class Meal
     {
-        
-        public Guid MealId { get; set; }
-
+        [Key]
+        public int MealId { get; set; }
+        public int OrderId { get; set; }
+        public int CategoryId { get; set; }
         public string Name { get; set; }
-
         public string Description { get; set; }
-
-        public string MealOptions { get; set; }
-     
-        public int Price { get; set; }
+        public string MealOptions { get; set; } 
+        public float Price { get; set; }
         public string Picture { get; set; }
 
-        [ForeignKey(nameof(Category))]
-        public Guid CategoryId { get; set; }
+        [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }
 
-        [ForeignKey(nameof(Order))]
-        public Guid OrderId { get; set; }
-        public Order Order { get; set; }
-   
+        [ForeignKey(nameof(OrderId))]
+        public Order Order { get; set; } 
     }
 }

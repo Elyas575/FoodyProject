@@ -10,18 +10,13 @@ namespace Entities.Models
 {
    public class CustomerContact
     {
-        
-        public Guid CustomerContactId { get; set; }
+        [Key]
+        public int  CustomerContactId { get; set; }
         public string CustomerAddress { get; set; }
-
         public int CustomerPhone { get; set;  }
+        public int CustomerId { get; set; }
 
-
-        [ForeignKey(nameof(Customer))]
-        public Guid CustomerId { get; set; }
+        [ForeignKey(nameof(CustomerId))]
         public Customer Customer { get; set; }
-
-
-
     }
 }
