@@ -91,13 +91,32 @@ namespace FoodyProject.Controllers
 
             return Ok(categoryToReturn);
         }
+
+        [HttpDelete("{restaurantId}/category/{categoryId}")]
+        public async Task<IActionResult> DeleteCategory(Guid restaurantId, Guid categoryId)
+        {
+            var restaurant = await  _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            var categoryDb = await _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: false);
+            if (categoryDb == null)
+            {
+                return NotFound();
+            }
+
+            _repository.Category.DeleteCategory(categoryDb);
+            await _repository.SaveAsync();
+
+
+            return NoContent();
+        }
+
     }
 }
-
-
-
-
-        /*
+  
         
 
       
