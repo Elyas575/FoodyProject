@@ -11,7 +11,7 @@ namespace Contracts
     {
 
 
-        Task <Restaurant> GetRestaurantAsync(Guid restaurantId, bool trackChanges);
+        Task <Restaurant> GetRestaurantAsync(string restaurantId, bool trackChanges);
         Task <IEnumerable<Restaurant>> GetAllRestaurantAsync(bool trackChanges);
         void DeleteRestaurant(Restaurant restaurant);
         void CreateRestaurant(Restaurant restaurant);

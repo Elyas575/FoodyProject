@@ -31,7 +31,7 @@ namespace FoodyProject.Controllers
 
 
         [HttpGet("{customerId}", Name = "CustomerById")]
-        public async Task<IActionResult> GetCustomerAsync(Guid customerId)
+        public async Task<IActionResult> GetCustomerAsync(string customerId)
         {
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
@@ -70,7 +70,7 @@ namespace FoodyProject.Controllers
 
 
         [HttpDelete("{customerId}")]
-        public async Task<IActionResult> DeleteCustomerForRestaurant(Guid customerId)
+        public async Task<IActionResult> DeleteCustomerForRestaurant(string customerId)
         {
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
@@ -88,7 +88,7 @@ namespace FoodyProject.Controllers
         //CreateCustomerContact//
 
         [HttpPost("{customerId}/CustomerContact")]
-        public async Task<IActionResult> CreateCustomerContact(Guid customerId, [FromBody] CustomerContactForCreationDto customercontact)
+        public async Task<IActionResult> CreateCustomerContact(string customerId, [FromBody] CustomerContactForCreationDto customercontact)
         {
             if (customercontact == null)
             {
@@ -116,7 +116,7 @@ namespace FoodyProject.Controllers
         }
 
         [HttpGet("{customerId}/contacts")]
-        public async Task<IActionResult> GetAllCustomersContactAsync(Guid customerId)
+        public async Task<IActionResult> GetAllCustomersContactAsync(string customerId)
         {
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
@@ -131,7 +131,7 @@ namespace FoodyProject.Controllers
 
         [HttpGet("{customerId}/contact", Name = "CustomerContactById")]
 
-        public async Task<IActionResult> GetCustomerContactAsync(Guid customerId, Guid id)
+        public async Task<IActionResult> GetCustomerContactAsync(string customerId, string id)
         {
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
@@ -151,7 +151,7 @@ namespace FoodyProject.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomerContact (Guid customerId, Guid id)
+        public async Task<IActionResult> DeleteCustomerContact (string customerId, string id)
         {
             var customercontact = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customercontact == null)
@@ -167,7 +167,7 @@ namespace FoodyProject.Controllers
 
        
         [HttpPut("{customerid}")]
-        public async Task<IActionResult> UpdateCustomerContactForCustomer(Guid customerid, Guid customercontactid, [FromBody] CustomerContactForUpdateDto customercontact)
+        public async Task<IActionResult> UpdateCustomerContactForCustomer(string customerid, string customercontactid, [FromBody] CustomerContactForUpdateDto customercontact)
         {
             if (customercontact == null)
             {

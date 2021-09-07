@@ -23,7 +23,7 @@ namespace Repository
            .OrderBy(c => c.Name)
            .ToListAsync();
 
-        public async Task <Restaurant> GetRestaurantAsync(Guid restaurantId, bool trackChanges) =>
+        public async Task <Restaurant> GetRestaurantAsync(string restaurantId, bool trackChanges) =>
             await FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
              .SingleOrDefaultAsync();
 

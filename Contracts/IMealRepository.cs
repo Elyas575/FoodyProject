@@ -9,10 +9,10 @@ namespace Contracts
 {
     public interface IMealRepository
     {
-       Task< IEnumerable<Meal>> GetAllMealsAsync(Guid restaurantId, Guid categoryId, bool trackChanges);
-        Task <Meal> GetMealAsync(Guid restaurantId, Guid categoryId, Guid mealId, bool trackChanges);
+       Task< IEnumerable<Meal>> GetAllMealsAsync(string restaurantId, string categoryId, bool trackChanges);
+        Task <Meal> GetMealAsync(string restaurantId, string categoryId, string mealId, bool trackChanges);
 
-        void CreateMealForCategory(Guid restaurantId, Guid categoryId, Meal meal);
+        void CreateMealForCategory(string restaurantId, string categoryId, Meal meal);
         void DeleteMeal(Meal meal);
     }
 }

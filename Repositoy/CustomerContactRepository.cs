@@ -18,20 +18,20 @@ namespace Repository
         {
         }
 
-        public void CreateCustomerContact(Guid customerId, CustomerContact customercontact)
+        public void CreateCustomerContact(string customerId, CustomerContact customercontact)
         {
             customercontact.CustomerId = customerId;
             Create(customercontact);
         }
 
-        public async Task<IEnumerable<CustomerContact>> GetAllCustomersContactAsync(Guid customerId, bool trackChanges) =>
+        public async Task<IEnumerable<CustomerContact>> GetAllCustomersContactAsync(string customerId, bool trackChanges) =>
         await FindAll(trackChanges)
         .OrderBy(c => c.CustomerContactId)
         .ToListAsync();
 
 
 
-        public async Task<CustomerContact> GetCustomerContactAsync(Guid customerId, Guid id, bool trackChanges) =>
+        public async Task<CustomerContact> GetCustomerContactAsync(string customerId, string id, bool trackChanges) =>
          await FindByCondition(c => c.CustomerId.Equals(customerId) && c.CustomerContactId.Equals(id),
         trackChanges)
          .SingleOrDefaultAsync();

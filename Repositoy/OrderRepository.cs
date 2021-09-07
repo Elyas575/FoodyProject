@@ -15,7 +15,7 @@ namespace Repository
         : base(repositoryContext)
         {
         }
-        public async Task <Order>  GetOrderAsync(Guid orderid, bool trackChanges) =>
+        public async Task <Order>  GetOrderAsync(string orderid, bool trackChanges) =>
              await FindByCondition(c => c.OrderId.Equals(orderid), trackChanges)
              .SingleOrDefaultAsync();
 
@@ -30,7 +30,7 @@ namespace Repository
     
 
         /* fix this u should get all orders for one resturant */
-        public void CreateOrder(Guid customerId, Order order)
+        public void CreateOrder(string  customerId, Order order)
         {
             order.CustomerId = customerId;
             Create(order);
@@ -42,9 +42,6 @@ namespace Repository
         }
 
 
-        public Task<IEnumerable<Order>> GetOrdersForRestaurantByMealIdAsync(Guid MealId, bool trackchanges)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

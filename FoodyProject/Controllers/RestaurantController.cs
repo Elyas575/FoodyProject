@@ -67,7 +67,7 @@ namespace FoodyProject.Controllers
         //////////////////////////Delete Restaurant///////////////////////
 
         [HttpDelete("{restaurantid}")]
-        public async Task<IActionResult> DeleteRestaurant(Guid restaurantId, Guid id)
+        public async Task<IActionResult> DeleteRestaurant(string restaurantId, string id)
         {
 
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
@@ -81,7 +81,7 @@ namespace FoodyProject.Controllers
 
         ///////////////////////////// Get restaurant by id ///////////////////////////////////////
         [HttpGet("{id}", Name = "RestaurantById")]
-        public async Task <IActionResult> GetRestaurantByIdAsync(Guid id)
+        public async Task <IActionResult> GetRestaurantByIdAsync(string id)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(id, trackChanges: false);
 
@@ -93,7 +93,7 @@ namespace FoodyProject.Controllers
 
         /////////////////////////////// update restuarant ////////////////////////////////
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRestaurant(Guid id, [FromBody] RestaurantForUpdateDto restaurant)
+        public async Task<IActionResult> UpdateRestaurant(string id, [FromBody] RestaurantForUpdateDto restaurant)
         {
             if (restaurant == null)
             {
@@ -115,7 +115,7 @@ namespace FoodyProject.Controllers
 
 
         [HttpGet("{restaurantId}/contacts")]
-        public async Task<IActionResult> GetAllRestaurantContactAsync(Guid restaurantId)
+        public async Task<IActionResult> GetAllRestaurantContactAsync(string restaurantId)
         {
             var company = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (company == null)
@@ -135,7 +135,7 @@ namespace FoodyProject.Controllers
         ////////////////////////////////////////// Get a Single Restaurant Contact For a Restaurant /////////////////////////////////////
         [HttpGet("{restaurantId}/contacts/{id}", Name = "RestaurantContactById")]
        
-        public async  Task <IActionResult> GetRestaurantContactAsync(Guid restaurantId, Guid id)
+        public async  Task <IActionResult> GetRestaurantContactAsync(string restaurantId, string id)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -159,7 +159,7 @@ namespace FoodyProject.Controllers
 
 
         [HttpPost("{restaurantId}/RestaurantContact")]
-        public async Task <IActionResult> CreateRestaurantContact(Guid restaurantId, [FromBody] RestaurantContactForCreationDto restaurantcontact)
+        public async Task <IActionResult> CreateRestaurantContact(string restaurantId, [FromBody] RestaurantContactForCreationDto restaurantcontact)
         {
 /*resturatn = company 
  * resturantcontact = employee */     
@@ -188,7 +188,7 @@ namespace FoodyProject.Controllers
 
 
         [HttpDelete("{restaurantId}/contacts/{RestaurantContactId}")]
-        public async  Task<IActionResult> DeleteRestaurantContact(Guid restaurantId, Guid RestaurantContactId )
+        public async  Task<IActionResult> DeleteRestaurantContact(string restaurantId, string RestaurantContactId )
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -214,7 +214,7 @@ namespace FoodyProject.Controllers
 
         [HttpPut("{restaurantId}/contacts/{restaurantContactId}")]
     
-        public async   Task <IActionResult> UpdateRestaurantContact(Guid restaurantId, Guid restaurantContactId, [FromBody]
+        public async   Task <IActionResult> UpdateRestaurantContact(string restaurantId, string restaurantContactId, [FromBody]
         RestaurantContactForUpdateDto restaurantcontact)
         {
             if (restaurantcontact == null)

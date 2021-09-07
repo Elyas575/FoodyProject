@@ -10,14 +10,13 @@ namespace Entities.Models
 {
    public class Order
     {
-        public Guid OrderId { get; set; }             
+        [Key]
+        public int  OrderId { get; set; }
+        public string CustomerId { get; set; }
         public string OrderDescription { get; set; }
 
-        public ICollection<Meal> Meals { get; set; }
-
-
-        [ForeignKey(nameof(Customer))]
-        public Guid CustomerId { get; set; }
-        public Customer Customer { get; set; }
+        [ForeignKey(nameof(CustomerId))]
+        public virtual Customer Customer { get; set; }
+        public virtual ICollection<Meal> Meals { get; set; }
     }
 }

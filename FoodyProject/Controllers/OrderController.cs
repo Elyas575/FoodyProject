@@ -30,7 +30,7 @@ namespace FoodyProject.Controllers
             return Ok(orders);
         }
         [HttpGet("{id}", Name = "OrderById")]
-        public async Task <IActionResult> GetOrderAsync(Guid id, bool trackchanges) {
+        public async Task <IActionResult> GetOrderAsync(string id, bool trackchanges) {
 
             var order = await _repository.Order.GetOrderAsync(id, trackchanges);
 
@@ -46,7 +46,7 @@ namespace FoodyProject.Controllers
             }
         }
         [HttpPost("customers/{customerId}")]
-        public async  Task<IActionResult> CreateOrder(Guid customerId, [FromBody] OrderForCreationDto order)
+        public async  Task<IActionResult> CreateOrder(string customerId, [FromBody] OrderForCreationDto order)
         {
             if (order == null)
             {              
@@ -72,7 +72,7 @@ namespace FoodyProject.Controllers
             {customerId,id = orderToReturn.OrderId }, orderToReturn); }
 
         [HttpDelete("{OrderId}")]
-        public async  Task<IActionResult> DeleteOrder(Guid orderId, Guid id)
+        public async  Task<IActionResult> DeleteOrder(string orderId, string id)
         {
             var order = await _repository.Order.GetOrderAsync(orderId, trackChanges: false);
 
@@ -85,7 +85,7 @@ namespace FoodyProject.Controllers
         [HttpPut("customers/{customerid}/{orderid}")]
 
   
-        public async Task<IActionResult> UpdateOrderForCustomer(Guid customerid, Guid orderid, [FromBody]OrderForUpdateDto order)
+        public async Task<IActionResult> UpdateOrderForCustomer(string customerid, string orderid, [FromBody]OrderForUpdateDto order)
         {
             if (order == null)
             {

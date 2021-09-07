@@ -11,7 +11,7 @@ namespace Entities.Models
     public class Customer
     {
         [Key]
-        public Guid CustomerId { get; set; }
+        public int CustomerId { get; set; }
 
         [Required(ErrorMessage = "Customer name is a required field.")]
         [MaxLength(60, ErrorMessage = "Maximum length for the Name is 60 characters.")]
