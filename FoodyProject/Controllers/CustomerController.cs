@@ -56,7 +56,8 @@ namespace FoodyProject.Controllers
             _repository.Customer.CreateCustomer(customerEntity);
             await _repository.SaveAsync();
             var customerToReturn = _mapper.Map<CustomerDto>(customerEntity);
-            return Ok(customerToReturn);             // return Ok(customerToReturn);
+            return Ok(customerToReturn);            
+            // return Ok(customerToReturn);
         }
 
         [HttpDelete("{customerId}")]
@@ -94,7 +95,14 @@ namespace FoodyProject.Controllers
             await _repository.SaveAsync();
 
             var customercontactToReturn = _mapper.Map<CustomerContactDto>(customercontactEntity);
-            return Ok(customercontactToReturn);        }
+            return Ok(customercontactToReturn);   
+        
+        
+        }
+
+
+
+
 
         [HttpGet("{customerId}/contacts")]
         public async Task<IActionResult> GetAllCustomersContactAsync(int customerId)
