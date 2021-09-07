@@ -158,11 +158,7 @@ namespace FoodyProject.Controllers
         [HttpPost("{restaurantId}/category/{categoryId}/meal/{orderid}")]
         public async Task<IActionResult> CreateMealForCategory(int restaurantId, int categoryId,  [FromBody] MealForCreationDto meal)
         {
-            var order = await _repository.Order.GetOrderAsync(orderId, trackChanges: false);
-            if (order == null) {
-                return BadRequest("orderforcreationdto object is null");
-
-            }
+ 
             if (meal == null)
             {
                 return BadRequest("MealForCreationDto object is null");
@@ -182,7 +178,7 @@ namespace FoodyProject.Controllers
 
             var mealEntity = _mapper.Map<Meal>(meal);
 
-            _repository.Meal.CreateMealForCategory(restaurantId, categoryId,orderId, mealEntity);
+            _repository.Meal.CreateMealForCategory(restaurantId, categoryId, mealEntity);
 
             await _repository.SaveAsync();
 
