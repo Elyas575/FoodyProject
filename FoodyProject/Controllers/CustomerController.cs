@@ -81,7 +81,7 @@ namespace FoodyProject.Controllers
 
                 return BadRequest("customerContactForCreationDto object is null");
             }
-            var customer = _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
+            var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
             {
 
