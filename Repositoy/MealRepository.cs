@@ -2,10 +2,12 @@
 using Contracts;
 using Entities;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Repositoy
 {
@@ -16,15 +18,16 @@ namespace Repositoy
         {
         }
 
-        public IEnumerable<Meal> GetAllMeals(Guid restaurantId, Guid categoryId, bool trackChanges) =>
-              FindByCondition(c => c.CategoryId.Equals(categoryId), trackChanges)
-               .OrderBy(e => e.Name);
+        public async Task <IEnumerable<Meal> >GetAllMealsAsync(Guid restaurantId, Guid categoryId, bool trackChanges) =>
+             await FindAll(trackChanges)
+            .OrderBy(c => c.Name)
+            .ToListAsync();
 
-        public Meal GetMeal(Guid restaurantId, Guid categoryId, Guid mealId, bool trackChanges) =>
-             FindByCondition(e => e.CategoryId.Equals(categoryId) && e.MealId.Equals(mealId), trackChanges)
-             .SingleOrDefault();
+        public async Task <Meal> GetMealAsync(Guid restaurantId, Guid categoryId, Guid mealId, bool trackChanges) =>
+             await FindByCondition(e => e.CategoryId.Equals(categoryId) && e.MealId.Equals(mealId), trackChanges)
+             .SingleOrDefaultAsync();
 
-        public void CreateMealForCategory(Guid categoryId, Meal meal)
+        public void CreateMealForCategory(Guid restaurantId, Guid categoryId, Meal meal)
         {
             meal.CategoryId = categoryId;
             Create(meal);
