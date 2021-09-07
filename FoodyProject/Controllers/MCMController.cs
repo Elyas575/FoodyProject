@@ -114,6 +114,83 @@ namespace FoodyProject.Controllers
             return NoContent();
         }
 
+
+        [HttpGet("{restaurantId}/category/{categoryId}/meal")]
+        public async Task <IActionResult> GetAllMealsAsync(Guid restaurantId, Guid categoryId)
+        {
+            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+            var categoryDb =await _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: false);
+            if (categoryDb == null)
+            {
+                return NotFound();
+            }
+
+            var mealFromDb = await _repository.Meal.GetAllMealsAsync(restaurantId, categoryId, trackChanges: false);
+
+            var MealDto = _mapper.Map<IEnumerable<MealDto>>(mealFromDb);
+
+            return Ok(MealDto);
+        }
+
+        [HttpGet("{restaurantId}/category/{categoryId}/meal/{mealId}", Name = "GetMealForCategory")]
+        public async Task <IActionResult> GetMealAsync(Guid restaurantId, Guid categoryId, Guid mealId)
+        {
+            var restaurant = await _repository.Restaurant.GetRestaurantAsync (restaurantId, trackChanges: false);
+            if (restaurant == null)
+            {
+                return NotFound();  
+            }
+
+            var category =await  _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: false);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            var MealDb =await _repository.Meal.GetMealAsync(restaurantId, categoryId, mealId, trackChanges: false);
+
+            if (MealDb == null)
+            {
+                return NotFound();
+            }
+
+            var meal = _mapper.Map<MealDto>(MealDb);
+
+            return Ok(meal);
+        }
+
+        [HttpDelete("{restaurantId}/category/{categoryId}/meal/{mealId}")]
+        public async Task< IActionResult> DeleteMealAsync(Guid restaurantId, Guid categoryId, Guid mealId)
+        {
+            var restaurant = await  _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            var category =await  _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: false);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            var mealDb =await  _repository.Meal.GetMealAsync(restaurantId, categoryId, mealId, trackChanges: false);
+            if (mealDb == null)
+            {
+                return NotFound();
+            }
+
+            _repository.Meal.DeleteMeal(mealDb);
+           await _repository.SaveAsync();
+
+            return NoContent();
+        }
+
     }
 }
   
@@ -153,63 +230,16 @@ namespace FoodyProject.Controllers
             return NoContent();
         }
 
-
+*/
         
-}
         
 
         ///////////////////////// Meal /////////////////////////
 
-        /*
+        
+/*
 
-        [HttpGet("{Id}/meal")]
-        public IActionResult GetAllMeals(Guid restaurantId, Guid categoryId)
-        {
-            var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
-            if (restaurant == null)
-            {
-                return NotFound();
-            }
-            var categoryDb = _repository.Category.GetCategory(restaurantId, categoryId, trackChanges: false);
-            if (categoryDb == null)
-            {
-                return NotFound();
-            }
-
-            var mealFromDb = _repository.Meal.GetAllMeals(restaurantId, categoryId, trackChanges: false);
-
-            var MealDto = _mapper.Map<IEnumerable<MealDto>>(mealFromDb);
-
-            return Ok(MealDto);
-        }
-
-        [HttpGet("{Id}/meal/{Id}", Name = "GetMealForCategory")]
-        public IActionResult GetMeal(Guid restaurantId, Guid categoryId, Guid mealId)
-        {
-            var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
-            if (restaurant == null)
-            {
-                return NotFound();
-            }
-
-            var category = _repository.Category.GetCategory(restaurantId, categoryId, trackChanges: false);
-
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            var MealDb = _repository.Meal.GetMeal(restaurantId, categoryId, mealId, trackChanges: false);
-
-            if (MealDb == null)
-            {
-                return NotFound();
-            }
-
-            var meal = _mapper.Map<MealDto>(MealDb);
-
-            return Ok(meal);
-        }
+       
 
 
         [HttpPost("{Id}/meal")]
