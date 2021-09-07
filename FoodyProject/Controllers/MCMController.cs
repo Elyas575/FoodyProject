@@ -91,8 +91,36 @@ namespace FoodyProject.Controllers
 
             return Ok(categoryToReturn);
         }
+        [HttpPut("{restaurantId}/{categoryId}")]
+        public async Task<IActionResult> UpdateCategoryForRestaurant(Guid restaurantId, Guid categoryId, [FromBody] CategoryForUpdateDto category)
+        {
+            if (category == null)
+            {
+                return BadRequest("CategoryForUpdateDto object is null");
+            }
+
+            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
+
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            var categoryEntity = await _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: true);
+
+            if (categoryEntity == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(category, categoryEntity);
+            await _repository.SaveAsync();
+
+            return NoContent();
+        }
     }
 }
+
 
         /*
 
@@ -119,34 +147,7 @@ namespace FoodyProject.Controllers
         }
 
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCategoryForRestaurant(Guid restaurantId, Guid categoryId, [FromBody] CategoryForUpdateDto category)
-        {
-            if (category == null)
-            {
-                return BadRequest("CategoryForUpdateDto object is null");
-            }
-
-            var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
-
-            if (restaurant == null)
-            {
-                return NotFound();
-            }
-
-            var categoryEntity = _repository.Category.GetCategory(restaurantId, categoryId, trackChanges: true);
-
-            if (categoryEntity == null)
-            {
-                return NotFound();
-            }
-
-            _mapper.Map(category, categoryEntity);
-            await _repository.SaveAsync();
-
-            return NoContent();
-        } 
-    } 
+        
 }
         
 
