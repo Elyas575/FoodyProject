@@ -71,8 +71,8 @@ namespace FoodyProject.Controllers
             return CreatedAtRoute("",new
             {customerId,id = orderToReturn.OrderId }, orderToReturn); }
 
-        [HttpDelete("{OrderId}")]
-        public async  Task<IActionResult> DeleteOrder(int orderId, string id)
+        [HttpDelete("{orderId}")]
+        public async  Task<IActionResult> DeleteOrder(int orderId)
         {
             var order = await _repository.Order.GetOrderAsync(orderId, trackChanges: false);
 

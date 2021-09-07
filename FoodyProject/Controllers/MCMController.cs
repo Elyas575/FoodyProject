@@ -155,8 +155,8 @@ namespace FoodyProject.Controllers
             return Ok(meal);
         }
 
-        [HttpPost("{restaurantId}/category/{categoryId}/meal/{orderId}")]
-        public async Task<IActionResult> CreateMealForCategory(int restaurantId, int categoryId, int orderId, [FromBody] MealForCreationDto meal)
+        [HttpPost("{restaurantId}/category/{categoryId}/meal/{orderid}")]
+        public async Task<IActionResult> CreateMealForCategory(int restaurantId, int categoryId,  [FromBody] MealForCreationDto meal)
         {
             var order = await _repository.Order.GetOrderAsync(orderId, trackChanges: false);
             if (order == null) {
