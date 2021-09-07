@@ -59,7 +59,7 @@ namespace FoodyProject.Controllers
             return Ok(customerToReturn);             // return Ok(customerToReturn);
         }
 
-        [HttpDelete("{customerId}")]
+      /*  [HttpDelete("{customerId}")]
         public async Task<IActionResult> DeleteCustomerForRestaurant(int customerId)
         {
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
@@ -70,7 +70,7 @@ namespace FoodyProject.Controllers
             _repository.Customer.DeleteCustomer(customer);
             await _repository.SaveAsync();
             return Ok();
-        }
+        }*/
 
         //CreateCustomerContact//
         [HttpPost("{customerId}/CustomerContact")]
@@ -105,12 +105,12 @@ namespace FoodyProject.Controllers
 
                 return NotFound();
             }
-            var customercontactFromDb = _repository.CustomerContact.GetAllCustomersContactAsync(customerId,
+            var customercontactFromDb = await _repository.CustomerContact.GetAllCustomersContactAsync(customerId,
            trackChanges: false);
             return Ok(customercontactFromDb);
         }
 
-        [HttpGet("{customerId}/contact", Name = "CustomerContactById")]
+        [HttpGet("{customerId}/contacts/{id}", Name = "CustomerContactById")]
 
         public async Task<IActionResult> GetCustomerContactAsync(int customerId, int id)
         {
@@ -131,8 +131,8 @@ namespace FoodyProject.Controllers
             return Ok(customercontact);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomerContact (int customerId, int id)
+        [HttpDelete("{customerId}")]
+        public async Task<IActionResult> DeleteCustomerContact (int customerId)
         {
             var customercontact = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customercontact == null)
