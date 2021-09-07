@@ -124,7 +124,7 @@ namespace FoodyProject.Controllers
 
             var MealDto = _mapper.Map<IEnumerable<MealDto>>(mealFromDb);
 
-            return Ok(MealDto);
+            return Ok(mealFromDb);
         }
 
         [HttpGet("{restaurantId}/category/{categoryId}/meal/{mealId}", Name = "GetMealForCategory")]
@@ -158,6 +158,7 @@ namespace FoodyProject.Controllers
         [HttpPost("{restaurantId}/category/{categoryId}/meal/{orderid}")]
         public async Task<IActionResult> CreateMealForCategory(int restaurantId, int categoryId,  [FromBody] MealForCreationDto meal)
         {
+ 
             if (meal == null)
             {
                 return BadRequest("MealForCreationDto object is null");
@@ -183,7 +184,7 @@ namespace FoodyProject.Controllers
 
             var mealToReturn = _mapper.Map<MealDto>(mealEntity);
 
-            return CreatedAtRoute("GetMealForCategory", new { categoryId, mealId = mealEntity.MealId }, mealToReturn);
+            return Ok(mealToReturn);
         }
 
         [HttpDelete("{restaurantId}/category/{categoryId}/meal/{mealId}")]
