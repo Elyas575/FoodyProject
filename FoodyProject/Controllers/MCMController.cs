@@ -190,6 +190,7 @@ namespace FoodyProject.Controllers
 
             return NoContent();
         }
+    }
 
     }
 }
