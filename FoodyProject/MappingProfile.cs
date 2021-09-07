@@ -12,29 +12,32 @@ namespace FoodyProject
     {
         public MappingProfile()
         {
-            CreateMap<OrderForUpdateDto, Order>();
-            CreateMap<OrderForCreationDto, Order>();
-            CreateMap<Order, OrderDto>();
+            CreateMap<Category, CategoryDto>();
+            CreateMap<CategoryForCreationDto, Category>();
+            CreateMap<CategoryForUpdateDto, Category>();
 
-            CreateMap<CustomerContactDto, Customer>();
-            CreateMap<CustomerForCreationDto, Customer>();
             CreateMap<Customer, CustomerDto>();
-            CreateMap<CustomerDto, Customer>();
+            CreateMap<CustomerForCreationDto, Customer>();
+            CreateMap<CustomerForUpdateDto, Customer>();
+
+            CreateMap<CustomerContact, CustomerContactDto>();
+            CreateMap<CustomerContactForCreationDto, CustomerContact>();
+            CreateMap<CustomerContactForUpdateDto, CustomerContact>();
+
+            CreateMap<Meal, MealDto>();
+            CreateMap<MealForCreationDto, Meal>();
+            CreateMap<MealForUpdateDto, Meal>();
+
+            CreateMap<Order, OrderDto>();
+            CreateMap<OrderForCreationDto, Order>();
+            CreateMap<OrderForUpdateDto, Order>();
 
             CreateMap<Restaurant, RestaurantDto>();
             CreateMap<RestaurantForCreationDto, Restaurant>();
-            CreateMap<RestaurantContactForCreationDto, RestaurantContact>();
+            CreateMap<RestaurantForUpdateDto, Restaurant>();
+
             CreateMap<RestaurantContact, RestaurantContactDto>();
-            
-            CreateMap<Meal, MealDto>();
-            CreateMap<MealForCreationDto, Meal>();
-
-            CreateMap<CategoryForCreationDto, Category>();
-            CreateMap<Category, CategoryDto>();
-
-            CreateMap<Meal, MealDto>();
-            CreateMap<CategoryForUpdateDto, Category>();
-
+            CreateMap<RestaurantContactForCreationDto, RestaurantContact>();
             CreateMap<RestaurantContactForUpdateDto, RestaurantContact>();
         }
     }
