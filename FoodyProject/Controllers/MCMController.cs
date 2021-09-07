@@ -43,15 +43,15 @@ namespace FoodyProject.Controllers
             return Ok(categoryDto);
         }
 
-        [HttpGet("{restauratnId}/category/{categoryId}", Name = "CategoryById")]
-        public async Task<IActionResult> GetCategoryAsync(Guid restauratnId, Guid categoryId)
+        [HttpGet("{restaurantId}/category/{categoryId}", Name = "CategoryById")]
+        public async Task<IActionResult> GetCategoryAsync(Guid restaurantId, Guid categoryId)
         {
-            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restauratnId, trackChanges: false);
+            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
             {
                 return NotFound();
             }
-            var categoryDb = await _repository.Category.GetCategoryAsync(restauratnId, categoryId, trackChanges: false);
+            var categoryDb = await _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: false);
             if (categoryDb == null)
             {
                 return NotFound();
@@ -91,21 +91,17 @@ namespace FoodyProject.Controllers
 
             return Ok(categoryToReturn);
         }
-    }
-}
 
-        /*
-
-        [HttpDelete("{id}")]
+        [HttpDelete("{restaurantId}/category/{categoryId}")]
         public async Task<IActionResult> DeleteCategory(Guid restaurantId, Guid categoryId)
         {
-            var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
+            var restaurant = await  _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
             {
                 return NotFound();
             }
 
-            var categoryDb = _repository.Category.GetCategory(restaurantId, categoryId, trackChanges: false);
+            var categoryDb = await _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: false);
             if (categoryDb == null)
             {
                 return NotFound();
@@ -118,7 +114,13 @@ namespace FoodyProject.Controllers
             return NoContent();
         }
 
+    }
+}
 
+        
+
+      
+/*
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategoryForRestaurant(Guid restaurantId, Guid categoryId, [FromBody] CategoryForUpdateDto category)
         {
