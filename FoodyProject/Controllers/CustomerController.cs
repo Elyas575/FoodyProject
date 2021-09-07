@@ -56,7 +56,7 @@ namespace FoodyProject.Controllers
             _repository.Customer.CreateCustomer(customerEntity);
             await _repository.SaveAsync();
             var customerToReturn = _mapper.Map<CustomerDto>(customerEntity);
-            return CreatedAtRoute("CustomerById", new { id = customerToReturn.CustomerId }, customerToReturn);
+            return Ok(customerToReturn);
             // return Ok(customerToReturn);
         }
 
