@@ -155,7 +155,7 @@ namespace FoodyProject.Controllers
             return Ok(meal);
         }
 
-        [HttpPost("{restaurantId}/category/{categoryId}/meal")]
+        [HttpPost("{restaurantId}/category/{categoryId}/meal/{orderid}")]
         public async Task<IActionResult> CreateMealForCategory(int restaurantId, int categoryId,  [FromBody] MealForCreationDto meal)
         {
             if (meal == null)
