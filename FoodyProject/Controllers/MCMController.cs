@@ -140,7 +140,50 @@ namespace FoodyProject.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("{restaurantId}/{categoryId}/{mealId}")]
+        public IActionResult UpdateMealForCategory(Guid restaurantId, Guid categoryId, Guid mealId, [FromBody] MealForUpdateDto meal)
+        {
+            if (meal == null)
+            {
+                return BadRequest("CategoryForUpdateDto object is null");
+            }
+
+            var category = _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: false);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            var restaurant = _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
+
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            var mealEntity = _repository.Meal.GetMeal(restaurantId, categoryId, mealId, trackChanges: true);
+
+            if (mealEntity == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(meal, mealEntity);
+            _repository.SaveAsync();
+            return NoContent();
+
+
+        }
     }
+
+
+
+
+
+
+
 
 }      
 /*
@@ -260,41 +303,7 @@ namespace FoodyProject.Controllers
         }
 
 
-        [HttpPut("{Id}/meal/{Id}")]
-        public IActionResult UpdateMealForCategory(Guid restaurantId, Guid categoryId, Guid mealId, [FromBody] MealForUpdateDto meal)
-        {
-            if (meal == null)
-            {
-                return BadRequest("CategoryForUpdateDto object is null");
-            }
-
-            var category = _repository.Category.GetCategory(restaurantId, categoryId, trackChanges: false);
-
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
-
-            if (restaurant == null)
-            {
-                return NotFound();
-            }
-
-            var mealEntity = _repository.Meal.GetMeal(restaurantId, categoryId, mealId, trackChanges: true);
-
-            if (mealEntity == null)
-            {
-                return NotFound();
-            }
-
-            _mapper.Map(meal, mealEntity);
-            _repository.Save();
-            return NoContent();
-
-
-        }
+        
     }
 
 }*/
