@@ -94,8 +94,7 @@ namespace FoodyProject.Controllers
             await _repository.SaveAsync();
 
             var customercontactToReturn = _mapper.Map<CustomerContactDto>(customercontactEntity);
-            return CreatedAtRoute("CustomerContactById", new { customerId, id = customercontactToReturn.CustomerContactId }, customercontactToReturn);
-        }
+            return Ok(customercontactToReturn);        }
 
         [HttpGet("{customerId}/contacts")]
         public async Task<IActionResult> GetAllCustomersContactAsync(int customerId)
