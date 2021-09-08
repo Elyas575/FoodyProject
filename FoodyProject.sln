@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repositoy\Rep
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{E77CDB69-55CF-4CFB-969F-9FBA0EB2213E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D35C9C14-00C8-4057-A659-355AE3D3B899}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EFAF0B36-0556-4E7F-82A9-0B5EDB8D4DFB} = {D35C9C14-00C8-4057-A659-355AE3D3B899}
+		{E77CDB69-55CF-4CFB-969F-9FBA0EB2213E} = {D35C9C14-00C8-4057-A659-355AE3D3B899}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {649C28B5-56C5-40F7-A824-9EAE6FB15FE9}

@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodyProject.Migrations
 {
-    public partial class init : Migration
+    public partial class KasemMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +10,8 @@ namespace FoodyProject.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
@@ -26,14 +26,15 @@ namespace FoodyProject.Migrations
                 name: "Resturants",
                 columns: table => new
                 {
-                    RestaurantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Logo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AvgDeliveryTime = table.Column<int>(type: "int", maxLength: 60, nullable: false),
-                    MinPrice = table.Column<int>(type: "int", maxLength: 60, nullable: false)
+                    MinPrice = table.Column<float>(type: "real", maxLength: 60, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,10 +45,11 @@ namespace FoodyProject.Migrations
                 name: "CustomerContacts",
                 columns: table => new
                 {
-                    CustomerContactId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CustomerContactId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CustomerPhone = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CustomerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,9 +66,10 @@ namespace FoodyProject.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    OrderDescription = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -83,28 +86,31 @@ namespace FoodyProject.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RestaurantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    RestaurantId = table.Column<int>(type: "int", nullable: false),
+                    Restaurant = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.CategoryId);
                     table.ForeignKey(
-                        name: "FK_Categories_Resturants_RestaurantId",
-                        column: x => x.RestaurantId,
+                        name: "FK_Categories_Resturants_Restaurant",
+                        column: x => x.Restaurant,
                         principalTable: "Resturants",
                         principalColumn: "RestaurantId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "RestaurantContacts",
                 columns: table => new
                 {
-                    RestaurantContactId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PhoneNumber = table.Column<int>(type: "int", maxLength: 60, nullable: false),
-                    RestaurantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    RestaurantContactId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false),
+                    PhoneNumber = table.Column<int>(type: "int", maxLength: 60, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -121,14 +127,15 @@ namespace FoodyProject.Migrations
                 name: "Meals",
                 columns: table => new
                 {
-                    MealId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MealId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MealOptions = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Price = table.Column<float>(type: "real", nullable: false),
+                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -148,9 +155,9 @@ namespace FoodyProject.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_RestaurantId",
+                name: "IX_Categories_Restaurant",
                 table: "Categories",
-                column: "RestaurantId");
+                column: "Restaurant");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerContacts_CustomerId",
