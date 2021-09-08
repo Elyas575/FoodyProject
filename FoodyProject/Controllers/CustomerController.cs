@@ -115,7 +115,7 @@ namespace FoodyProject.Controllers
             var customercontact = _mapper.Map<CustomerContactDto>(customercontactDb);
             return Ok(customercontact);
         }
-
+        ///////// Delete customer /////////
             [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer (int customerId, int id)
         {
@@ -130,27 +130,22 @@ namespace FoodyProject.Controllers
 
             return NoContent();
         }
-       
+       ///////// update customer //////
         [HttpPut("{customerid}")]
-        public async Task<IActionResult> UpdateCustomerContactForCustomer(int customerid, int customercontactid, [FromBody] CustomerContactForUpdateDto customercontact)
+        public async Task<IActionResult> UpdateCustomer(int customerid, [FromBody] CustomerForUpdateDto customer)
         {
-            if (customercontact == null)
+            if (customer == null)
             {
          
                 return BadRequest(" object is null");
             }
-            var customer = await _repository.Customer.GetCustomerAsync(customerid, trackChanges: false);
-            if (customer == null)
+            var customerEntity = await _repository.Customer.GetCustomerAsync(customerid, trackChanges: false);
+            if (customerEntity == null)
             {  
             return NotFound();
             }
-            var customercontactentity = _repository.CustomerContact.GetCustomerContactAsync(customerid, customercontactid);
-            if (customercontactentity == null)
-            {
-             
-                return NotFound();
-            }
-            await _mapper.Map(customercontact, customercontactentity);
+           
+             _mapper.Map(customer, customerEntity);
             await _repository.SaveAsync();
             return NoContent();
         }

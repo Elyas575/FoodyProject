@@ -18,7 +18,7 @@ namespace Repository
         {
         }
 
-        public async Task<IEnumerable<RestaurantContact>> GetAllRestaurantContactAsync(int restaurantId, bool trackChanges) =>
+        public async Task<IEnumerable<RestaurantContact>> GetAllRestaurantContactAsync(bool trackChanges) =>
          await FindAll(trackChanges)
          .OrderBy(e => e.PhoneNumber)
             .ToListAsync();
