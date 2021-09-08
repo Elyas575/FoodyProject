@@ -91,13 +91,12 @@ namespace FoodyProject.Controllers
         [HttpGet("contacts")]
         public async Task<IActionResult> GetAllRestaurantContactAsync()
         {
-            var company = await _repository.Restaurant.GetAllRestaurantAsync(trackChanges: false);
+            var company = await _repository.Restaurant.GetAllRestaurantAsync( trackChanges: false);
             if (company == null)
             {
                 return NotFound();
             }
-
-            var restaurantcontactFromDb = await _repository.RestaurantContact.GetAllRestaurantContactAsync(trackChanges: false);
+            var restaurantcontactFromDb = await _repository.RestaurantContact.GetAllRestaurantContactAsync( trackChanges: false);
             return Ok(restaurantcontactFromDb);
         }
         ////////////////////////////////////////// Get a Single Restaurant Contact For a Restaurant /////////////////////////////////////

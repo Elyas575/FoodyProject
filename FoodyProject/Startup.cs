@@ -1,3 +1,4 @@
+
 using FoodyProject.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -63,6 +64,12 @@ namespace FoodyProject
                 ForwardedHeaders = ForwardedHeaders.All
             });
 
+            app.UseSwagger();
+            app.UseSwaggerUI(s =>
+            {
+                s.SwaggerEndpoint("/swagger/v1/swagger.json", "FoodyProject");
+            });
+
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
@@ -70,11 +77,7 @@ namespace FoodyProject
                 endpoints.MapControllers();
             });
 
-            app.UseSwagger();
-            app.UseSwaggerUI(s =>
-            {
-                s.SwaggerEndpoint("/swagger/v1/swagger.json", "FoodyProject");
-            });
+
         }
     }
 }

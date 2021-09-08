@@ -22,6 +22,8 @@ namespace FoodyProject.Controllers
             _mapper = mapper;
         }
 
+        //////get all categories /////
+
         [HttpGet("{restaurantId}/categories")]
         public async Task<IActionResult> GetAllCategoriesAsync(int restaurantId)
         {
@@ -38,6 +40,9 @@ namespace FoodyProject.Controllers
 
             return Ok(categoryDto);
         }
+
+
+        ///////get category by id  /////////
 
         [HttpGet("{restaurantId}/category/{categoryId}", Name = "CategoryById")]
         public async Task<IActionResult> GetCategoryAsync(int restaurantId, int categoryId)
@@ -57,7 +62,7 @@ namespace FoodyProject.Controllers
 
             return Ok(category);
         }
-
+        /////// create category for a restauranrnt/////////
         [HttpPost("{restaurantId}/Category")]
         public async Task<IActionResult> CreateCategory(int restaurantId, [FromBody] CategoryForCreationDto category)
         {
@@ -84,6 +89,8 @@ namespace FoodyProject.Controllers
             return Ok(categoryToReturn);
         }
 
+        ///////delete category /////
+
         [HttpDelete("{restaurantId}/category/{categoryId}")]
         public async Task<IActionResult> DeleteCategory(int restaurantId, int categoryId)
         {
@@ -105,7 +112,7 @@ namespace FoodyProject.Controllers
             return NoContent();
         }
 
-
+        ///// get meal ///
         [HttpGet("{restaurantId}/category/{categoryId}/meal")]
         public async Task<IActionResult> GetAllMealsAsync(int restaurantId, int categoryId)
         {
@@ -126,7 +133,7 @@ namespace FoodyProject.Controllers
 
             return Ok(mealFromDb);
         }
-
+        /////get meal by id ////
         [HttpGet("{restaurantId}/category/{categoryId}/meal/{mealId}", Name = "GetMealForCategory")]
         public async Task<IActionResult> GetMealAsync(int restaurantId, int categoryId, int mealId)
         {
@@ -154,7 +161,7 @@ namespace FoodyProject.Controllers
 
             return Ok(meal);
         }
-
+        ///// create a meal for a category //////
         [HttpPost("{restaurantId}/category/{categoryId}/meal")]
         public async Task<IActionResult> CreateMealForCategory(int restaurantId, int categoryId,  [FromBody] MealForCreationDto meal)
         {
@@ -187,7 +194,7 @@ namespace FoodyProject.Controllers
 
             return Ok(mealToReturn);
         }
-
+        ////// delete meal ////////
         [HttpDelete("{restaurantId}/category/{categoryId}/meal/{mealId}")]
         public async Task<IActionResult> DeleteMealAsync(int restaurantId, int categoryId, int mealId)
         {

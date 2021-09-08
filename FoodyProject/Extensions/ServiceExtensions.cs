@@ -40,7 +40,7 @@ namespace FoodyProject.Extensions
         {
             services.AddSwaggerGen(s =>
             {
-                s.SwaggerDoc("v1", new OpenApiInfo { Title = "FoodyProject", Version = "v1" });
+                s.SwaggerDoc("v1", new OpenApiInfo { Title = "FoodyProject" });
             });
         }
     }
