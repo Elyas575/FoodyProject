@@ -71,7 +71,7 @@ namespace FoodyProject.Controllers
             _repository.Customer.DeleteCustomer(customer);
             await _repository.SaveAsync();
             return Ok();
-        }*/
+        }
 
         ///  Create Customer Contact  
         ///  

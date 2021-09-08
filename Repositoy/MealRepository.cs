@@ -40,9 +40,6 @@ namespace Repositoy
 
         }
 
-        public void CreateMealForCategory(int restaurantId, int categoryId, Meal meal)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
