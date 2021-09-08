@@ -155,7 +155,7 @@ namespace FoodyProject.Controllers
             return Ok(meal);
         }
 
-        [HttpPost("{restaurantId}/category/{categoryId}/meal/{orderid}")]
+        [HttpPost("{restaurantId}/category/{categoryId}/meal")]
         public async Task<IActionResult> CreateMealForCategory(int restaurantId, int categoryId,  [FromBody] MealForCreationDto meal)
         {
  
@@ -177,6 +177,7 @@ namespace FoodyProject.Controllers
             }
 
             var mealEntity = _mapper.Map<Meal>(meal);
+            mealEntity.CategoryId = category.CategoryId;
 
             _repository.Meal.CreateMealForCategory(restaurantId, categoryId, mealEntity);
 
@@ -184,7 +185,7 @@ namespace FoodyProject.Controllers
 
             var mealToReturn = _mapper.Map<MealDto>(mealEntity);
 
-            return CreatedAtRoute("GetMealForCategory", new { categoryId, mealId = mealEntity.MealId }, mealToReturn);
+            return Ok(mealToReturn);
         }
 
         [HttpDelete("{restaurantId}/category/{categoryId}/meal/{mealId}")]

@@ -2,7 +2,7 @@
 
 namespace FoodyProject.Migrations
 {
-    public partial class KasemMigration : Migration
+    public partial class InitialOne : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

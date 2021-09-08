@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodyProject.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20210908063846_kasem")]
-    partial class kasem
+    [Migration("20210908083124_InitialOne")]
+    partial class InitialOne
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -144,9 +144,6 @@ namespace FoodyProject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MealId")
                         .HasColumnType("int");
 
                     b.Property<string>("OrderDescription")

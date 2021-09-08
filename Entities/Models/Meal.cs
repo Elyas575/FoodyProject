@@ -12,7 +12,6 @@ namespace Entities.Models
     {
         [Key]
         public int MealId { get; set; }
-        public int OrderId { get; set; }
         public int CategoryId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -23,7 +22,5 @@ namespace Entities.Models
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }
 
-        [ForeignKey(nameof(OrderId))]
-        public Order Order { get; set; } 
     }
 }

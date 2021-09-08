@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodyProject.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20210907125011_KasemMigration")]
-    partial class KasemMigration
+    [Migration("20210908092709_kasem")]
+    partial class kasem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -118,7 +118,7 @@ namespace FoodyProject.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<string>("Picture")
@@ -248,15 +248,11 @@ namespace FoodyProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Order", "Order")
+                    b.HasOne("Entities.Models.Order", null)
                         .WithMany("Meals")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.Navigation("Category");
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Entities.Models.Order", b =>
