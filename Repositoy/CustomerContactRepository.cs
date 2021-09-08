@@ -34,12 +34,9 @@ namespace Repository
         trackChanges)
          .SingleOrDefaultAsync();
 
-       
-
-        public Task GetCustomerContactAsync(int customerid, int customercontactid)
+        public void DeleteCustomerContact(CustomerContact customerContact)
         {
-            throw new NotImplementedException();
+            Delete(customerContact);
         }
     }
-
 }

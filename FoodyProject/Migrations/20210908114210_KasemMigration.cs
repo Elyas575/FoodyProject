@@ -2,7 +2,7 @@
 
 namespace FoodyProject.Migrations
 {
-    public partial class InitialOne : Migration
+    public partial class KasemMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -129,13 +129,13 @@ namespace FoodyProject.Migrations
                 {
                     MealId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MealOptions = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<float>(type: "real", nullable: false),
-                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -151,7 +151,7 @@ namespace FoodyProject.Migrations
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "OrderId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

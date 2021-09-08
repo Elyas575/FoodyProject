@@ -88,16 +88,16 @@ namespace FoodyProject.Controllers
             return NoContent();
         }
         ///////////////////////////////////////// Get all Restaurant Contact  /////////////////////////////////////////
-        [HttpGet("{restaurantId}/contacts")]
-        public async Task<IActionResult> GetAllRestaurantContactAsync(int restaurantId)
+        [HttpGet("contacts")]
+        public async Task<IActionResult> GetAllRestaurantContactAsync()
         {
-            var company = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
+            var company = await _repository.Restaurant.GetAllRestaurantAsync(trackChanges: false);
             if (company == null)
             {
                 return NotFound();
             }
-            var restaurantcontactFromDb = await _repository.RestaurantContact.GetAllRestaurantContactAsync(restaurantId,
-           trackChanges: false);
+
+            var restaurantcontactFromDb = await _repository.RestaurantContact.GetAllRestaurantContactAsync(trackChanges: false);
             return Ok(restaurantcontactFromDb);
         }
         ////////////////////////////////////////// Get a Single Restaurant Contact For a Restaurant /////////////////////////////////////
@@ -176,8 +176,7 @@ namespace FoodyProject.Controllers
             {
             return NotFound();
             }
-            var restaurantcontactEntity = await _repository.RestaurantContact.GetRestaurantContactAsync(restaurantId, restaurantContactId, trackChanges:
-           true);
+            var restaurantcontactEntity = await _repository.RestaurantContact.GetRestaurantContactAsync(restaurantId, restaurantContactId, trackChanges : true);
             if (restaurantcontactEntity == null)
             {
                 return NotFound();

@@ -16,8 +16,8 @@ namespace Repository
         public RestaurantRepository(RepositoryContext repositoryContext)
         : base(repositoryContext)
         {
-
         }
+
         public async Task <IEnumerable<Restaurant>> GetAllRestaurantAsync(bool trackChanges) =>
           await FindAll(trackChanges)
            .OrderBy(c => c.Name)
