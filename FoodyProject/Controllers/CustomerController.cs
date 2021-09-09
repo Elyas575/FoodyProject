@@ -30,9 +30,15 @@ namespace FoodyProject.Controllers
             return Ok(customerDto);
         }
 
-        /*
-            GetCustomerAsync Is Missing
-        */
+        [HttpGet("{customerId}")]
+        public async Task<IActionResult> GetCUstomerByIdAsync(int customerId)
+        {
+            var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
+            var customerDto = _mapper.Map<CustomerDto>(customer);
+            return Ok(customerDto);
+        }
+
+
 
         [HttpPost]
         public async Task<IActionResult> CreateCustomer([FromBody] CustomerForCreationDto customer)
