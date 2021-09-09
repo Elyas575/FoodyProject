@@ -71,6 +71,33 @@ namespace FoodyProject.Controllers
 
             return Ok(meal);
         }
+          [HttpPut("customers/{restaurantid}/{categoryid}/{mealid}")]
+        public async Task<IActionResult> UpdateMealForCategory(int categoryid, int mealid, int restaurantid, [FromBody] MealForUpdateDto meal)
+        {
+
+            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantid, trackChanges: true);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            var category = await _repository.Category.GetCategoryAsync(restaurantid, categoryid,   trackChanges:true);
+          
+                if (category == null)
+            {
+                return NotFound();
+            }
+            var mealentity = await _repository.Meal.GetMealAsync(mealid, categoryid, restaurantid, trackChanges: true);
+            if (mealentity == null)
+            {
+                return NotFound();
+            }
+            _mapper.Map(meal, mealentity);
+
+            await _repository.SaveAsync();
+            return NoContent();
+        }
+
 
         [HttpPost("{restaurantId}/category/{categoryId}/meal")]
         public async Task<IActionResult> CreateMealForCategory(int restaurantId, int categoryId, [FromBody] MealForCreationDto meal)
@@ -104,6 +131,13 @@ namespace FoodyProject.Controllers
 
             return Ok(mealToReturn);
         }
+        /*Update Meal for category 
+        order = meal, category = customer
+
+
+        */
+      
+
 
         [HttpDelete("{restaurantId}/category/{categoryId}/meal/{mealId}")]
         public async Task<IActionResult> DeleteMealAsync(int restaurantId, int categoryId, int mealId)
