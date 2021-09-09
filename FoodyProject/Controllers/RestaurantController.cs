@@ -93,7 +93,7 @@ namespace FoodyProject.Controllers
             return Ok(restaurantcontactFromDb);
         }
 
-        [HttpGet("{retaurantId}/restaurantContacts")]
+        [HttpGet("{restaurantId}/restaurantContacts")]
         public async Task <IActionResult> GetAllContactsForRestaurantAsync(int restaurantId)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
