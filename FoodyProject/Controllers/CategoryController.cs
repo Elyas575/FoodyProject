@@ -81,9 +81,27 @@ namespace FoodyProject.Controllers
             return Ok(categoryToReturn);
         }
 
-        /*
-            Update Category Is Missing
-        */
+        [HttpPut("{restaurantId}/category/{categoryId}")]
+        public async Task<IActionResult> UpdateCategory(int restaurantId, int categoryId,  [FromBody] CategoryForUpdateDto category)
+        {
+            if (category == null)
+            {
+                return BadRequest("CompanyForUpdateDto object is null");
+            }
+            var categoryEntity = await _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: true);
+            if (categoryEntity == null)
+            {
+                return NotFound();
+            }
+            _mapper.Map(category, categoryEntity);
+            await _repository.SaveAsync();
+            return NoContent();
+        }
+
+
+
+
+
 
         [HttpDelete("{restaurantId}/category/{categoryId}")]
         public async Task<IActionResult> DeleteCategory(int restaurantId, int categoryId)
