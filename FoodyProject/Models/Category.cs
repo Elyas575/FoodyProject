@@ -15,7 +15,7 @@ namespace Entities.Models
         public string CategoryName { get; set; }
         public int RestaurantId { get; set; }
 
-        [ForeignKey(nameof(Restaurant))]
+        [ForeignKey(nameof(RestaurantId))]
         public virtual Restaurant Restaurants { get; set; }     
         public virtual ICollection<Meal> Meals { get; set; }
     }
