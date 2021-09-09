@@ -14,7 +14,7 @@ namespace Entities.Models
         public int  OrderId { get; set; }
         public int CustomerId { get; set; }
         public string OrderStatus { get; set; }
-      ` public string avgdeliverytime { get; set; }
+       public string AvgDelievryTime { get; set; }
         public DateTime TimeOfOrder { get; set; }
         public DateTime DelieveredTime { get; set; }
         public string TypeOfPayment { get; set; }
