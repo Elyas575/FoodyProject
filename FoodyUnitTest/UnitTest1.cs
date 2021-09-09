@@ -5,7 +5,7 @@ namespace FoodyUnitTest
     public class Tests
     {
         [SetUp]
-        public void Setup()
+        public void Setup() 
         {
         }
 
