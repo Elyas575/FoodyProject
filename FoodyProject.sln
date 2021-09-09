@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Cont
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D35C9C14-00C8-4057-A659-355AE3D3B899}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodyUnitTest", "FoodyUnitTest\FoodyUnitTest.csproj", "{A7313E19-A079-4B1A-B640-1F160AB4ABDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{E77CDB69-55CF-4CFB-969F-9FBA0EB2213E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E77CDB69-55CF-4CFB-969F-9FBA0EB2213E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E77CDB69-55CF-4CFB-969F-9FBA0EB2213E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7313E19-A079-4B1A-B640-1F160AB4ABDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7313E19-A079-4B1A-B640-1F160AB4ABDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7313E19-A079-4B1A-B640-1F160AB4ABDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7313E19-A079-4B1A-B640-1F160AB4ABDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

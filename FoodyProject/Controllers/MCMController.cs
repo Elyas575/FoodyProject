@@ -221,6 +221,7 @@ namespace FoodyProject.Controllers
 
             return NoContent();
         }
+              
     }
 }
 
@@ -311,14 +312,7 @@ namespace FoodyProject.Controllers
 }
 
 
-        //[HttpDelete("{Id}/meal/{Id}")]
-        //public IActionResult DeleteMeal(Guid restaurantId, Guid categoryId, Guid mealId)
-        //{
-        //    var restaurant = _repository.Restaurant.GetRestaurant(restaurantId, trackChanges: false);
-        //    if (restaurant == null)
-        //    {
-        //        return NotFound();
-        //    }
+
 
         [HttpPut("{Id}/meal/{Id}")]
         public IActionResult UpdateMealForCategory(string restaurantId, string categoryId, string mealId, [FromBody] MealForUpdateDto meal)
