@@ -13,7 +13,6 @@ namespace FoodyProject.Migrations
                     CustomerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false)
                 },
