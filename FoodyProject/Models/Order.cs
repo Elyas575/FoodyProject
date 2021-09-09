@@ -14,17 +14,14 @@ namespace Entities.Models
         public int  OrderId { get; set; }
         public int CustomerId { get; set; }
         public string OrderStatus { get; set; }
-       public string AvgDelievryTime { get; set; }
-        public DateTime TimeOfOrder { get; set; }
+        public DateTime OrderedTime { get; set; }
         public DateTime DelieveredTime { get; set; }
         public string TypeOfPayment { get; set; }
-     
         public string OrderDescription { get; set; }
+        public bool IsDelivered { get; set; }
 
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer Customer { get; set; }
         public virtual ICollection<Meal> Meals { get; set; }
-
-
     }
 }

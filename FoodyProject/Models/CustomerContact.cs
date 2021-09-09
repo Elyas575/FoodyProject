@@ -12,9 +12,16 @@ namespace Entities.Models
     {
         [Key]
         public int  CustomerContactId { get; set; }
+        
         public string CustomerAddress { get; set; }
-        public int CustomerPhone { get; set;  }
+        
         public int CustomerId { get; set; }
+
+        public string Country { get; set; }
+
+        public string City { get; set; }
+
+        public string Area { get; set; }
 
         [ForeignKey(nameof(CustomerId))]
         public Customer Customer { get; set; }

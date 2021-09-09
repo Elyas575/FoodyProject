@@ -19,13 +19,16 @@ namespace Entities.Models
 
         [Required(ErrorMessage = "Customer Email is a required field")]
         [MaxLength(60, ErrorMessage = "Maximum length for Customer is 60 characters ")]
-
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         [MaxLength(60, ErrorMessage = "maximun length dor passwod is 60 charchters ")]
         [DataType(DataType.Password)]
-        public string Password { get; set; }   
+        public string Password { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public DateTime DateOfBirth { get; set; }
 
         public ICollection<CustomerContact> CustomerContacts { get; set; }
         public ICollection<Order> Orders { get; set; }
