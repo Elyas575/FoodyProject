@@ -26,10 +26,12 @@ namespace Repository
         public async Task <Restaurant> GetRestaurantAsync(int restaurantId, bool trackChanges) =>
             await FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
              .SingleOrDefaultAsync();
+
         public void DeleteRestaurant(Restaurant restaurant)
         {
             Delete(restaurant);
         }
+
         public void CreateRestaurant(Restaurant restaurant) => Create(restaurant);
     }
 }
