@@ -87,23 +87,20 @@ namespace FoodyProject.Controllers
         {
             if (order == null)
             {
-               
                 return BadRequest(" object is null");
             }
             var customer = await _repository.Customer.GetCustomerAsync(customerid, trackChanges: false);
             if (customer == null)
             {
-              
-            return NotFound();
+                return NotFound();
             }
             var orderEntity = await _repository.Order.GetOrderAsync(orderid, trackChanges: true);
             if (orderEntity == null)
             {
-       
                 return NotFound();
             }
             _mapper.Map(order, orderEntity);
-           await _repository.SaveAsync();
+            await _repository.SaveAsync();
             return NoContent();
         }
     }

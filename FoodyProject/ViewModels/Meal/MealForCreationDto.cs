@@ -6,16 +6,12 @@ using System.Threading.Tasks;
 
 namespace Entities.DataTransferObjects
 {
-    public class MealForUpdateDto
+    public class MealForCreationDto
     {
-      
-        public string MealOptions { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string MealOptions { get; set; }
         public float Price { get; set; }
         public string Picture { get; set; }
-
-
-
     }
 }
