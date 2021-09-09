@@ -15,7 +15,7 @@ namespace Entities.Models
 
         [Required(ErrorMessage = "PhoneNumber is a required field.")]
         [MaxLength(60, ErrorMessage = "Maximum length for the PhoneNumber is 60 characters.")]
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         [ForeignKey(nameof(RestaurantId))]
         public Restaurant Restaurant { get; set; }

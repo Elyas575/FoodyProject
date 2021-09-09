@@ -23,8 +23,23 @@ namespace FoodyProject.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{restaurantId}/categories")]
-        public async Task<IActionResult> GetAllCategoriesAsync(int restaurantId)
+        [HttpGet("categories")]
+        public async Task<IActionResult> GetAllCategoriesAsync()
+        {
+            var restaurant = await _repository.Restaurant.GetAllRestaurantAsync(trackChanges: false);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            var categoryFromDto = await _repository.Category.GetAllCategoriesAsync(trackChanges: false);
+            var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categoryFromDto);
+
+            return Ok(categoryDto);
+        }
+
+        [HttpGet("{restaurantId}/category")]
+        public async Task<IActionResult> GetAllCategoriesForRestaurantAsync(int restaurantId)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -32,8 +47,8 @@ namespace FoodyProject.Controllers
                 return NotFound();
             }
 
-            var categoryFromDto = await _repository.Category.GetAllCategoriesAsync(restaurantId, trackChanges: false);
-            var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categoryFromDto);
+            var categoryFromDb = await _repository.Category.GetAllCategoriesByRestaurantId(restaurantId, trackChanges: false);
+            var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categoryFromDb);
 
             return Ok(categoryDto);
         }
@@ -58,7 +73,7 @@ namespace FoodyProject.Controllers
             return Ok(category);
         }
 
-        [HttpPost("{restaurantId}/Category")]
+        [HttpPost("{restaurantId}/category")]
         public async Task<IActionResult> CreateCategory(int restaurantId, [FromBody] CategoryForCreationDto category)
         {
             if (category == null)
@@ -97,11 +112,6 @@ namespace FoodyProject.Controllers
             await _repository.SaveAsync();
             return NoContent();
         }
-
-
-
-
-
 
         [HttpDelete("{restaurantId}/category/{categoryId}")]
         public async Task<IActionResult> DeleteCategory(int restaurantId, int categoryId)

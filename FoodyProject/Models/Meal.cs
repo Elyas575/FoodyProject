@@ -18,6 +18,8 @@ namespace Entities.Models
         public string MealOptions { get; set; } 
         public float Price { get; set; }
         public string Picture { get; set; }
+        public bool IsDelete { get; set; }
+        public bool IsAvailabe { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }

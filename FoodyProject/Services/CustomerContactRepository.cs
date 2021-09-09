@@ -18,10 +18,15 @@ namespace Repository
         {
         }
 
-        public async Task<IEnumerable<CustomerContact>> GetAllCustomerContactAsync(bool trackChanges) =>
+        public async Task<IEnumerable<CustomerContact>> GetAllCustomersContactsAsync(bool trackChanges) =>
         await FindAll(trackChanges)
         .OrderBy(c => c.CustomerContactId)
         .ToListAsync();
+
+        public async Task<IEnumerable<CustomerContact>> GetAllContactsForCustomer(int customerId, bool trackChanges) =>
+            await FindByCondition(e => e.CustomerId.Equals(customerId), trackChanges)
+            .OrderBy(c => c.CustomerContactId)
+            .ToListAsync();
 
         public async Task<CustomerContact> GetCustomerContactAsync(int customerId, int CustomerContactId, bool trackChanges) =>
         await FindByCondition(c => c.CustomerId.Equals(customerId) && c.CustomerContactId.Equals(CustomerContactId), trackChanges)

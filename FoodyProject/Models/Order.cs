@@ -13,7 +13,12 @@ namespace Entities.Models
         [Key]
         public int  OrderId { get; set; }
         public int CustomerId { get; set; }
+        public string OrderStatus { get; set; }
+        public DateTime OrderedTime { get; set; }
+        public DateTime DelieveredTime { get; set; }
+        public string TypeOfPayment { get; set; }
         public string OrderDescription { get; set; }
+        public bool IsDelivered { get; set; }
 
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer Customer { get; set; }
