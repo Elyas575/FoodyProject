@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodyProject.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20210909063831_KasemMigration")]
+    [Migration("20210909073326_KasemMigration")]
     partial class KasemMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,11 +50,6 @@ namespace FoodyProject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("Email")
                         .IsRequired()
