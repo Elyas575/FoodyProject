@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-////////////////////////////////////////////////////// DUJA's Controller/////////////////////////////////////////////
+
 namespace FoodyProject.Controllers
 {
     [Route("api/restaurant")]
@@ -22,7 +22,23 @@ namespace FoodyProject.Controllers
             _repository = repository;
             _mapper = mapper;
         }
-        ////////////////////////////////////////////////////////////////////////////////////// Create Restaurant ///////////////////////////////////////////////////////////////////////////////
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllRestaurant()
+        {
+            var restaurants = await _repository.Restaurant.GetAllRestaurantAsync(trackChanges: false);
+            var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurants);
+            return Ok(restaurantDto);
+        }
+
+        [HttpGet("{restaurantId}", Name = "RestaurantById")]
+        public async Task<IActionResult> GetRestaurantByIdAsync(int restaurantId)
+        {
+            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
+            var restaurantDto = _mapper.Map<RestaurantDto>(restaurant);
+            return Ok(restaurantDto);
+        }
+
         [HttpPost]
         public async Task<IActionResult>  CreateRestaurant([FromBody] RestaurantForCreationDto restaurant)
         {
@@ -35,61 +51,38 @@ namespace FoodyProject.Controllers
             _repository.Restaurant.CreateRestaurant(restaurantEntity);
             await _repository.SaveAsync();
 
-
             var restaurantToReturn = _mapper.Map<RestaurantDto>(restaurantEntity);
-            return CreatedAtRoute("RestaurantById", new { id = restaurantToReturn.RestaurantId },
-            restaurantToReturn);
+            return Ok(restaurantToReturn);
         }
-        ////////////////////////////////////////////////////////////////// Get All Restaurants //////////////////////////////////
-        [HttpGet]
-        public async Task <IActionResult> GetAllRestaurant()
-        {
-            var restaurants = await _repository.Restaurant.GetAllRestaurantAsync(trackChanges: false);
 
-            var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurants);
-
-            return Ok(restaurantDto);
-        }
-        //////////////////////////Delete Restaurant///////////////////////
-        [HttpDelete("{restaurantid}")]
-        public async Task<IActionResult> DeleteRestaurant(int restaurantId, int id)
-        {
-            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
-            _repository.Restaurant.DeleteRestaurant(restaurant);
-            await _repository.SaveAsync();
-            return NoContent();
-        }
-        ///////////////////////////// Get restaurant by id ///////////////////////////////////////
-        [HttpGet("{id}", Name = "RestaurantById")]
-        public async Task <IActionResult> GetRestaurantByIdAsync(int id)
-        {
-            var restaurant = await _repository.Restaurant.GetRestaurantAsync(id, trackChanges: false);
-
-            var restaurantDto = _mapper.Map<RestaurantDto>(restaurant);
-
-            return Ok(restaurantDto);
-        }
-        /////////////////////////////// update restuarant ////////////////////////////////
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRestaurant(int id, [FromBody] RestaurantForUpdateDto restaurant)
+        [HttpPut("{restaurantId}")]
+        public async Task<IActionResult> UpdateRestaurant(int restaurantId, [FromBody] RestaurantForUpdateDto restaurant)
         {
             if (restaurant == null)
             {
                 return BadRequest("CompanyForUpdateDto object is null");
             }
-            var restaurantEntity= await _repository.Restaurant.GetRestaurantAsync(id, trackChanges: true);
+            var restaurantEntity = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: true);
             if (restaurantEntity == null)
             {
-              
                 return NotFound();
             }
             _mapper.Map(restaurant, restaurantEntity);
             await _repository.SaveAsync();
             return NoContent();
         }
-        ///////////////////////////////////////// Get all Restaurant Contact  /////////////////////////////////////////
+
+        [HttpDelete("{restaurantId}")]
+        public async Task<IActionResult> DeleteRestaurant(int restaurantId)
+        {
+            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
+            _repository.Restaurant.DeleteRestaurant(restaurant);
+            await _repository.SaveAsync();
+            return NoContent();
+        }
+
         [HttpGet("contacts")]
-        public async Task<IActionResult> GetAllRestaurantContactAsync()
+        public async Task<IActionResult> GetAllRestaurantContactsAsync()
         {
             var company = await _repository.Restaurant.GetAllRestaurantAsync( trackChanges: false);
             if (company == null)
@@ -99,28 +92,26 @@ namespace FoodyProject.Controllers
             var restaurantcontactFromDb = await _repository.RestaurantContact.GetAllRestaurantContactAsync( trackChanges: false);
             return Ok(restaurantcontactFromDb);
         }
-        ////////////////////////////////////////// Get a Single Restaurant Contact For a Restaurant /////////////////////////////////////
-        [HttpGet("{restaurantId}/contacts/{id}", Name = "RestaurantContactById")]
-       
-        public async  Task <IActionResult> GetRestaurantContactAsync(int restaurantId, int id)
+
+        [HttpGet("{restaurantId}/contacts/{restaurantContactId}", Name = "RestaurantContactById")]
+        public async  Task <IActionResult> GetRestaurantContactAsync(int restaurantId, int restaurantContactId)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
             {
-
                 return NotFound();
             }
-            var restaurantcontactDb = await _repository.RestaurantContact.GetRestaurantContactAsync(restaurantId, id, trackChanges:
-           false);
+
+            var restaurantcontactDb = await _repository.RestaurantContact.GetRestaurantContactAsync(restaurantId, restaurantContactId, trackChanges:false);
             if (restaurantcontactDb == null)
             {
-
                 return NotFound();
             } 
+
             var restaurantcontact = _mapper.Map<RestaurantContactDto>(restaurantcontactDb);
             return Ok(restaurantcontact);
         }
-        /////////////////////////////////////////      Create Restaurant Contact        ///////////////////////////////////// 
+
         [HttpPost("{restaurantId}/RestaurantContact")]
         public async Task <IActionResult> CreateRestaurantContact(int restaurantId, [FromBody] RestaurantContactForCreationDto restaurantcontact)
         {
@@ -130,38 +121,22 @@ namespace FoodyProject.Controllers
             {
                 return BadRequest("RestaurantContactForCreationDto object is null");
             }
+
             var restaurant = await  _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
             {
                 return NotFound();
             }
-            var restaurantcontactEntity = _mapper.Map<RestaurantContact>(restaurantcontact);
 
+            var restaurantcontactEntity = _mapper.Map<RestaurantContact>(restaurantcontact);
             _repository.RestaurantContact.CreateRestaurantContact(restaurantId, restaurantcontactEntity);
+
             await _repository.SaveAsync();
+
             var restaurantcontactToReturn = _mapper.Map<RestaurantContactDto>(restaurantcontactEntity);
-            return CreatedAtRoute("RestaurantContactById", new { restaurantId, id = restaurantcontactToReturn.RestaurantContactId  }, restaurantcontactToReturn);
+            return Ok(restaurantcontactToReturn);
         }
-        //////////////////////////////////////////////////// Delete a Restaurant Contact ////////////////////////////////////////////////////////
-        [HttpDelete("{restaurantId}/contacts/{RestaurantContactId}")]
-        public async  Task<IActionResult> DeleteRestaurantContact(int restaurantId, int RestaurantContactId )
-        {
-            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
-            if (restaurant == null)
-            {
-            return NotFound();
-            }
-            var restaurantContact = await _repository.RestaurantContact.GetRestaurantContactAsync(restaurantId, RestaurantContactId,
-           trackChanges: false);
-            if (restaurantContact == null)
-            {
-                return NotFound();
-            }
-            _repository.RestaurantContact.DeleteRestaurantContact(restaurantContact);
-            await _repository.SaveAsync();
-            return NoContent();
-        }
-        ///////////////////////////////////////////////// Update Restaurant Contact //////////////////////////////////
+
         [HttpPut("{restaurantId}/contacts/{restaurantContactId}")]
         public async   Task <IActionResult> UpdateRestaurantContact(int restaurantId, int restaurantContactId, [FromBody]
         RestaurantContactForUpdateDto restaurantcontact)
@@ -170,17 +145,39 @@ namespace FoodyProject.Controllers
             {
                 return BadRequest("object is null");
             }
+
             var restaurant =await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
             {
             return NotFound();
             }
+
             var restaurantcontactEntity = await _repository.RestaurantContact.GetRestaurantContactAsync(restaurantId, restaurantContactId, trackChanges : true);
             if (restaurantcontactEntity == null)
             {
                 return NotFound();
             }
+
             _mapper.Map(restaurantcontact, restaurantcontactEntity);
+            await _repository.SaveAsync();
+            return NoContent();
+        }
+
+        [HttpDelete("{restaurantId}/contacts/{RestaurantContactId}")]
+        public async Task<IActionResult> DeleteRestaurantContact(int restaurantId, int RestaurantContactId)
+        {
+            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+            var restaurantContact = await _repository.RestaurantContact.GetRestaurantContactAsync(restaurantId, RestaurantContactId,
+           trackChanges: false);
+            if (restaurantContact == null)
+            {
+                return NotFound();
+            }
+            _repository.RestaurantContact.DeleteRestaurantContact(restaurantContact);
             await _repository.SaveAsync();
             return NoContent();
         }
