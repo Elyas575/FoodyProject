@@ -82,19 +82,34 @@ namespace FoodyProject.Controllers
         }
 
         [HttpGet("contacts")]
-        public async Task<IActionResult> GetAllRestaurantContactsAsync()
+        public async Task<IActionResult> GetAllRestaurantsContactsAsync()
         {
             var company = await _repository.Restaurant.GetAllRestaurantAsync( trackChanges: false);
             if (company == null)
             {
                 return NotFound();
             }
-            var restaurantcontactFromDb = await _repository.RestaurantContact.GetAllRestaurantContactAsync( trackChanges: false);
+            var restaurantcontactFromDb = await _repository.RestaurantContact.GetAllRestaurantsContactsAsync( trackChanges: false);
             return Ok(restaurantcontactFromDb);
         }
 
+        [HttpGet("{retaurantId}/restaurantContacts")]
+        public async Task <IActionResult> GetAllContactsForRestaurantAsync(int restaurantId)
+        {
+            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            var restaurantContactFromDb = await _repository.RestaurantContact.GetAllContactsForRestaurantAsync(restaurantId, trackChanges: false);
+            var restaurantDto = _mapper.Map<IEnumerable<RestaurantContactDto>>(restaurantContactFromDb);
+
+            return Ok(restaurantDto);
+        }
+
         [HttpGet("{restaurantId}/contacts/{restaurantContactId}", Name = "RestaurantContactById")]
-        public async  Task <IActionResult> GetRestaurantContactAsync(int restaurantId, int restaurantContactId)
+        public async Task <IActionResult> GetRestaurantContactAsync(int restaurantId, int restaurantContactId)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)

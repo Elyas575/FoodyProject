@@ -38,8 +38,6 @@ namespace FoodyProject.Controllers
             return Ok(customerDto);
         }
 
-
-
         [HttpPost]
         public async Task<IActionResult> CreateCustomer([FromBody] CustomerForCreationDto customer)
         {
@@ -93,12 +91,27 @@ namespace FoodyProject.Controllers
         }
 
         [HttpGet("contacts")]
-        public async Task<IActionResult> GetAllCustomerContactAsync()
+        public async Task<IActionResult> GetAllCustomersContactsAsync()
         {
             var customer = await _repository.Customer.GetAllCustomersAsync(trackChanges: false);
-            var customercontactFromDb = await _repository.CustomerContact.GetAllCustomerContactAsync(trackChanges: false);
+            var customercontactFromDb = await _repository.CustomerContact.GetAllCustomersContactsAsync(trackChanges: false);
 
             return Ok(customercontactFromDb);
+        }
+
+        [HttpGet("{customerId}/cutomerContact")]
+        public async Task<IActionResult> GetAllContactsForCustomerAsync(int customerId)
+        {
+            var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            var customerContactFromDb = await _repository.CustomerContact.GetAllContactsForCustomer(customerId, trackChanges: false);
+            var customerDto = _mapper.Map<IEnumerable<CustomerContactDto>>(customerContactFromDb);
+
+            return Ok(customerDto);
         }
 
         [HttpGet("{customerId}/contacts/{customercontactId}", Name = "CustomerContactById")]

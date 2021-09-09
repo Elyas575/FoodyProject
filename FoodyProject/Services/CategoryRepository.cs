@@ -17,10 +17,15 @@ namespace Repositoy
         {
         }
 
-        public async Task<IEnumerable<Category>> GetAllCategoriesAsync(int restaurantId, bool trackChanges) =>
+        public async Task<IEnumerable<Category>> GetAllCategoriesAsync(bool trackChanges) =>
           await FindAll(trackChanges)
           .OrderBy(c => c.CategoryName)
            .ToListAsync();
+
+        public async Task<IEnumerable<Category>> GetAllCategoriesByRestaurantId(int restaurantId, bool trackChanges) =>
+             await FindByCondition(e => e.RestaurantId.Equals(restaurantId), trackChanges)
+            .OrderBy(e => e.CategoryName)
+            .ToListAsync();
 
         public async Task <Category> GetCategoryAsync(int restaurantId, int categoryId, bool trackChanges) =>
              await FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.CategoryId.Equals(categoryId), trackChanges)

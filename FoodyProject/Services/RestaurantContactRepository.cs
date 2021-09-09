@@ -18,9 +18,14 @@ namespace Repository
         {
         }
 
-        public async Task<IEnumerable<RestaurantContact>> GetAllRestaurantContactAsync(bool trackChanges) =>
+        public async Task<IEnumerable<RestaurantContact>> GetAllRestaurantsContactsAsync(bool trackChanges) =>
          await FindAll(trackChanges)
          .OrderBy(e => e.PhoneNumber)
+         .ToListAsync();
+
+        public async Task<IEnumerable<RestaurantContact>> GetAllContactsForRestaurantAsync(int restaurantId, bool trackChanges) =>
+            await FindByCondition(e => e.RestaurantId.Equals(restaurantId), trackChanges)
+            .OrderBy(e => e.RestaurantContactId)
             .ToListAsync();
 
         public async Task<RestaurantContact> GetRestaurantContactAsync(int restaurantId, int id, bool trackChanges) =>
