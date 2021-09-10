@@ -20,6 +20,11 @@ namespace Entities.Models
         public string OrderDescription { get; set; }
         public bool IsDelivered { get; set; }
 
+        public int RestaurantId { get; set; }
+
+        [ForeignKey(nameof(RestaurantId))]
+        public virtual Restaurant Restaurants { get; set; }
+
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer Customer { get; set; }
         public virtual ICollection<Meal> Meals { get; set; }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodyProject.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20210909115437_duja1")]
-    partial class duja1
+    [Migration("20210910070909_KasemMigration")]
+    partial class KasemMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,15 +31,12 @@ namespace FoodyProject.Migrations
                     b.Property<string>("CategoryName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Restaurant")
-                        .HasColumnType("int");
-
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
                     b.HasKey("CategoryId");
 
-                    b.HasIndex("Restaurant");
+                    b.HasIndex("RestaurantId");
 
                     b.ToTable("Categories");
                 });
@@ -50,6 +47,11 @@ namespace FoodyProject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
@@ -174,12 +176,17 @@ namespace FoodyProject.Migrations
                     b.Property<DateTime>("OrderedTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("int");
+
                     b.Property<string>("TypeOfPayment")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("RestaurantId");
 
                     b.ToTable("Orders");
                 });
@@ -277,7 +284,9 @@ namespace FoodyProject.Migrations
                 {
                     b.HasOne("Entities.Models.Restaurant", "Restaurants")
                         .WithMany("Categories")
-                        .HasForeignKey("Restaurant");
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Restaurants");
                 });
@@ -316,7 +325,15 @@ namespace FoodyProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Entities.Models.Restaurant", "Restaurants")
+                        .WithMany("Orders")
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Customer");
+
+                    b.Navigation("Restaurants");
                 });
 
             modelBuilder.Entity("Entities.Models.RestaurantContact", b =>
@@ -350,6 +367,8 @@ namespace FoodyProject.Migrations
             modelBuilder.Entity("Entities.Models.Restaurant", b =>
                 {
                     b.Navigation("Categories");
+
+                    b.Navigation("Orders");
 
                     b.Navigation("RestaurantContacts");
                 });

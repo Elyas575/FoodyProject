@@ -19,6 +19,11 @@ namespace Repository
              await FindByCondition(c => c.OrderId.Equals(orderid), trackChanges)
              .SingleOrDefaultAsync();
 
+        public async Task<IEnumerable<Order>> GetOrderByCustomerIdAsync(int customerid, bool trackChanges) =>
+              await FindByCondition(c => c.CustomerId.Equals(customerid), trackChanges)
+              .OrderBy(c => c.OrderId)
+              .ToListAsync();
+
         /*  getting a single order for resturant */
         /* fix this u should get all orders for one resturant */
         public async Task<IEnumerable<Order>> GetAllOrdersAsync(bool trackChanges) =>
@@ -27,9 +32,10 @@ namespace Repository
          .ToListAsync();
     
         /* fix this u should get all orders for one resturant */
-        public void CreateOrder(int customerId, Order order)
+        public void CreateOrder(int customerId, int restaurantId, Order order)
         {
             order.CustomerId = customerId;
+            order.RestaurantId = restaurantId;
             Create(order);
         }
 
@@ -37,5 +43,13 @@ namespace Repository
         {
             Delete(order);
         }
+
+        public async Task<IEnumerable<Order>>GetOrdersForRestaurantAsync(int restaurantid, bool trackChanges) =>
+            await FindByCondition(e => e.RestaurantId.Equals(restaurantid), trackChanges)
+            .OrderBy(e => e.OrderId)
+            .ToListAsync();
+
+
+
     }
 }
