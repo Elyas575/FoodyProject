@@ -5,6 +5,7 @@ using Entities.DataTransferObjects;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FoodyProject.Controllers
@@ -29,10 +30,33 @@ namespace FoodyProject.Controllers
             return Ok(orders);
         }
 
-        [HttpGet("{id}", Name = "OrderById")]
-        public async Task <IActionResult> GetOrderAsync(int id, bool trackchanges) {
 
-            var order = await _repository.Order.GetOrderAsync(id, trackchanges);
+        [HttpGet("OrderByCustomerId/{customerId}", Name = "OrderByCustomerId")]
+        public async Task<IActionResult> GetOrderByCustomerId(int customerId)
+        {
+            var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            var order = await _repository.Order.GetOrderByCustomerIdAsync(customerId, trackChanges: false);
+            if (order == null)
+            {
+                return NotFound();
+            }
+         
+            var orderdto = _mapper.Map<IEnumerable<OrderDto>>(order);
+
+            return Ok(orderdto);
+          
+        }
+
+
+        [HttpGet("{orderId}", Name = "OrderById")]
+        public async Task <IActionResult> GetOrderAsync(int orderId, bool trackchanges) {
+
+            var order = await _repository.Order.GetOrderAsync(orderId, trackchanges);
 
             if (order == null)
             {
@@ -45,31 +69,48 @@ namespace FoodyProject.Controllers
                 return Ok(orderdto);
             }
         }
+        [HttpGet("OrderByRestaurantId/{ResturantId}")]
+        public async Task<IActionResult> GetOrdersForRestaurant(int ResturantId)
+        {
+            var restaurant = await _repository.Restaurant.GetRestaurantAsync(ResturantId, trackChanges: false);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+            var orderfromdb = await _repository.Order.GetOrdersForRestaurantAsync(ResturantId,
+            trackChanges: false);
+            return Ok(orderfromdb);
+        }
 
-        [HttpPost("customers/{customerId}")]
-        public async  Task<IActionResult> CreateOrder(int customerId, [FromBody] OrderForCreationDto order)
+        [HttpPost("restaurant/{restaurantId}/customers/{customerId}")]
+        public async  Task<IActionResult> CreateOrder(int customerId, int restaurantId, [FromBody] OrderForCreationDto order)
         {
             if (order == null)
-            {              
+            {
                 return BadRequest("OrderForCreationDto object is null");
             }
-            var customer = _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
 
+            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
+            if (restaurant == null)
+            {
+                return BadRequest("OrderForCreationDto object is null");
+            }
+
+            var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
 
             {
-                
-            return NotFound();
+                return NotFound();
             }
 
             var orderEntity = _mapper.Map<Order>(order);
 
-            _repository.Order.CreateOrder(customerId, orderEntity);
+            _repository.Order.CreateOrder(customerId, restaurantId, orderEntity);
             await _repository.SaveAsync();
 
             var orderToReturn = _mapper.Map<OrderDto>(orderEntity);
-            return CreatedAtRoute("",new
-            {customerId,id = orderToReturn.OrderId }, orderToReturn); }
+            return Ok(orderToReturn);
+        }
 
         [HttpDelete("{orderId}")]
         public async  Task<IActionResult> DeleteOrder(int orderId)
