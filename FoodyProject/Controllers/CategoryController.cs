@@ -73,6 +73,20 @@ namespace FoodyProject.Controllers
             return Ok(category);
         }
 
+        [HttpGet("{categoryName}/categoriesByName")]
+        public async Task<IActionResult> GetCategoryByNameAsync(string categoryName)
+        {
+            var categoryDb = await _repository.Category.GetCategoriesByNameAsync(categoryName, trackChanges: false);
+            if (categoryDb == null)
+            {
+                return NotFound();
+            }
+
+            var category = _mapper.Map<IEnumerable<CategoryDto>>(categoryDb);
+
+            return Ok(category);
+        }
+
         [HttpPost("{restaurantId}/category")]
         public async Task<IActionResult> CreateCategory(int restaurantId, [FromBody] CategoryForCreationDto category)
         {

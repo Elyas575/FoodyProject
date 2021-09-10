@@ -10,6 +10,7 @@ namespace Contracts
     {
         Task<IEnumerable<Category>> GetAllCategoriesAsync(bool trackChanges);
         Task<IEnumerable<Category>> GetAllCategoriesByRestaurantId(int restaurantId, bool trackChanges);
+        Task<IEnumerable<Category>> GetCategoriesByNameAsync(string categoryName, bool trackChanges);
         Task <Category> GetCategoryAsync(int restaurantId, int categoryId, bool trackChanges);
         void CreateCategory(int restaurantId, Category category);
         void DeleteCategory(Category category);

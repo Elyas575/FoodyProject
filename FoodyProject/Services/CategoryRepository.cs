@@ -31,6 +31,11 @@ namespace Repositoy
              await FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.CategoryId.Equals(categoryId), trackChanges)
              .SingleOrDefaultAsync();
 
+        public async Task<IEnumerable<Category>> GetCategoriesByNameAsync(string categoryName, bool trackChanges) =>
+            await FindByCondition(e => e.CategoryName.Equals(categoryName), trackChanges)
+            .OrderBy(e => e.CategoryName)
+            .ToListAsync();
+
         public void CreateCategory(int restaurantId, Category category)
         {
             category.RestaurantId = restaurantId;

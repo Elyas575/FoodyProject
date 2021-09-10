@@ -58,8 +58,7 @@ namespace FoodyProject.Controllers
             if (customer == null)
 
             {
-                
-            return NotFound();
+                return NotFound();
             }
 
             var orderEntity = _mapper.Map<Order>(order);
