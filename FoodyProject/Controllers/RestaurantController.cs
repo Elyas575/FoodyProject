@@ -22,6 +22,7 @@ namespace FoodyProject.Controllers
             _repository = repository;
             _mapper = mapper;
         }
+
         // get all reataurants 
         [HttpGet]
         public async Task<IActionResult> GetAllRestaurant()
@@ -30,8 +31,8 @@ namespace FoodyProject.Controllers
             var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurants);
             return Ok(restaurantDto);
         }
-        // get restaurant by id 
 
+        // get restaurant by id 
         [HttpGet("{restaurantId}", Name = "RestaurantById")]
         public async Task<IActionResult> GetRestaurantByIdAsync(int restaurantId)
         {
@@ -76,9 +77,6 @@ namespace FoodyProject.Controllers
             return Ok(restaurantDto);
         }
 
-        
-        
-
         //create a restaurant 
         [HttpPost]
         public async Task<IActionResult>  CreateRestaurant([FromBody] RestaurantForCreationDto restaurant)
@@ -95,7 +93,6 @@ namespace FoodyProject.Controllers
             var restaurantToReturn = _mapper.Map<RestaurantDto>(restaurantEntity);
             return Ok(restaurantToReturn);
         }
-
 
         // update restaurant
         [HttpPut("{restaurantId}")]
@@ -116,7 +113,6 @@ namespace FoodyProject.Controllers
         }
 
         //delete restaurant 
-
         [HttpDelete("{restaurantId}")]
         public async Task<IActionResult> DeleteRestaurant(int restaurantId)
         {
@@ -156,7 +152,6 @@ namespace FoodyProject.Controllers
             return Ok(restaurantDto);
         }
 
-
         // Get a single restaurant contact
         [HttpGet("{restaurantId}/contacts/{restaurantContactId}", Name = "RestaurantContactById")]
         public async Task <IActionResult> GetRestaurantContactAsync(int restaurantId, int restaurantContactId)
@@ -176,6 +171,7 @@ namespace FoodyProject.Controllers
             var restaurantcontact = _mapper.Map<RestaurantContactDto>(restaurantcontactDb);
             return Ok(restaurantcontact);
         }
+
         // create restaurant contact 
         [HttpPost("{restaurantId}/RestaurantContact")]
         public async Task <IActionResult> CreateRestaurantContact(int restaurantId, [FromBody] RestaurantContactForCreationDto restaurantcontact)
@@ -228,6 +224,7 @@ namespace FoodyProject.Controllers
             await _repository.SaveAsync();
             return NoContent();
         }
+
         // delete restaurant contact 
         [HttpDelete("{restaurantId}/contacts/{RestaurantContactId}")]
         public async Task<IActionResult> DeleteRestaurantContact(int restaurantId, int RestaurantContactId)

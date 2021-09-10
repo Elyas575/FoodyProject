@@ -71,7 +71,8 @@ namespace FoodyProject.Controllers
 
             return Ok(meal);
         }
-          [HttpPut("customers/{restaurantid}/{categoryid}/{mealid}")]
+        
+        [HttpPut("customers/{restaurantid}/{categoryid}/{mealid}")]
         public async Task<IActionResult> UpdateMealForCategory(int categoryid, int mealid, int restaurantid, [FromBody] MealForUpdateDto meal)
         {
 
@@ -97,7 +98,6 @@ namespace FoodyProject.Controllers
             await _repository.SaveAsync();
             return NoContent();
         }
-
 
         [HttpPost("{restaurantId}/category/{categoryId}/meal")]
         public async Task<IActionResult> CreateMealForCategory(int restaurantId, int categoryId, [FromBody] MealForCreationDto meal)
@@ -133,11 +133,7 @@ namespace FoodyProject.Controllers
         }
         /*Update Meal for category 
         order = meal, category = customer
-
-
         */
-      
-
 
         [HttpDelete("{restaurantId}/category/{categoryId}/meal/{mealId}")]
         public async Task<IActionResult> DeleteMealAsync(int restaurantId, int categoryId, int mealId)

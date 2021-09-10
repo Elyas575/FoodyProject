@@ -30,7 +30,6 @@ namespace FoodyProject.Controllers
             return Ok(orders);
         }
 
-
         [HttpGet("OrderByCustomerId/{customerId}", Name = "OrderByCustomerId")]
         public async Task<IActionResult> GetOrderByCustomerId(int customerId)
         {
@@ -51,7 +50,6 @@ namespace FoodyProject.Controllers
             return Ok(orderdto);
           
         }
-
 
         [HttpGet("{orderId}", Name = "OrderById")]
         public async Task <IActionResult> GetOrderAsync(int orderId, bool trackchanges) {
