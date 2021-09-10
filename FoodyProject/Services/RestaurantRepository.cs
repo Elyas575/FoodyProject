@@ -27,6 +27,21 @@ namespace Repository
             await FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
              .SingleOrDefaultAsync();
 
+        public async Task<Restaurant> GetRestaurantByNameAsync(string name , bool trackChanges) =>
+        await FindByCondition(c => c.Name.Equals(name), trackChanges)
+        .SingleOrDefaultAsync();
+
+        public async Task<Restaurant> GetRestaurantByCityAsync(string city, bool trackChanges) =>
+        await FindByCondition(c => c.City.Equals(city), trackChanges)
+            .SingleOrDefaultAsync();
+        
+        //GetBestRestaurantAsync
+
+        public async Task<IEnumerable<Restaurant>> GetBestRestaurantAsync(bool trackChanges) =>
+         await FindAll(trackChanges)
+           .OrderBy(c => c.Rate)
+           .ToListAsync();
+
         public void DeleteRestaurant(Restaurant restaurant)
         {
             Delete(restaurant);

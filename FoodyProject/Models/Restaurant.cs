@@ -56,6 +56,7 @@ namespace Entities.Models
 
         public int Rate { get; set; }
 
+        public ICollection<Order> Orders { get; set; }
         public ICollection<Category> Categories { get; set; }
         public ICollection<RestaurantContact> RestaurantContacts { get; set; }
     }
