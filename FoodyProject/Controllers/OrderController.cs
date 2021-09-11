@@ -46,9 +46,7 @@ namespace FoodyProject.Controllers
             }
          
             var orderdto = _mapper.Map<IEnumerable<OrderDto>>(order);
-
             return Ok(orderdto);
-          
         }
 
         [HttpGet("{orderId}", Name = "OrderById")]
@@ -83,11 +81,8 @@ namespace FoodyProject.Controllers
         [HttpPost("restaurant/{restaurantId}/customers/{customerId}")]
         public async  Task<IActionResult> CreateOrder(int customerId, int restaurantId, [FromBody] OrderForCreationDto order)
         {
-
-
             if (!ModelState.IsValid)
             {
-   
                 return UnprocessableEntity(ModelState);
             }
 
@@ -113,7 +108,6 @@ namespace FoodyProject.Controllers
 
             _repository.Order.CreateOrder(customerId, restaurantId, orderEntity);
             await _repository.SaveAsync();
-
             var orderToReturn = _mapper.Map<OrderDto>(orderEntity);
             return Ok(orderToReturn);
         }
@@ -136,11 +130,13 @@ namespace FoodyProject.Controllers
             {
                 return BadRequest(" object is null");
             }
+
             var customer = await _repository.Customer.GetCustomerAsync(customerid, trackChanges: false);
             if (customer == null)
             {
                 return NotFound();
             }
+
             var orderEntity = await _repository.Order.GetOrderAsync(orderid, trackChanges: true);
             if (orderEntity == null)
             {

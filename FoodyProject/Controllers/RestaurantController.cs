@@ -85,6 +85,7 @@ namespace FoodyProject.Controllers
             {
                 return BadRequest("RestaurantForCreationDto object is null");
             }
+            
             if (!ModelState.IsValid)
             {
                 return UnprocessableEntity(ModelState);
@@ -112,6 +113,7 @@ namespace FoodyProject.Controllers
             {
                 return NotFound();
             }
+
             if (!ModelState.IsValid)
             {
                 return UnprocessableEntity(ModelState);
@@ -198,7 +200,6 @@ namespace FoodyProject.Controllers
                 return UnprocessableEntity(ModelState);
             }
 
-
             var restaurant = await  _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
             {
@@ -223,11 +224,11 @@ namespace FoodyProject.Controllers
             {
                 return BadRequest("object is null");
             }
+
             if (!ModelState.IsValid)
             {
                 return UnprocessableEntity(ModelState);
             }
-
 
             var restaurant =await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
