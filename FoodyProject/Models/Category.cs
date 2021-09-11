@@ -10,12 +10,15 @@ namespace Entities.Models
 {
     public class Category
     {
-       [Key]
+        [Key]
         public int CategoryId { get; set; }
-        [Required(ErrorMessage = "Order description is a required field")]
-        [MaxLength(50, ErrorMessage = "Maximum length for the Order description is 50 characters.")]
+
+        [Required(ErrorMessage = "Category name is a required field.")]
+        [MaxLength(30, ErrorMessage = "Max length for category name is 30 characters.")]
         public string CategoryName { get; set; }
+
         public int RestaurantId { get; set; }
+        public bool IsDelete { get; set; }
 
         [ForeignKey(nameof(RestaurantId))]
         public virtual Restaurant Restaurants { get; set; }     

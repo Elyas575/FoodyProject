@@ -10,10 +10,6 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodyProject.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-<<<<<<< HEAD:FoodyProject/Migrations/20210911093808_KasemMigration.Designer.cs
-    [Migration("20210911093808_KasemMigration")]
-    partial class KasemMigration
-=======
 <<<<<<< HEAD:FoodyProject/Migrations/20210911083858_KasemMigration.Designer.cs
     [Migration("20210911083858_KasemMigration")]
     partial class KasemMigration
@@ -21,7 +17,6 @@ namespace FoodyProject.Migrations
     [Migration("20210911091641_duja2021")]
     partial class duja2021
 >>>>>>> 5eab05e46d7336c75ee839978d327a1c8c81f998:FoodyProject/Migrations/20210911091641_duja2021.Designer.cs
->>>>>>> 1b55a317cadfcf793c3bd22fd10304d43c7d7148:FoodyProject/Migrations/20210911091641_duja2021.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,16 +35,11 @@ namespace FoodyProject.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-<<<<<<< HEAD:FoodyProject/Migrations/20210911093808_KasemMigration.Designer.cs
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-=======
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
->>>>>>> 1b55a317cadfcf793c3bd22fd10304d43c7d7148:FoodyProject/Migrations/20210911091641_duja2021.Designer.cs
 
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
@@ -192,9 +182,7 @@ namespace FoodyProject.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("OrderDescription")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OrderStatus")
                         .HasColumnType("nvarchar(max)");
@@ -206,9 +194,7 @@ namespace FoodyProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TypeOfPayment")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");
 

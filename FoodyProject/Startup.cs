@@ -41,7 +41,8 @@ namespace FoodyProject
                 options.SuppressModelStateInvalidFilter = true;
             });
             services.AddControllers();
-            services.Configure<ApiBehaviorOptions>(options =>
+
+            services.Configure<ApiBehaviorOptions>(options => 
             {
                 options.SuppressModelStateInvalidFilter = true;
             });

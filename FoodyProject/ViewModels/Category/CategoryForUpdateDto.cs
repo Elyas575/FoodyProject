@@ -1,13 +1,15 @@
-﻿using System;
+﻿using FoodyProject.ViewModels.Category;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Entities.DataTransferObjects
 {
-    public class CategoryForUpdateDto
+    public class CategoryForUpdateDto : CategoryForManipulationDto
     {
-        public string CategoryName { get; set; }
+        public bool IsDelete { get; set; }
     }
 }

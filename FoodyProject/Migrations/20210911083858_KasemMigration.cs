@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodyProject.Migrations
 {
-    public partial class KasemMigration : Migration
+    public partial class duja2021 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -81,14 +81,9 @@ namespace FoodyProject.Migrations
                 {
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-<<<<<<< HEAD:FoodyProject/Migrations/20210911093808_KasemMigration.cs
-                    CategoryName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    RestaurantId = table.Column<int>(type: "int", nullable: false)
-=======
                     CategoryName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     RestaurantId = table.Column<int>(type: "int", nullable: false),
                     IsDelete = table.Column<bool>(type: "bit", nullable: false)
->>>>>>> 1b55a317cadfcf793c3bd22fd10304d43c7d7148:FoodyProject/Migrations/20210911091641_duja2021.cs
                 },
                 constraints: table =>
                 {
@@ -111,8 +106,8 @@ namespace FoodyProject.Migrations
                     OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrderedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DelieveredTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TypeOfPayment = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    OrderDescription = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    TypeOfPayment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDelivered = table.Column<bool>(type: "bit", nullable: false),
                     RestaurantId = table.Column<int>(type: "int", nullable: false)
                 },

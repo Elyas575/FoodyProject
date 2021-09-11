@@ -28,8 +28,16 @@ namespace FoodyProject.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
+<<<<<<< HEAD
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+=======
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+>>>>>>> 1b55a317cadfcf793c3bd22fd10304d43c7d7148
 
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
@@ -119,7 +127,8 @@ namespace FoodyProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<bool>("IsAvailabe")
                         .HasColumnType("bit");
@@ -128,10 +137,13 @@ namespace FoodyProject.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("MealOptions")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
