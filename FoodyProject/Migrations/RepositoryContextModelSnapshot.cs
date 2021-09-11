@@ -211,14 +211,17 @@ namespace FoodyProject.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("AvgDeliveryTime")
-                        .HasMaxLength(60)
                         .HasColumnType("int");
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -229,10 +232,11 @@ namespace FoodyProject.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Logo")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<float>("MinPrice")
-                        .HasMaxLength(60)
                         .HasColumnType("real");
 
                     b.Property<string>("Name")
@@ -252,10 +256,13 @@ namespace FoodyProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")
+                        .HasMaxLength(60)
                         .HasColumnType("bit");
 
                     b.Property<string>("Street")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<DateTime>("WorkingHours")
                         .HasColumnType("datetime2");
