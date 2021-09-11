@@ -8,16 +8,26 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-   public class Order
+    public class Order
     {
         [Key]
-        public int  OrderId { get; set; }
+        public int OrderId { get; set; }
         public int CustomerId { get; set; }
+
         public string OrderStatus { get; set; }
         public DateTime OrderedTime { get; set; }
         public DateTime DelieveredTime { get; set; }
+
+
+        [Required(ErrorMessage = "Order description is a required field")]
+        [MaxLength(100, ErrorMessage = "Maximum length for the Order description is 100 characters.")]
         public string TypeOfPayment { get; set; }
+
+
+        [Required(ErrorMessage = "Order description is a required field")]
+        [MaxLength(150, ErrorMessage = "Maximum length for the Order description is 150 characters.")]
         public string OrderDescription { get; set; }
+
         public bool IsDelivered { get; set; }
 
         public int RestaurantId { get; set; }
