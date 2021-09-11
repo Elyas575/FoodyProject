@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodyProject.Migrations
 {
-    public partial class duja2021 : Migration
+    public partial class KasemMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,11 +13,11 @@ namespace FoodyProject.Migrations
                 {
                     CustomerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -60,9 +60,10 @@ namespace FoodyProject.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Area = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
