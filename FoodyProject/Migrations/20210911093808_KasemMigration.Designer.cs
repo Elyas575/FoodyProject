@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodyProject.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20210911091641_duja2021")]
-    partial class duja2021
+    [Migration("20210911093808_KasemMigration")]
+    partial class KasemMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,9 @@ namespace FoodyProject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CategoryName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
@@ -168,7 +170,9 @@ namespace FoodyProject.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("OrderDescription")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("OrderStatus")
                         .HasColumnType("nvarchar(max)");
@@ -180,7 +184,9 @@ namespace FoodyProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TypeOfPayment")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("OrderId");
 

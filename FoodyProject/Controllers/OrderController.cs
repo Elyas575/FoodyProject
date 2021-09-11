@@ -132,6 +132,14 @@ namespace FoodyProject.Controllers
         [HttpPut("customers/{customerid}/{orderid}")]
         public async Task<IActionResult> UpdateOrderForCustomer(int customerid, int orderid, [FromBody]OrderForUpdateDto order)
         {
+
+
+            if (!ModelState.IsValid)
+            {
+             
+                return UnprocessableEntity(ModelState);
+            }
+
             if (order == null)
             {
                 return BadRequest(" object is null");

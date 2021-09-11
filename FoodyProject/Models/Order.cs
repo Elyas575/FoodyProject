@@ -20,7 +20,7 @@ namespace Entities.Models
 
 
         [Required(ErrorMessage = "Order description is a required field")]
-        [MaxLength(100, ErrorMessage = "Maximum length for the Order description is 100 characters.")]
+        [MaxLength(40, ErrorMessage = "Maximum length for the Order payment is 40 characters.")]
         public string TypeOfPayment { get; set; }
 
 
