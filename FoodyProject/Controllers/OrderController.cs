@@ -83,6 +83,14 @@ namespace FoodyProject.Controllers
         [HttpPost("restaurant/{restaurantId}/customers/{customerId}")]
         public async  Task<IActionResult> CreateOrder(int customerId, int restaurantId, [FromBody] OrderForCreationDto order)
         {
+
+
+            if (!ModelState.IsValid)
+            {
+   
+                return UnprocessableEntity(ModelState);
+            }
+
             if (order == null)
             {
                 return BadRequest("OrderForCreationDto object is null");

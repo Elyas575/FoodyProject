@@ -37,6 +37,11 @@ namespace FoodyProject
             services.AddAutoMapper(typeof(Startup));
             services.ConfigureSwagger();
             services.AddControllers();
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
             /*services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FoodyProject", Version = "v1" });

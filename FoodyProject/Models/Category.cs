@@ -12,6 +12,8 @@ namespace Entities.Models
     {
        [Key]
         public int CategoryId { get; set; }
+        [Required(ErrorMessage = "Order description is a required field")]
+        [MaxLength(50, ErrorMessage = "Maximum length for the Order description is 50 characters.")]
         public string CategoryName { get; set; }
         public int RestaurantId { get; set; }
 
