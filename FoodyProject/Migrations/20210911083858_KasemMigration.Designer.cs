@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodyProject.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20210909140535_KasemMigration")]
+    [Migration("20210911083858_KasemMigration")]
     partial class KasemMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,7 +29,12 @@ namespace FoodyProject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CategoryName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
 
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
@@ -119,7 +124,8 @@ namespace FoodyProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<bool>("IsAvailabe")
                         .HasColumnType("bit");
@@ -128,10 +134,13 @@ namespace FoodyProject.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("MealOptions")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
@@ -176,12 +185,17 @@ namespace FoodyProject.Migrations
                     b.Property<DateTime>("OrderedTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("int");
+
                     b.Property<string>("TypeOfPayment")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("RestaurantId");
 
                     b.ToTable("Orders");
                 });
@@ -320,7 +334,15 @@ namespace FoodyProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Entities.Models.Restaurant", "Restaurants")
+                        .WithMany("Orders")
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Customer");
+
+                    b.Navigation("Restaurants");
                 });
 
             modelBuilder.Entity("Entities.Models.RestaurantContact", b =>
@@ -354,6 +376,8 @@ namespace FoodyProject.Migrations
             modelBuilder.Entity("Entities.Models.Restaurant", b =>
                 {
                     b.Navigation("Categories");
+
+                    b.Navigation("Orders");
 
                     b.Navigation("RestaurantContacts");
                 });

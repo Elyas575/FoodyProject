@@ -76,6 +76,27 @@ namespace FoodyProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false),
+                    IsDelete = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                    table.ForeignKey(
+                        name: "FK_Categories_Resturants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Resturants",
+                        principalColumn: "RestaurantId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -87,7 +108,8 @@ namespace FoodyProject.Migrations
                     DelieveredTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TypeOfPayment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrderDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDelivered = table.Column<bool>(type: "bit", nullable: false)
+                    IsDelivered = table.Column<bool>(type: "bit", nullable: false),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,22 +120,8 @@ namespace FoodyProject.Migrations
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RestaurantId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
                     table.ForeignKey(
-                        name: "FK_Categories_Resturants_RestaurantId",
+                        name: "FK_Orders_Resturants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Resturants",
                         principalColumn: "RestaurantId",
@@ -147,9 +155,9 @@ namespace FoodyProject.Migrations
                     MealId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MealOptions = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    MealOptions = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Price = table.Column<float>(type: "real", nullable: false),
                     Picture = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDelete = table.Column<bool>(type: "bit", nullable: false),
@@ -199,6 +207,11 @@ namespace FoodyProject.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_RestaurantId",
+                table: "Orders",
+                column: "RestaurantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RestaurantContacts_RestaurantId",
                 table: "RestaurantContacts",
                 column: "RestaurantId");
@@ -222,10 +235,10 @@ namespace FoodyProject.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Resturants");
+                name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Resturants");
         }
     }
 }
