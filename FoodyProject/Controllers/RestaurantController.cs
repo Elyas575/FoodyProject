@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace FoodyProject.Controllers
 {
     [Route("api/restaurant")]
-    [ApiController]
+   // [ApiController]
     public class RestuarantController : ControllerBase
     {
         private readonly IRepositoryManager _repository;
@@ -85,6 +85,10 @@ namespace FoodyProject.Controllers
             {
                 return BadRequest("RestaurantForCreationDto object is null");
             }
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
 
             var restaurantEntity = _mapper.Map<Restaurant>(restaurant);
             _repository.Restaurant.CreateRestaurant(restaurantEntity);
@@ -102,11 +106,17 @@ namespace FoodyProject.Controllers
             {
                 return BadRequest("CompanyForUpdateDto object is null");
             }
+           
             var restaurantEntity = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: true);
             if (restaurantEntity == null)
             {
                 return NotFound();
             }
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
             _mapper.Map(restaurant, restaurantEntity);
             await _repository.SaveAsync();
             return NoContent();
@@ -183,6 +193,12 @@ namespace FoodyProject.Controllers
                 return BadRequest("RestaurantContactForCreationDto object is null");
             }
 
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
+
             var restaurant = await  _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
             {
@@ -200,13 +216,18 @@ namespace FoodyProject.Controllers
 
         //update restaurant contact 
         [HttpPut("{restaurantId}/contacts/{restaurantContactId}")]
-        public async   Task <IActionResult> UpdateRestaurantContact(int restaurantId, int restaurantContactId, [FromBody]
+        public async Task <IActionResult> UpdateRestaurantContact(int restaurantId, int restaurantContactId, [FromBody]
         RestaurantContactForUpdateDto restaurantcontact)
         {
             if (restaurantcontact == null)
             {
                 return BadRequest("object is null");
             }
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
 
             var restaurant =await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
