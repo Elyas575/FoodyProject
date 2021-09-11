@@ -95,6 +95,11 @@ namespace FoodyProject.Controllers
                 return BadRequest("CategoryForCreationDto object is null");
             }
 
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
             {
@@ -115,13 +120,20 @@ namespace FoodyProject.Controllers
         {
             if (category == null)
             {
-                return BadRequest("CompanyForUpdateDto object is null");
+                return BadRequest("CategoryForUpdateDto object is null");
             }
+
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
             var categoryEntity = await _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: true);
             if (categoryEntity == null)
             {
                 return NotFound();
             }
+
             _mapper.Map(category, categoryEntity);
             await _repository.SaveAsync();
             return NoContent();

@@ -13,11 +13,11 @@ namespace FoodyProject.Migrations
                 {
                     CustomerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -60,10 +60,9 @@ namespace FoodyProject.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Area = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,9 +81,14 @@ namespace FoodyProject.Migrations
                 {
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+<<<<<<< HEAD:FoodyProject/Migrations/20210911093808_KasemMigration.cs
+                    CategoryName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false)
+=======
                     CategoryName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     RestaurantId = table.Column<int>(type: "int", nullable: false),
                     IsDelete = table.Column<bool>(type: "bit", nullable: false)
+>>>>>>> 1b55a317cadfcf793c3bd22fd10304d43c7d7148:FoodyProject/Migrations/20210911091641_duja2021.cs
                 },
                 constraints: table =>
                 {
@@ -107,8 +111,8 @@ namespace FoodyProject.Migrations
                     OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrderedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DelieveredTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TypeOfPayment = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrderDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TypeOfPayment = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    OrderDescription = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     IsDelivered = table.Column<bool>(type: "bit", nullable: false),
                     RestaurantId = table.Column<int>(type: "int", nullable: false)
                 },

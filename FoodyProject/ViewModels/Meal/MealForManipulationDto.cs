@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace FoodyProject.ViewModels.Meal
 {
-    public class Meal
+    public abstract class MealForManipulationDto
     {
-        [Key]
-        public int MealId { get; set; }
-        public int CategoryId { get; set; }
-
         [Required(ErrorMessage = "Meal name is a required field.")]
         [MaxLength(30, ErrorMessage = "Max length for meal name is 30 characters.")]
         public string Name { get; set; }
@@ -28,10 +22,5 @@ namespace Entities.Models
         public float Price { get; set; }
 
         public string Picture { get; set; }
-        public bool IsDelete { get; set; }
-        public bool IsAvailabe { get; set; }
-
-        [ForeignKey(nameof(CategoryId))]
-        public Category Category { get; set; }
     }
 }
