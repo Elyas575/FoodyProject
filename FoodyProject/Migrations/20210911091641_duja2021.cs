@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodyProject.Migrations
 {
-    public partial class KasemMigration : Migration
+    public partial class duja2021 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,14 +35,14 @@ namespace FoodyProject.Migrations
                     Email = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Logo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AvgDeliveryTime = table.Column<int>(type: "int", maxLength: 60, nullable: false),
-                    MinPrice = table.Column<float>(type: "real", maxLength: 60, nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Logo = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    AvgDeliveryTime = table.Column<int>(type: "int", nullable: false),
+                    MinPrice = table.Column<float>(type: "real", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    City = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    Street = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     WorkingHours = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    Status = table.Column<bool>(type: "bit", maxLength: 60, nullable: false),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDelete = table.Column<bool>(type: "bit", nullable: false),
                     Rate = table.Column<int>(type: "int", nullable: false)
@@ -76,31 +76,6 @@ namespace FoodyProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    OrderId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrderedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DelieveredTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TypeOfPayment = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrderDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDelivered = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.OrderId);
-                    table.ForeignKey(
-                        name: "FK_Orders_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -114,6 +89,38 @@ namespace FoodyProject.Migrations
                     table.PrimaryKey("PK_Categories", x => x.CategoryId);
                     table.ForeignKey(
                         name: "FK_Categories_Resturants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Resturants",
+                        principalColumn: "RestaurantId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DelieveredTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TypeOfPayment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDelivered = table.Column<bool>(type: "bit", nullable: false),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.ForeignKey(
+                        name: "FK_Orders_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Resturants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Resturants",
                         principalColumn: "RestaurantId",
@@ -199,6 +206,11 @@ namespace FoodyProject.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_RestaurantId",
+                table: "Orders",
+                column: "RestaurantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RestaurantContacts_RestaurantId",
                 table: "RestaurantContacts",
                 column: "RestaurantId");
@@ -222,10 +234,10 @@ namespace FoodyProject.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Resturants");
+                name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Resturants");
         }
     }
 }
