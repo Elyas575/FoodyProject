@@ -28,11 +28,16 @@ namespace FoodyProject.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
+<<<<<<< HEAD
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+=======
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
+>>>>>>> 1b55a317cadfcf793c3bd22fd10304d43c7d7148
 
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
@@ -175,7 +180,9 @@ namespace FoodyProject.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("OrderDescription")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("OrderStatus")
                         .HasColumnType("nvarchar(max)");
@@ -187,7 +194,9 @@ namespace FoodyProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TypeOfPayment")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("OrderId");
 

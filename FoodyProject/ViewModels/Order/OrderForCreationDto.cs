@@ -11,7 +11,7 @@ namespace Entities.DataTransferObjects
     {
 
         [Required(ErrorMessage = "Order description is a required field")]
-        [MaxLength(80, ErrorMessage = "Maximum length for the Order description is 80 characters.")]
+        [MaxLength(40, ErrorMessage = "Maximum length for the Order payment is 40 characters.")]
         public string TypeOfPayment { get; set; }
 
         [Required(ErrorMessage = "Order description is a required field")]
