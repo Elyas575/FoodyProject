@@ -27,11 +27,14 @@ namespace Repository
 
         /*  getting a single order for resturant */
         /* fix this u should get all orders for one resturant */
-        public async Task<IEnumerable<Order>> GetAllOrdersAsync(bool trackChanges) =>
+        public async Task<IEnumerable<Order>> GetAllOrdersAsync(bool trackChanges,OrderParameters orderParameters) =>
         await FindAll(trackChanges)
-         .OrderBy(c => c.OrderId)
+        .OrderBy(e => e.OrderId)
+        .Skip((orderParameters.PageNumber - 1) * orderParameters.PageSize)
+         .Take(orderParameters.PageSize)
          .ToListAsync();
-    
+
+
         /* fix this u should get all orders for one resturant */
         public void CreateOrder(int customerId, int restaurantId, Order order)
         {
