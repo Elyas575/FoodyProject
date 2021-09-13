@@ -11,9 +11,7 @@ namespace Entities.DataTransferObjects
     {
         public int OrderId { get; set; }
         public int MealId { get; set; }
-         
         public int CustomerId { get; set; }
-
         public string OrderStatus { get; set; }
         public DateTime OrderedTime { get; set; }
         public DateTime DelieveredTime { get; set; }
@@ -29,7 +27,6 @@ namespace Entities.DataTransferObjects
         [MaxLength(100, ErrorMessage = "Maximum length for the Order description is 100 characters.")]
         public string TypeOfPayment { get; set; }
         public bool IsDelivered { get; set; }
-
         public int RestaurantId { get; set; }
     }
 }
