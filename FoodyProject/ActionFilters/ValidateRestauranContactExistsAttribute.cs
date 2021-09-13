@@ -23,8 +23,8 @@ namespace FoodyProject.ActionFilters
 
 
                 var method = context.HttpContext.Request.Method;
-                var trackChanges = (method.Equals("PUT"));
-               
+                var trackChanges = (method.Equals("PUT") || method.Equals("PATCH")) ? true : false;
+
                 var restaurantId = (int)context.ActionArguments["restaurantId"];
                 var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, false);
                 if (restaurant == null)
@@ -34,17 +34,17 @@ namespace FoodyProject.ActionFilters
                     context.Result = new NotFoundResult();
                     return;
                 }
-                var restaurantContactId = (int)context.ActionArguments["restaurantContactId"];
-                var restaurantContact = await _repository.RestaurantContact.GetRestaurantContactAsync(restaurantId, restaurantContactId,
+                var restaurantContactId = (int)context.ActionArguments["restaurantcontactId"];
+                var restaurantcontact = await _repository.RestaurantContact.GetRestaurantContactAsync(restaurantId, restaurantContactId,
                trackChanges);
-                if (restaurantContact == null)
+                if (restaurantcontact == null)
                 {
 
                     context.Result = new NotFoundResult();
                 }
                 else
                 {
-                    context.HttpContext.Items.Add("restaurantContact", restaurantContact);
+                    context.HttpContext.Items.Add("restaurantcontact", restaurantcontact);
                     await next();
                 }
             }

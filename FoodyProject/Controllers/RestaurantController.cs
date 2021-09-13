@@ -223,31 +223,20 @@ namespace FoodyProject.Controllers
         [ServiceFilter(typeof(ValidateRestaurantContactExistsAttribute))]
 
 
-        public async Task <IActionResult> UpdateRestaurantContact(int restaurantId, int restaurantContactId, [FromBody]
+        public async Task<IActionResult> UpdateRestaurantContact(int restaurantId, int restaurantContactId, [FromBody]
         RestaurantContactForUpdateDto restaurantcontact)
         {
-            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: true);
 
 
-            if (restaurant == null)
-            {
-                return NotFound();
-            }
-
-
-            var restaurantcontactEntity = HttpContext.Items["restaurantcontact"] as RestaurantContact;
-          /*  if (restaurantcontactEntity == null)
-            {
-                return NotFound();
-            } */
-
-
-
+            var restaurantcontactEntity = HttpContext.Items["category"] as Category;
             _mapper.Map(restaurantcontact, restaurantcontactEntity);
             await _repository.SaveAsync();
-            return NoContent();
-        }
 
+            return NoContent();
+
+
+
+        }
         // delete restaurant contact 
         [HttpDelete("{restaurantId}/contacts/{RestaurantContactId}")]
         [ServiceFilter(typeof(ValidateRestaurantContactExistsAttribute))]
