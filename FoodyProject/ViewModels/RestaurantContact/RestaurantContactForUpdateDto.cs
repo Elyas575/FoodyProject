@@ -13,6 +13,6 @@ namespace Entities.DataTransferObjects
         [Required(ErrorMessage = "PhoneNumber is a required field.")]
         [MaxLength(60, ErrorMessage = "Maximum length for the PhoneNumber is 60 characters.")]
         [Phone]
-        public int PhoneNumber { get; set; }
+        public string  PhoneNumber { get; set; }
     }
 }
