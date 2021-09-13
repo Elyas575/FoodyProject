@@ -46,6 +46,11 @@ namespace FoodyProject.Controllers
                 return BadRequest("CompanyForCreationDto object is null");
             }
 
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
             var customerEntity = _mapper.Map<Customer>(customer);
             _repository.Customer.CreateCustomer(customerEntity);
 
@@ -61,6 +66,11 @@ namespace FoodyProject.Controllers
             if (customer == null)
             {
                 return BadRequest("Object is null");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
             }
 
             var customerEntity = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: true);
@@ -143,6 +153,11 @@ namespace FoodyProject.Controllers
                 return BadRequest("CustomerContactForCreationDto object is null");
             }
 
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
             {
@@ -164,6 +179,11 @@ namespace FoodyProject.Controllers
             if (customerContact == null)
             {
                 return BadRequest("Object is null");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
             }
 
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
