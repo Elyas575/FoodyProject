@@ -25,9 +25,9 @@ namespace FoodyProject.Controllers
         [HttpGet]
 
         /*  this should be get all orders for one restaurant*/
-        public async Task<IActionResult>  GetAllOrdersAsync()
+        public async Task<IActionResult>  GetAllOrdersAsync([FromQuery] OrderParameters orderParameters)
         {
-            var orders =await _repository.Order.GetAllOrdersAsync(trackChanges: false);
+            var orders =await _repository.Order.GetAllOrdersAsync(trackChanges: false, orderParameters);
             return Ok(orders);
         }
 
@@ -75,8 +75,7 @@ namespace FoodyProject.Controllers
                 return NotFound();
             }
 
-            var orderfromdb = await _repository.Order.GetOrdersForRestaurantAsync(ResturantId,
-                orderParameters, trackChanges: false);
+            var orderfromdb = await _repository.Order.GetOrdersForRestaurantAsync(ResturantId, orderParameters, trackChanges: false);
             var orderdto = _mapper.Map<IEnumerable<OrderDto>>(orderfromdb);
             return Ok(orderdto);
 

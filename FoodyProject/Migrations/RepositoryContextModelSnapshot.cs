@@ -4,26 +4,14 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FoodyProject.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-<<<<<<< HEAD:FoodyProject/Migrations/20210911102436_KasemMigration.Designer.cs
-    [Migration("20210911102436_KasemMigration")]
-    partial class KasemMigration
-=======
-<<<<<<< HEAD:FoodyProject/Migrations/20210911083858_KasemMigration.Designer.cs
-    [Migration("20210911083858_KasemMigration")]
-    partial class KasemMigration
-=======
-    [Migration("20210911091641_duja2021")]
-    partial class duja2021
->>>>>>> 5eab05e46d7336c75ee839978d327a1c8c81f998:FoodyProject/Migrations/20210911091641_duja2021.Designer.cs
->>>>>>> fa13be292d448489680218e8f90f4f1299d4fc82:FoodyProject/Migrations/20210911083858_KasemMigration.Designer.cs
+    partial class RepositoryContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,7 +182,9 @@ namespace FoodyProject.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("OrderDescription")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("OrderStatus")
                         .HasColumnType("nvarchar(max)");
@@ -206,7 +196,9 @@ namespace FoodyProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TypeOfPayment")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.HasKey("OrderId");
 
