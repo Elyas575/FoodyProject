@@ -15,16 +15,7 @@ namespace Entities.DataTransferObjects
         public string OrderStatus { get; set; }
         public DateTime OrderedTime { get; set; }
         public DateTime DelieveredTime { get; set; }
-
-    
-
-
-        [Required(ErrorMessage = "Order description is a required field")]
-        [MaxLength(150, ErrorMessage = "Maximum length for the Order description is 150 characters.")]
         public string OrderDescription { get; set; }
-
-        [Required(ErrorMessage = "Order description is a required field")]
-        [MaxLength(100, ErrorMessage = "Maximum length for the Order description is 100 characters.")]
         public string TypeOfPayment { get; set; }
         public bool IsDelivered { get; set; }
         public int RestaurantId { get; set; }
