@@ -3,6 +3,7 @@ using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
+using FoodyProject.ActionFilters;
 using FoodyProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -81,19 +82,12 @@ namespace FoodyProject.Controllers
 
    
         }
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
 
         [HttpPost("restaurant/{restaurantId}/customers/{customerId}")]
         public async  Task<IActionResult> CreateOrder(int customerId, int restaurantId, [FromBody] OrderForCreationDto order)
         {
-            if (!ModelState.IsValid)
-            {
-                return UnprocessableEntity(ModelState);
-            }
-
-            if (order == null)
-            {
-                return BadRequest("OrderForCreationDto object is null");
-            }
+          
 
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -126,22 +120,13 @@ namespace FoodyProject.Controllers
 
             return NoContent();
         }
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
 
         [HttpPut("customers/{customerid}/{orderid}")]
         public async Task<IActionResult> UpdateOrderForCustomer(int customerid, int orderid, [FromBody]OrderForUpdateDto order)
         {
 
 
-            if (!ModelState.IsValid)
-            {
-             
-                return UnprocessableEntity(ModelState);
-            }
-
-            if (order == null)
-            {
-                return BadRequest(" object is null");
-            }
 
             var customer = await _repository.Customer.GetCustomerAsync(customerid, trackChanges: false);
             if (customer == null)
