@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodyProject.Migrations
 {
-    public partial class duja23 : Migration
+    public partial class kasemmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

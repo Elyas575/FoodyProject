@@ -23,8 +23,7 @@ namespace FoodyProject.Services
 
 
             var method = context.HttpContext.Request.Method;
-            var trackChanges = (method.Equals("PUT") || method.Equals("PATCH")) ? true :
-           false;
+            var trackChanges = (method.Equals("PUT"));
             var restaurantid = (int)context.ActionArguments["restaurantid"];
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantid, false);
             if (restaurant == null)

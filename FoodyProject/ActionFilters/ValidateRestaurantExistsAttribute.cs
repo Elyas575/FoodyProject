@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace FoodyProject.ActionFilters
 {
-    public class ValidateCompanyExistsAttribute : IAsyncActionFilter
+    public class ValidateRestaurantExistsAttribute : IAsyncActionFilter
     {
         private readonly IRepositoryManager _repository;
-        public ValidateCompanyExistsAttribute(IRepositoryManager repository)
+        public ValidateRestaurantExistsAttribute(IRepositoryManager repository)
         {
             _repository = repository;
         }

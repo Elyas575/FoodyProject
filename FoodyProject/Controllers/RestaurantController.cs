@@ -102,18 +102,18 @@ namespace FoodyProject.Controllers
 
         // update restaurant
         [HttpPut("{restaurantId}")]
-        [ServiceFilter(typeof(ValidateCompanyExistsAttribute))]
-
         [ServiceFilter(typeof(ValidationFilterAttribute))]
 
         public async Task<IActionResult> UpdateRestaurant(int restaurantId, [FromBody] RestaurantForUpdateDto restaurant)
         {
+
+            var restaurantEntity = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: true);
+
             if (restaurant == null)
             {
-                return BadRequest("CompanyForUpdateDto object is null");
+                return BadRequest("RestaurantDto object is null");
             }
 
-            var restaurantEntity = HttpContext.Items["company"] as Restaurant;
             if (restaurantEntity == null)
             {
                 return NotFound();
@@ -126,7 +126,7 @@ namespace FoodyProject.Controllers
 
         //delete restaurant 
         [HttpDelete("{restaurantId}")]
-        [ServiceFilter(typeof(ValidateCompanyExistsAttribute))]
+        [ServiceFilter(typeof(ValidateRestaurantExistsAttribute))]
 
         public async Task<IActionResult> DeleteRestaurant(int restaurantId)
         {
@@ -231,8 +231,9 @@ namespace FoodyProject.Controllers
                 return BadRequest("object is null");
             }
 
-            var restauranrcontactEntity = HttpContext.Items["restauranrcontact"] as RestaurantContact;
-            if (restauranrcontactEntity == null)
+            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId,  trackChanges: true);
+
+            if (restaurant == null)
             {
             return NotFound();
             }
