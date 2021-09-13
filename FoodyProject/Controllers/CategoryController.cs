@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Entities.Models;
+using FoodyProject.ActionFilters;
 
 namespace FoodyProject.Controllers
 {
@@ -88,18 +89,9 @@ namespace FoodyProject.Controllers
         }
 
         [HttpPost("{restaurantId}/category")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateCategory(int restaurantId, [FromBody] CategoryForCreationDto category)
         {
-            if (category == null)
-            {
-                return BadRequest("CategoryForCreationDto object is null");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return UnprocessableEntity(ModelState);
-            }
-
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
             {
@@ -107,54 +99,34 @@ namespace FoodyProject.Controllers
             }
 
             var categoryEntity = _mapper.Map<Category>(category);
+            
             _repository.Category.CreateCategory(restaurantId, categoryEntity);
-
             await _repository.SaveAsync();
+
             var categoryToReturn = _mapper.Map<CategoryDto>(categoryEntity);
 
             return Ok(categoryToReturn);
         }
 
         [HttpPut("{restaurantId}/category/{categoryId}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ServiceFilter(typeof(ValidateCategoryForRestaurantExistsAttribute))]
         public async Task<IActionResult> UpdateCategory(int restaurantId, int categoryId,  [FromBody] CategoryForUpdateDto category)
         {
-            if (category == null)
-            {
-                return BadRequest("CategoryForUpdateDto object is null");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return UnprocessableEntity(ModelState);
-            }
-
-            var categoryEntity = await _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: true);
-            if (categoryEntity == null)
-            {
-                return NotFound();
-            }
-
+            var categoryEntity = HttpContext.Items["category"] as Category;
             _mapper.Map(category, categoryEntity);
             await _repository.SaveAsync();
+
             return NoContent();
         }
 
         [HttpDelete("{restaurantId}/category/{categoryId}")]
+        [ServiceFilter(typeof(ValidateCategoryForRestaurantExistsAttribute))]
         public async Task<IActionResult> DeleteCategory(int restaurantId, int categoryId)
         {
-            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
-            if (restaurant == null)
-            {
-                return NotFound();
-            }
+            var categoryForRestaurant = HttpContext.Items["category"] as Category;
 
-            var categoryDb = await _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: false);
-            if (categoryDb == null)
-            {
-                return NotFound();
-            }
-
-            _repository.Category.DeleteCategory(categoryDb);
+            _repository.Category.DeleteCategory(categoryForRestaurant);
             await _repository.SaveAsync();
 
             return NoContent();

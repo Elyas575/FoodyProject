@@ -50,6 +50,7 @@ namespace FoodyProject
             });
             services.AddScoped<ValidationFilterAttribute>();
             services.AddScoped<ValidateRestaurantContactExistsAttribute>();
+            services.AddScoped<ValidateCategoryForRestaurantExistsAttribute>();
 
 
 
