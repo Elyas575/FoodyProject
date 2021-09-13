@@ -1,4 +1,5 @@
 
+using FoodyProject.ActionFilters;
 using FoodyProject.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,6 +47,8 @@ namespace FoodyProject
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+            services.AddScoped<ValidationFilterAttribute>();
+
 
             /*services.AddSwaggerGen(c =>
             {

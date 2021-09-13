@@ -2,6 +2,7 @@
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
+using FoodyProject.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -79,6 +80,8 @@ namespace FoodyProject.Controllers
 
         //create a restaurant 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+
         public async Task<IActionResult>  CreateRestaurant([FromBody] RestaurantForCreationDto restaurant)
         {
             if (restaurant == null)
@@ -86,10 +89,7 @@ namespace FoodyProject.Controllers
                 return BadRequest("RestaurantForCreationDto object is null");
             }
             
-            if (!ModelState.IsValid)
-            {
-                return UnprocessableEntity(ModelState);
-            }
+           
 
             var restaurantEntity = _mapper.Map<Restaurant>(restaurant);
             _repository.Restaurant.CreateRestaurant(restaurantEntity);
@@ -101,6 +101,8 @@ namespace FoodyProject.Controllers
 
         // update restaurant
         [HttpPut("{restaurantId}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+
         public async Task<IActionResult> UpdateRestaurant(int restaurantId, [FromBody] RestaurantForUpdateDto restaurant)
         {
             if (restaurant == null)
@@ -112,11 +114,6 @@ namespace FoodyProject.Controllers
             if (restaurantEntity == null)
             {
                 return NotFound();
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return UnprocessableEntity(ModelState);
             }
 
             _mapper.Map(restaurant, restaurantEntity);
@@ -186,6 +183,8 @@ namespace FoodyProject.Controllers
 
         // create restaurant contact 
         [HttpPost("{restaurantId}/RestaurantContact")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+
         public async Task <IActionResult> CreateRestaurantContact(int restaurantId, [FromBody] RestaurantContactForCreationDto restaurantcontact)
         {
         /*resturatn = company 
@@ -195,10 +194,7 @@ namespace FoodyProject.Controllers
                 return BadRequest("RestaurantContactForCreationDto object is null");
             }
 
-            if (!ModelState.IsValid)
-            {
-                return UnprocessableEntity(ModelState);
-            }
+          
 
             var restaurant = await  _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -217,17 +213,14 @@ namespace FoodyProject.Controllers
 
         //update restaurant contact 
         [HttpPut("{restaurantId}/contacts/{restaurantContactId}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+
         public async Task <IActionResult> UpdateRestaurantContact(int restaurantId, int restaurantContactId, [FromBody]
         RestaurantContactForUpdateDto restaurantcontact)
         {
             if (restaurantcontact == null)
             {
                 return BadRequest("object is null");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return UnprocessableEntity(ModelState);
             }
 
             var restaurant =await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
