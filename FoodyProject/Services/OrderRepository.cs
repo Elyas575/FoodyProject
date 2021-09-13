@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Contracts;
 using Entities;
 using Entities.Models;
+using FoodyProject.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository
@@ -44,12 +45,16 @@ namespace Repository
             Delete(order);
         }
 
-        public async Task<IEnumerable<Order>>GetOrdersForRestaurantAsync(int restaurantid, bool trackChanges) =>
-            await FindByCondition(e => e.RestaurantId.Equals(restaurantid), trackChanges)
-            .OrderBy(e => e.OrderId)
-            .ToListAsync();
+        public async Task<IEnumerable<Order>> GetOrdersForRestaurantAsync(int restaurantid, OrderParameters orderParameters, bool trackChanges) =>
+         
+
+        await FindByCondition(e => e.RestaurantId.Equals(restaurantid), trackChanges)
+ .OrderBy(e => e.OrderId)
+ .Skip((orderParameters.PageNumber - 1) * orderParameters.PageSize)
+ .Take(orderParameters.PageSize)
+ .ToListAsync();
 
 
-
+     
     }
 }
