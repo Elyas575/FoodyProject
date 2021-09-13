@@ -104,7 +104,6 @@ namespace FoodyProject.Controllers
         [HttpPut("{restaurantId}")]
         [ServiceFilter(typeof(ValidateCompanyExistsAttribute))]
 
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
 
         public async Task<IActionResult> UpdateRestaurant(int restaurantId, [FromBody] RestaurantForUpdateDto restaurant)
         {

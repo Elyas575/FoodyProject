@@ -29,7 +29,7 @@ namespace Entities.DataTransferObjects
 
 
         [Required(ErrorMessage = "Resturant Logo is a required field.")]
-        [MaxLength(60, ErrorMessage = "Maximum length for the Logo is 60 characters")]
+        [MaxLength(500, ErrorMessage = "Maximum length for the Logo is 500 characters")]
         public string Logo { get; set; }
 
 
@@ -38,7 +38,7 @@ namespace Entities.DataTransferObjects
 
 
 
-        [Required(ErrorMessage = "Resturant MinPrice is a required field.")]
+        [Range(0.1, float.MaxValue, ErrorMessage = "Price is required and it can't be lower than 0.1")]
 
         public float MinPrice { get; set; }
 
