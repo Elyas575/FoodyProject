@@ -10,18 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodyProject.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-<<<<<<< HEAD:FoodyProject/Migrations/20210911093808_KasemMigration.Designer.cs
-    [Migration("20210911093808_KasemMigration")]
-    partial class KasemMigration
-=======
-<<<<<<< HEAD:FoodyProject/Migrations/20210911083858_KasemMigration.Designer.cs
-    [Migration("20210911083858_KasemMigration")]
-    partial class KasemMigration
-=======
-    [Migration("20210911091641_duja2021")]
-    partial class duja2021
->>>>>>> 5eab05e46d7336c75ee839978d327a1c8c81f998:FoodyProject/Migrations/20210911091641_duja2021.Designer.cs
->>>>>>> 1b55a317cadfcf793c3bd22fd10304d43c7d7148:FoodyProject/Migrations/20210911091641_duja2021.Designer.cs
+    [Migration("20210913060654_duja20")]
+    partial class duja20
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,16 +30,11 @@ namespace FoodyProject.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-<<<<<<< HEAD:FoodyProject/Migrations/20210911093808_KasemMigration.Designer.cs
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-=======
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
->>>>>>> 1b55a317cadfcf793c3bd22fd10304d43c7d7148:FoodyProject/Migrations/20210911091641_duja2021.Designer.cs
 
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
@@ -70,28 +55,28 @@ namespace FoodyProject.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CustomerId");
@@ -106,13 +91,12 @@ namespace FoodyProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Area")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CustomerAddress")
@@ -120,6 +104,14 @@ namespace FoodyProject.Migrations
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CustomerContactId");
 
@@ -207,8 +199,8 @@ namespace FoodyProject.Migrations
 
                     b.Property<string>("TypeOfPayment")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.HasKey("OrderId");
 
