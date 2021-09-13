@@ -1,6 +1,7 @@
 
 using FoodyProject.ActionFilters;
 using FoodyProject.Extensions;
+using FoodyProject.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -48,6 +49,8 @@ namespace FoodyProject
                 options.SuppressModelStateInvalidFilter = true;
             });
             services.AddScoped<ValidationFilterAttribute>();
+            services.AddScoped<ValidateRestaurantContactExistsAttribute>();
+
 
 
             /*services.AddSwaggerGen(c =>
