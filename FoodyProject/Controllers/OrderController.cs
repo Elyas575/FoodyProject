@@ -3,6 +3,7 @@ using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
+using FoodyProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -68,16 +69,20 @@ namespace FoodyProject.Controllers
             }
         }
         [HttpGet("OrderByRestaurantId/{ResturantId}")]
-        public async Task<IActionResult> GetOrdersForRestaurant(int ResturantId)
+        public async Task<IActionResult> GetOrdersForRestaurant(int ResturantId, [FromQuery] OrderParameters orderParameters)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(ResturantId, trackChanges: false);
             if (restaurant == null)
             {
                 return NotFound();
             }
+
             var orderfromdb = await _repository.Order.GetOrdersForRestaurantAsync(ResturantId,
-            trackChanges: false);
-            return Ok(orderfromdb);
+                orderParameters, trackChanges: false);
+            var orderdto = _mapper.Map<IEnumerable<OrderDto>>(orderfromdb);
+            return Ok(orderdto);
+
+   
         }
 
         [HttpPost("restaurant/{restaurantId}/customers/{customerId}")]

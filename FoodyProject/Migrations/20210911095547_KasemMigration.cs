@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodyProject.Migrations
 {
-    public partial class duja2021 : Migration
+    public partial class KasemMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -106,8 +106,8 @@ namespace FoodyProject.Migrations
                     OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrderedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DelieveredTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TypeOfPayment = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrderDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TypeOfPayment = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    OrderDescription = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     IsDelivered = table.Column<bool>(type: "bit", nullable: false),
                     RestaurantId = table.Column<int>(type: "int", nullable: false)
                 },
