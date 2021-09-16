@@ -18,11 +18,9 @@ namespace FoodyProject.ActionFilters
             .SingleOrDefault(x => x.Value.ToString().Contains("Dto")).Value;
             if (param == null)
             {
-
                 context.Result = new BadRequestObjectResult($"Object is null. Controller: { controller }, action: { action}  ");
                 return;
             }
-
             if (!context.ModelState.IsValid)
             {
                 context.Result = new UnprocessableEntityObjectResult(context.ModelState);

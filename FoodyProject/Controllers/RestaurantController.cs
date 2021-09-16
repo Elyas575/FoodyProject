@@ -3,6 +3,7 @@ using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
 using FoodyProject.ActionFilters;
+using FoodyProject.Models;
 using FoodyProject.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -139,14 +140,14 @@ namespace FoodyProject.Controllers
 
         //Get all restaurant contacts 
         [HttpGet("contacts")]
-        public async Task<IActionResult> GetAllRestaurantsContactsAsync()
+        public async Task<IActionResult> GetAllRestaurantsContactsAsync([FromQuery] RestaurantContactParameters restaurantcontactParameters)
         {
-            var company = await _repository.Restaurant.GetAllRestaurantAsync( trackChanges: false);
-            if (company == null)
+            var Restaurant = await _repository.Restaurant.GetAllRestaurantAsync( trackChanges: false);
+            if (Restaurant == null)
             {
                 return NotFound();
             }
-            var restaurantcontactFromDb = await _repository.RestaurantContact.GetAllRestaurantsContactsAsync( trackChanges: false);
+            var restaurantcontactFromDb = await _repository.RestaurantContact.GetAllRestaurantContactsAsync(trackChanges: false, restaurantcontactParameters);
             return Ok(restaurantcontactFromDb);
         }
 
