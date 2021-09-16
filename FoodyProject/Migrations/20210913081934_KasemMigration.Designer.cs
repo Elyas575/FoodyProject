@@ -10,7 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodyProject.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
+<<<<<<< HEAD:FoodyProject/Migrations/20210913081934_KasemMigration.Designer.cs
+    [Migration("20210913081934_KasemMigration")]
+=======
     [Migration("20210913102219_KasemMigration")]
+>>>>>>> 96813480d8ab59c057714e94008801da391d9b33:FoodyProject/Migrations/20210913102219_KasemMigration.Designer.cs
     partial class KasemMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

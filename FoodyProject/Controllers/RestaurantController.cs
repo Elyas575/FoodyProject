@@ -172,6 +172,8 @@ namespace FoodyProject.Controllers
         // Get a single restaurant contact
         [HttpGet("{restaurantId}/contacts/{restaurantContactId}", Name = "RestaurantContactById")]
         public async Task <IActionResult> GetRestaurantContactAsync(int restaurantId, int restaurantContactId)
+        
+        
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -221,8 +223,7 @@ namespace FoodyProject.Controllers
 
         //update restaurant contact 
         [HttpPut("{restaurantId}/contacts/{restaurantContactId}")]
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
-        [ServiceFilter(typeof(ValidateRestaurantContactExistsAttribute))]
+    
 
 
         public async Task<IActionResult> UpdateRestaurantContact(int restaurantId, int restaurantContactId, [FromBody]
