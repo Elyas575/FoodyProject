@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities;
 using Entities.Models;
+using FoodyProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Repositoy;
 using System;
@@ -17,11 +18,12 @@ namespace Repository
         : base(repositoryContext)
         {
         }
-
-        public async Task <IEnumerable<Restaurant>> GetAllRestaurantAsync(bool trackChanges) =>
-          await FindAll(trackChanges)
-           .OrderBy(c => c.Name)
-           .ToListAsync();
+        public async Task<IEnumerable<Restaurant>> GetAllRestaurantAsync(RestaurantParameters restaurantParameters, bool trackChanges) =>
+        await FindAll(trackChanges)
+        .OrderBy(e => e.Name)
+        .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
+        .Take(restaurantParameters.PageSize)
+        .ToListAsync();
 
         public async Task<Restaurant> GetRestaurantByCityAsync(string city, bool trackChanges) =>
         await FindByCondition(c => c.City.Equals(city), trackChanges)
@@ -31,11 +33,17 @@ namespace Repository
             await FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
              .SingleOrDefaultAsync();
 
-        public async Task<Restaurant> GetRestaurantByNameAsync(string name , bool trackChanges) =>
-        await FindByCondition(c => c.Name.Equals(name), trackChanges)
-        .SingleOrDefaultAsync();
+        public async Task<IEnumerable<Restaurant>> GetRestaurantByNameAsync(string name, RestaurantParameters restaurantParameters, bool trackChanges) =>
+        await FindAll(trackChanges)
+        .OrderBy(e => e.Name)
+        .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
+        .Take(restaurantParameters.PageSize)
+        .ToListAsync();
+
 
         //GetBestRestaurantAsync
+
+        public async Task<IEnumerable<Restaurant>> GetBestRestaurantAsync(RestaurantParameters restaurantParameters, bool trackChanges) =>
         public async Task<IEnumerable<Restaurant>> GetBestRestaurantAsync(bool trackChanges) =>
          await FindAll(trackChanges)
            .OrderBy(c => c.Rate)

@@ -44,13 +44,22 @@ namespace FoodyProject
             });
             
             services.AddControllers();
-            
+
+            services.Configure<ApiBehaviorOptions>(options => 
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
             services.AddScoped<ValidationFilterAttribute>();
             services.AddScoped<ValidateRestaurantExistsAttribute>();
             services.AddScoped<ValidateRestaurantContactForRestaurantExistsAttribute>();
             services.AddScoped<ValidateCategoryForRestaurantExistsAttribute>();
             services.AddScoped<ValidateMealForCategoryExistsAttribute>();
             
+     
+
+
+
+
             /*services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FoodyProject", Version = "v1" });
