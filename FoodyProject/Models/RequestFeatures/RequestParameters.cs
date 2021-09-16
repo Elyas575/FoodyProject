@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace FoodyProject.Models
 {
   public abstract class RequestParameters
@@ -24,5 +25,15 @@ namespace FoodyProject.Models
     }
     public class OrderParameters : RequestParameters
     {
+    }
+
+    public class RestaurantContactParameters :  RequestParameters
+    {
+
+    }
+
+    public class RestaurantParameters: RequestParameters
+    {
+
     }
 }

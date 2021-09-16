@@ -28,6 +28,7 @@ namespace FoodyProject.Controllers
         /*  this should be get all orders for one restaurant*/
         public async Task<IActionResult>  GetAllOrdersAsync([FromQuery] OrderParameters orderParameters)
         {
+
             var orders =await _repository.Order.GetAllOrdersAsync(trackChanges: false, orderParameters);
             return Ok(orders);
         }
