@@ -27,11 +27,12 @@ namespace FoodyProject.Controllers
         }
 
         // get all reataurants 
+        //
         [HttpGet]
-        public async Task<IActionResult> GetAllRestaurant()
+        public async Task<IActionResult> GetAllRestaurantAsync([FromQuery] RestaurantParameters restaurantParameters)
         {
-            var restaurants = await _repository.Restaurant.GetAllRestaurantAsync(trackChanges: false);
-            var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurants);
+            var restaurantFromDb = await _repository.Restaurant.GetAllRestaurantAsync( restaurantParameters, trackChanges: false);
+            var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurantFromDb);
             return Ok(restaurantDto);
         }
 
@@ -46,24 +47,28 @@ namespace FoodyProject.Controllers
 
         //get restaurant by name
         [HttpGet("name/{name}", Name = "name")]
-        public async Task<IActionResult> GetRestaurantByNameAsync(string name)
+        public async Task<IActionResult> GetRestaurantByNameAsync(string name, [FromQuery] RestaurantParameters restaurantParameters)
+
         {
-            var restaurant = await _repository.Restaurant.GetRestaurantByNameAsync(name, trackChanges: false);
-            if (restaurant == null)
+            var restaurantFromDb = await _repository.Restaurant.GetRestaurantByNameAsync(name, restaurantParameters, trackChanges: false);
+
+            if (restaurantFromDb == null)
             {
                 return NotFound();
             }
+            var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurantFromDb);
 
-            var restaurantDto = _mapper.Map<RestaurantDto>(restaurant);
             return Ok(restaurantDto);
         }
         
         //get restaurant by city 
         [HttpGet("city/{city}", Name = "city")]
-        public async Task<IActionResult> GetRestaurantByCityAsync(string city )
+        public async Task<IActionResult> GetRestaurantByCityAsync(string city, [FromQuery] RestaurantParameters restaurantParameters)
+
         {
-            var restaurant = await _repository.Restaurant.GetRestaurantByCityAsync(city, trackChanges : false);
-            var restaurantDto = _mapper.Map<RestaurantDto>(restaurant);
+            var restaurantFromDb = await _repository.Restaurant.GetRestaurantByCityAsync(city, restaurantParameters, trackChanges: false);
+
+            var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurantFromDb);
             return Ok(restaurantDto);
 
         }
@@ -71,12 +76,13 @@ namespace FoodyProject.Controllers
        
         //get the best restaurant 
         [HttpGet("best")]
-        public async Task<IActionResult> GetBestRestaurantAsync()
-        {
-            var restaurants = await _repository.Restaurant.GetBestRestaurantAsync(trackChanges: false);
-            var maxRate = restaurants.ToArray().Max();
+        public async Task<IActionResult> GetBestRestaurantAsync( [FromQuery] RestaurantParameters restaurantParameters)
 
-            var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(maxRate);
+        {
+            var restaurantFromDb = await _repository.Restaurant.GetBestRestaurantAsync( restaurantParameters, trackChanges: false);
+            var maxRate = restaurantFromDb.ToArray().Max();
+
+            var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurantFromDb);
             return Ok(restaurantDto);
         }
 
@@ -90,9 +96,7 @@ namespace FoodyProject.Controllers
             {
                 return BadRequest("RestaurantForCreationDto object is null");
             }
-            
-           
-
+              
             var restaurantEntity = _mapper.Map<Restaurant>(restaurant);
             _repository.Restaurant.CreateRestaurant(restaurantEntity);
             await _repository.SaveAsync();
@@ -140,13 +144,10 @@ namespace FoodyProject.Controllers
 
         //Get all restaurant contacts 
         [HttpGet("contacts")]
+
         public async Task<IActionResult> GetAllRestaurantsContactsAsync([FromQuery] RestaurantContactParameters restaurantcontactParameters)
         {
-            var Restaurant = await _repository.Restaurant.GetAllRestaurantAsync( trackChanges: false);
-            if (Restaurant == null)
-            {
-                return NotFound();
-            }
+          
             var restaurantcontactFromDb = await _repository.RestaurantContact.GetAllRestaurantContactsAsync(trackChanges: false, restaurantcontactParameters);
             return Ok(restaurantcontactFromDb);
         }
