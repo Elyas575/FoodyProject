@@ -28,7 +28,6 @@ namespace FoodyProject.ActionFilters
                 context.Result = new UnprocessableEntityObjectResult(context.ModelState);
             }
         }
-
         public void OnActionExecuted(ActionExecutedContext context) { }
     }
 }
