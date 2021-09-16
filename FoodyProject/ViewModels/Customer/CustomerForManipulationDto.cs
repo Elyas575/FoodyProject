@@ -12,23 +12,21 @@ namespace FoodyProject.ViewModels.Customer
         [MaxLength(30, ErrorMessage = "Maximum length for the Name is 30 characters.")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Address is a required field.")]
-        [MaxLength(40, ErrorMessage = "Maximum length for the Address is 40 characters.")]
-        public string Address { get; set; }
-
         [Required(ErrorMessage = "Email is a required field.")]
-        [MaxLength(30, ErrorMessage = "Maximum length for the Email is 30 characters.")]
+        [MaxLength(50, ErrorMessage = "Maximum length for the Email is 50 characters.")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password is required")]
-        [MinLength(8, ErrorMessage = "minimum length for password is 8 charchters ")]
+        [Required(ErrorMessage = "Password is a required field")]
+        [MinLength(8, ErrorMessage = "minimun length for password is 8 charchters ")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Phone]
-        [Required(ErrorMessage = "Phone number is required")]
+        [Required(ErrorMessage = "Phone number is a required field")]
+        [MaxLength(15, ErrorMessage = "Maximum length for the PhoneNumber is 15 characters.")]
         public string PhoneNumber { get; set; }
+
         public DateTime DateOfBirth { get; set; }
     }
 }

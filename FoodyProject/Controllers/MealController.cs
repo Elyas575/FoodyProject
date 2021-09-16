@@ -2,6 +2,7 @@
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
+using FoodyProject.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -54,14 +55,12 @@ namespace FoodyProject.Controllers
             }
 
             var category = await _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: false);
-
             if (category == null)
             {
                 return NotFound();
             }
 
             var MealDb = await _repository.Meal.GetMealAsync(restaurantId, categoryId, mealId, trackChanges: false);
-
             if (MealDb == null)
             {
                 return NotFound();
@@ -73,17 +72,13 @@ namespace FoodyProject.Controllers
         }
 
         [HttpPost("{restaurantId}/category/{categoryId}/meal")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateMealForCategory(int restaurantId, int categoryId, [FromBody] MealForCreationDto meal)
         {
 
             if (meal == null)
             {
                 return BadRequest("MealForCreationDto object is null");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return UnprocessableEntity(ModelState);
             }
 
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
@@ -100,70 +95,32 @@ namespace FoodyProject.Controllers
 
             var mealEntity = _mapper.Map<Meal>(meal);
             mealEntity.CategoryId = category.CategoryId;
+
             _repository.Meal.CreateMealForCategory(restaurantId, categoryId, mealEntity);
             await _repository.SaveAsync();
+
             var mealToReturn = _mapper.Map<MealDto>(mealEntity);
 
             return Ok(mealToReturn);
         }
 
         [HttpPut("customers/{restaurantid}/{categoryid}/{mealid}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ServiceFilter(typeof(ValidateMealForCategoryExistsAttribute))]
         public async Task<IActionResult> UpdateMealForCategory(int categoryid, int mealid, int restaurantid, [FromBody] MealForUpdateDto meal)
         {
-            if (meal == null)
-            {
-                return BadRequest("MealForUpdateDto object is null");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return UnprocessableEntity(ModelState);
-            }
-
-            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantid, trackChanges: true);
-            if (restaurant == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _repository.Category.GetCategoryAsync(restaurantid, categoryid,   trackChanges:true);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            
-            var mealentity = await _repository.Meal.GetMealAsync(mealid, categoryid, restaurantid, trackChanges: true);
-            if (mealentity == null)
-            {
-                return NotFound();
-            }
-            
+            var mealentity = HttpContext.Items["meal"] as Meal;
             _mapper.Map(meal, mealentity);
             await _repository.SaveAsync();
+            
             return NoContent();
         }
 
         [HttpDelete("{restaurantId}/category/{categoryId}/meal/{mealId}")]
+        [ServiceFilter(typeof(ValidateMealForCategoryExistsAttribute))]
         public async Task<IActionResult> DeleteMealAsync(int restaurantId, int categoryId, int mealId)
         {
-            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
-            if (restaurant == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: false);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            var mealDb = await _repository.Meal.GetMealAsync(restaurantId, categoryId, mealId, trackChanges: false);
-            if (mealDb == null)
-            {
-                return NotFound();
-            }
-
+            var mealDb = HttpContext.Items["meal"] as Meal;
             _repository.Meal.DeleteMeal(mealDb);
             await _repository.SaveAsync();
 

@@ -1,7 +1,6 @@
 
 using FoodyProject.ActionFilters;
 using FoodyProject.Extensions;
-using FoodyProject.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -38,23 +37,20 @@ namespace FoodyProject
             services.ConfigureRepositoryManager();
             services.AddAutoMapper(typeof(Startup));
             services.ConfigureSwagger();
+            
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+            
             services.AddControllers();
-
-            services.Configure<ApiBehaviorOptions>(options => 
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
+            
             services.AddScoped<ValidationFilterAttribute>();
-            services.AddScoped<ValidateRestaurantContactExistsAttribute>();
+            services.AddScoped<ValidateRestaurantExistsAttribute>();
+            services.AddScoped<ValidateRestaurantContactForRestaurantExistsAttribute>();
             services.AddScoped<ValidateCategoryForRestaurantExistsAttribute>();
-
-
-
-
+            services.AddScoped<ValidateMealForCategoryExistsAttribute>();
+            
             /*services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FoodyProject", Version = "v1" });

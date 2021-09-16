@@ -8,16 +8,20 @@ namespace FoodyProject.ViewModels.CustomerContact
 {
     public abstract class CustomerContactForManipulationDto
     {
-        [Required(ErrorMessage = "Country is a required field.")]
+        [Required(ErrorMessage = "Resturant country is a required field.")]
+        [MaxLength(50, ErrorMessage = "Maximum length for the Country is 50 characters")]
         public string Country { get; set; }
 
-        [Required(ErrorMessage = "City is a required field.")]
+        [Required(ErrorMessage = "Resturant country is a required field.")]
+        [MaxLength(50, ErrorMessage = "Maximum length for the Country is 50 characters")]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "Street is a required field.")]
+        [Required(ErrorMessage = "Resturant country is a required field.")]
+        [MaxLength(50, ErrorMessage = "Maximum length for the Country is 50 characters")]
         public string Street { get; set; }
 
-        [Required(ErrorMessage = "State is a required field.")]
+        [Required(ErrorMessage = "Resturant country is a required field.")]
+        [MaxLength(50, ErrorMessage = "Maximum length for the Country is 50 characters")]
         public string State { get; set; }
     }
 }

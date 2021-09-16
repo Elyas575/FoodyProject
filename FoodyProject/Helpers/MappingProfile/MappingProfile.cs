@@ -33,6 +33,7 @@ namespace FoodyProject
             CreateMap<OrderForUpdateDto, Order>();
 
             CreateMap<Restaurant, RestaurantDto>();
+            CreateMap<RestaurantContact, RestaurantDto>();
             CreateMap<RestaurantForCreationDto, Restaurant>();
             CreateMap<RestaurantForUpdateDto, Restaurant>();
 

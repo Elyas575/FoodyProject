@@ -27,20 +27,21 @@ namespace Repositoy
             .OrderBy(e => e.CategoryName)
             .ToListAsync();
 
-        public async Task <Category> GetCategoryAsync(int restaurantId, int categoryId, bool trackChanges) =>
-             await FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.CategoryId.Equals(categoryId), trackChanges)
-             .SingleOrDefaultAsync();
-
         public async Task<IEnumerable<Category>> GetCategoriesByNameAsync(string categoryName, bool trackChanges) =>
             await FindByCondition(e => e.CategoryName.Equals(categoryName), trackChanges)
             .OrderBy(e => e.CategoryName)
             .ToListAsync();
+
+        public async Task <Category> GetCategoryAsync(int restaurantId, int categoryId, bool trackChanges) =>
+             await FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.CategoryId.Equals(categoryId), trackChanges)
+             .SingleOrDefaultAsync();
 
         public void CreateCategory(int restaurantId, Category category)
         {
             category.RestaurantId = restaurantId;
             Create(category);
         }
+
         public void DeleteCategory(Category category)
         {
             Delete(category);

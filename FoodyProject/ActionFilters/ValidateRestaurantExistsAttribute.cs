@@ -11,6 +11,7 @@ namespace FoodyProject.ActionFilters
     public class ValidateRestaurantExistsAttribute : IAsyncActionFilter
     {
         private readonly IRepositoryManager _repository;
+
         public ValidateRestaurantExistsAttribute(IRepositoryManager repository)
         {
             _repository = repository;

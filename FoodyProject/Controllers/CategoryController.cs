@@ -99,7 +99,6 @@ namespace FoodyProject.Controllers
             }
 
             var categoryEntity = _mapper.Map<Category>(category);
-            
             _repository.Category.CreateCategory(restaurantId, categoryEntity);
             await _repository.SaveAsync();
 
@@ -111,7 +110,7 @@ namespace FoodyProject.Controllers
         [HttpPut("{restaurantId}/category/{categoryId}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         [ServiceFilter(typeof(ValidateCategoryForRestaurantExistsAttribute))]
-        public async Task<IActionResult> UpdateCategory(int restaurantId, int categoryId,  [FromBody] CategoryForUpdateDto category)
+        public async Task<IActionResult> UpdateCategory(int restaurantId, int categoryId, [FromBody] CategoryForUpdateDto category)
         {
             var categoryEntity = HttpContext.Items["category"] as Category;
             _mapper.Map(category, categoryEntity);

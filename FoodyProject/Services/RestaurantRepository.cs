@@ -23,6 +23,10 @@ namespace Repository
            .OrderBy(c => c.Name)
            .ToListAsync();
 
+        public async Task<Restaurant> GetRestaurantByCityAsync(string city, bool trackChanges) =>
+        await FindByCondition(c => c.City.Equals(city), trackChanges)
+            .SingleOrDefaultAsync();
+
         public async Task <Restaurant> GetRestaurantAsync(int restaurantId, bool trackChanges) =>
             await FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
              .SingleOrDefaultAsync();
@@ -31,12 +35,7 @@ namespace Repository
         await FindByCondition(c => c.Name.Equals(name), trackChanges)
         .SingleOrDefaultAsync();
 
-        public async Task<Restaurant> GetRestaurantByCityAsync(string city, bool trackChanges) =>
-        await FindByCondition(c => c.City.Equals(city), trackChanges)
-            .SingleOrDefaultAsync();
-        
         //GetBestRestaurantAsync
-
         public async Task<IEnumerable<Restaurant>> GetBestRestaurantAsync(bool trackChanges) =>
          await FindAll(trackChanges)
            .OrderBy(c => c.Rate)
@@ -47,6 +46,9 @@ namespace Repository
             Delete(restaurant);
         }
 
-        public void CreateRestaurant(Restaurant restaurant) => Create(restaurant);
+        public void CreateRestaurant(Restaurant restaurant)
+        {
+            Create(restaurant);
+        }
     }
 }
