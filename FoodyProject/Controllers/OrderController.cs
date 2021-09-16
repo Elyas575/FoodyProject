@@ -83,8 +83,9 @@ namespace FoodyProject.Controllers
 
    
         }
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
 
+
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPost("restaurant/{restaurantId}/customers/{customerId}")]
         public async  Task<IActionResult> CreateOrder(int customerId, int restaurantId, [FromBody] OrderForCreationDto order)
         {
@@ -121,25 +122,14 @@ namespace FoodyProject.Controllers
 
             return NoContent();
         }
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
+     
 
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ServiceFilter(typeof(ValidateEmployeeForCompanyExistsAttribute))]
         [HttpPut("customers/{customerid}/{orderid}")]
         public async Task<IActionResult> UpdateOrderForCustomer(int customerid, int orderid, [FromBody]OrderForUpdateDto order)
         {
-
-
-
-            var customer = await _repository.Customer.GetCustomerAsync(customerid, trackChanges: false);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            var orderEntity = await _repository.Order.GetOrderAsync(orderid, trackChanges: true);
-            if (orderEntity == null)
-            {
-                return NotFound();
-            }
+            var orderEntity = HttpContext.Items["customer"] as Customer;
             _mapper.Map(order, orderEntity);
             await _repository.SaveAsync();
             return NoContent();
