@@ -38,3 +38,4 @@ namespace FoodyProject.Models
     public class CustomerContactParameters : RequestParameters { }
 
     public class OrderParameters : RequestParameters { }
+}
