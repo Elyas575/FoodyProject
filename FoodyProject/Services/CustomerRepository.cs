@@ -19,13 +19,20 @@ namespace Repository
         {
 
         }
+         
+            public async Task<PagedList<Customer>> GetAllCustomersAsync(bool trackChanges, CustomerParameters customerParameters)
+            {
+                var customers = await FindAll(trackChanges)
+                      .OrderBy(c => c.CustomerId)
+                .Skip((customerParameters.PageNumber - 1) * customerParameters.PageSize)
+                .Take(customerParameters.PageSize)
+                  .ToListAsync();
 
-        public async Task<IEnumerable<Customer>> GetAllCustomersAsync(bool trackChanges, CustomerParameters customerParameters) =>
-              await FindAll(trackChanges)
-              .OrderBy(c => c.Name)
-            .Skip((customerParameters.PageNumber - 1) * customerParameters.PageSize)
-            .Take(customerParameters.PageSize)
-              .ToListAsync();
+                return PagedList<Customer>
+                    .ToPagedList(customers, customerParameters.PageNumber, customerParameters.PageSize);
+            }
+
+        
 
         public async Task<Customer> GetCustomerAsync(int customerId, bool trackChanges) =>
              await FindByCondition(c => c.CustomerId.Equals(customerId), trackChanges)

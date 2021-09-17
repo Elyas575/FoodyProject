@@ -4,6 +4,7 @@ using Entities.DataTransferObjects;
 using Entities.Models;
 using FoodyProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,6 +28,10 @@ namespace FoodyProject.Controllers
         public async Task<IActionResult> GetAllCustomersAsync([FromQuery] CustomerParameters customerParameters)
         {
             var customers = await _repository.Customer.GetAllCustomersAsync(trackChanges: false, customerParameters);
+
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(customers.MetaData));
+
             var customerDto = _mapper.Map<IEnumerable<CustomerDto>>(customers);
 
             return Ok(customerDto);
@@ -105,15 +110,15 @@ namespace FoodyProject.Controllers
         [HttpGet("contacts")]
         public async Task<IActionResult> GetAllCustomersContactsAsync([FromQuery] CustomerContactParameters customerContactParameters)
         {
-            
-            
-            var customercontactFromDb = await _repository.CustomerContact.GetAllCustomersContactsAsync( trackChanges: false, customerContactParameters);
+            var customercontactFromDb = await _repository.CustomerContact.GetAllCustomersContactsAsync(customerContactParameters, trackChanges: false);
 
-            return Ok(customercontactFromDb);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(customercontactFromDb.MetaData));
+            var customerDto = _mapper.Map<IEnumerable<CustomerContactDto>>(customercontactFromDb);
+            return Ok(customerDto);
         }
 
         [HttpGet("{customerId}/cutomerContact")]
-        public async Task<IActionResult> GetAllContactsForCustomerAsync(int customerId)
+        public async Task<IActionResult> GetAllContactsForCustomerAsync(int customerId, [FromQuery] CustomerContactParameters customerContactParameters)
         {
             var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
             if (customer == null)
@@ -121,7 +126,8 @@ namespace FoodyProject.Controllers
                 return NotFound();
             }
 
-            var customerContactFromDb = await _repository.CustomerContact.GetAllContactsForCustomer(customerId, trackChanges: false);
+            var customerContactFromDb = await _repository.CustomerContact.GetAllContactsForCustomer(customerId, customerContactParameters, trackChanges: false);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(customerContactFromDb.MetaData));
             var customerDto = _mapper.Map<IEnumerable<CustomerContactDto>>(customerContactFromDb);
 
             return Ok(customerDto);
