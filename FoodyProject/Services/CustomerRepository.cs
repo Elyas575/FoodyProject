@@ -20,14 +20,9 @@ namespace Repository
         }
 
         public async Task<IEnumerable<Customer>> GetAllCustomersAsync(bool trackChanges) =>
-              await FindAll(trackChanges)
-              .OrderBy(c => c.Name)
-              .ToListAsync();
-
-        /*public async Task<IEnumerable<Customer>> GetByIdsAsync(IEnumerable<string> ids, bool
-        trackChanges) =>
-         await FindByCondition(c => ids.ToList().Contains(c.CustomerId.ToString()), trackChanges)
-         .ToListAsync();*/
+            await FindAll(trackChanges)
+            .OrderBy(c => c.CustomerId)
+            .ToListAsync();
 
         public async Task<Customer> GetCustomerAsync(int customerId, bool trackChanges) =>
              await FindByCondition(c => c.CustomerId.Equals(customerId), trackChanges)

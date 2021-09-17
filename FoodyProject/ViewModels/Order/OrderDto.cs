@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entities.DataTransferObjects
 {
-   public  class OrderDto
+    public  class OrderDto
     {
         public int OrderId { get; set; }
         public int CustomerId { get; set; }

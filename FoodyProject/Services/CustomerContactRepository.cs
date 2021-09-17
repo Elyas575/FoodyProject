@@ -29,8 +29,8 @@ namespace Repository
             .ToListAsync();
 
         public async Task<CustomerContact> GetCustomerContactAsync(int customerId, int CustomerContactId, bool trackChanges) =>
-        await FindByCondition(c => c.CustomerId.Equals(customerId) && c.CustomerContactId.Equals(CustomerContactId), trackChanges)
-        .SingleOrDefaultAsync();
+            await FindByCondition(c => c.CustomerId.Equals(customerId) && c.CustomerContactId.Equals(CustomerContactId), trackChanges)
+            .SingleOrDefaultAsync();
 
         public void CreateCustomerContact(int customerId, CustomerContact customercontact)
         {

@@ -18,17 +18,17 @@ namespace FoodyProject.Controllers
     {
         private readonly IRepositoryManager _repository;
         private readonly IMapper _mapper;
+
         public OrderController(IRepositoryManager repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
-        [HttpGet]
 
+        [HttpGet]
         /*  this should be get all orders for one restaurant*/
         public async Task<IActionResult>  GetAllOrdersAsync([FromQuery] OrderParameters orderParameters)
         {
-
             var orders =await _repository.Order.GetAllOrdersAsync(trackChanges: false, orderParameters);
             return Ok(orders);
         }
@@ -68,6 +68,7 @@ namespace FoodyProject.Controllers
                 return Ok(orderdto);
             }
         }
+
         [HttpGet("OrderByRestaurantId/{ResturantId}")]
         public async Task<IActionResult> GetOrdersForRestaurant(int ResturantId, [FromQuery] OrderParameters orderParameters)
         {
@@ -80,17 +81,12 @@ namespace FoodyProject.Controllers
             var orderfromdb = await _repository.Order.GetOrdersForRestaurantAsync(ResturantId, orderParameters, trackChanges: false);
             var orderdto = _mapper.Map<IEnumerable<OrderDto>>(orderfromdb);
             return Ok(orderdto);
-
-   
         }
 
-
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPost("restaurant/{restaurantId}/customers/{customerId}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async  Task<IActionResult> CreateOrder(int customerId, int restaurantId, [FromBody] OrderForCreationDto order)
         {
-          
-
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
             {
@@ -105,33 +101,35 @@ namespace FoodyProject.Controllers
             }
 
             var orderEntity = _mapper.Map<Order>(order);
-
             _repository.Order.CreateOrder(customerId, restaurantId, orderEntity);
             await _repository.SaveAsync();
+
             var orderToReturn = _mapper.Map<OrderDto>(orderEntity);
+
             return Ok(orderToReturn);
         }
-
-        [HttpDelete("{orderId}")]
-        public async  Task<IActionResult> DeleteOrder(int orderId)
+        
+        [HttpPut("customers/{customerid}/{orderid}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ServiceFilter(typeof(ValidateOrderForCustomerExistsAttribute))]
+        public async Task<IActionResult> UpdateOrderForCustomer(int customerid, int orderid, [FromBody] OrderForUpdateDto order)
         {
-            var order = await _repository.Order.GetOrderAsync(orderId, trackChanges: false);
-
-            _repository.Order.DeleteOrder(order);
+            var orderEntity = HttpContext.Items["order"] as Order;
+            _mapper.Map(order, orderEntity);
             await _repository.SaveAsync();
 
             return NoContent();
         }
-     
 
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
-        [ServiceFilter(typeof(ValidateEmployeeForCompanyExistsAttribute))]
-        [HttpPut("customers/{customerid}/{orderid}")]
-        public async Task<IActionResult> UpdateOrderForCustomer(int customerid, int orderid, [FromBody]OrderForUpdateDto order)
+        [HttpDelete("{orderId}")]
+        [ServiceFilter(typeof(ValidateOrderForCustomerExistsAttribute))]
+        public async  Task<IActionResult> DeleteOrder(int orderId)
         {
-            var orderEntity = HttpContext.Items["customer"] as Customer;
-            _mapper.Map(order, orderEntity);
+            var orderForCustomer = HttpContext.Items["order"] as Order;
+
+            _repository.Order.DeleteOrder(orderForCustomer);
             await _repository.SaveAsync();
+
             return NoContent();
         }
     }

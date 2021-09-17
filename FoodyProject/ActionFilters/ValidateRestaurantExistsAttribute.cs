@@ -21,6 +21,7 @@ namespace FoodyProject.ActionFilters
             var trackChanges = context.HttpContext.Request.Method.Equals("PUT");
             var restaurantId = (int)context.ActionArguments["restaurantId"];
             var restaurant = await _repository.Restaurant.GetRestaurantAsync( restaurantId, trackChanges);
+            
             if (restaurant == null)
             {
                 context.Result = new NotFoundResult();

@@ -27,8 +27,6 @@ namespace FoodyProject.Controllers
         [HttpGet("categories")]
         public async Task<IActionResult> GetAllCategoriesAsync()
         {
-        
-
             var categoryFromDto = await _repository.Category.GetAllCategoriesAsync(trackChanges: false);
             var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categoryFromDto);
 

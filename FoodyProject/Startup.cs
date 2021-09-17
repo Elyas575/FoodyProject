@@ -1,4 +1,3 @@
-
 using FoodyProject.ActionFilters;
 using FoodyProject.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -45,20 +44,14 @@ namespace FoodyProject
             
             services.AddControllers();
 
-            services.Configure<ApiBehaviorOptions>(options => 
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
             services.AddScoped<ValidationFilterAttribute>();
             services.AddScoped<ValidateRestaurantExistsAttribute>();
             services.AddScoped<ValidateRestaurantContactForRestaurantExistsAttribute>();
             services.AddScoped<ValidateCategoryForRestaurantExistsAttribute>();
             services.AddScoped<ValidateMealForCategoryExistsAttribute>();
-            
-     
-
-
-
+            services.AddScoped<ValidateCustomerExistsAttribute>();
+            services.AddScoped<ValidateCustomerContactForCustomerExistsAttribute>();
+            services.AddScoped<ValidateOrderForCustomerExistsAttribute>();
 
             /*services.AddSwaggerGen(c =>
             {
@@ -99,8 +92,6 @@ namespace FoodyProject
             {
                 endpoints.MapControllers();
             });
-
-
         }
     }
 }
