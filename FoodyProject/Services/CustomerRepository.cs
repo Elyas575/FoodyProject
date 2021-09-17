@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities;
 using Entities.Models;
+using FoodyProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Repositoy;
 using System;
@@ -19,9 +20,11 @@ namespace Repository
 
         }
 
-        public async Task<IEnumerable<Customer>> GetAllCustomersAsync(bool trackChanges) =>
+        public async Task<IEnumerable<Customer>> GetAllCustomersAsync(bool trackChanges, CustomerParameters customerParameters) =>
               await FindAll(trackChanges)
               .OrderBy(c => c.Name)
+            .Skip((customerParameters.PageNumber - 1) * customerParameters.PageSize)
+            .Take(customerParameters.PageSize)
               .ToListAsync();
 
         /*public async Task<IEnumerable<Customer>> GetByIdsAsync(IEnumerable<string> ids, bool
@@ -42,5 +45,7 @@ namespace Repository
         {
             Delete(customer);
         }
+
+   
     }
 }

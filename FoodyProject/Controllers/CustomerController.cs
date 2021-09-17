@@ -2,6 +2,7 @@
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
+using FoodyProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,9 @@ namespace FoodyProject.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllCustomersAsync()
+        public async Task<IActionResult> GetAllCustomersAsync([FromQuery] CustomerParameters customerParameters)
         {
-            var customers = await _repository.Customer.GetAllCustomersAsync(trackChanges: false);
+            var customers = await _repository.Customer.GetAllCustomersAsync(trackChanges: false, customerParameters);
             var customerDto = _mapper.Map<IEnumerable<CustomerDto>>(customers);
 
             return Ok(customerDto);
@@ -101,10 +102,11 @@ namespace FoodyProject.Controllers
         }
 
         [HttpGet("contacts")]
-        public async Task<IActionResult> GetAllCustomersContactsAsync()
+        public async Task<IActionResult> GetAllCustomersContactsAsync([FromQuery] CustomerContactParameters customerContactParameters)
         {
-            var customer = await _repository.Customer.GetAllCustomersAsync(trackChanges: false);
-            var customercontactFromDb = await _repository.CustomerContact.GetAllCustomersContactsAsync(trackChanges: false);
+            
+            
+            var customercontactFromDb = await _repository.CustomerContact.GetAllCustomersContactsAsync( trackChanges: false, customerContactParameters);
 
             return Ok(customercontactFromDb);
         }

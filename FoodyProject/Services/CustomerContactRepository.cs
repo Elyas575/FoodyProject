@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities;
 using Entities.Models;
+using FoodyProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Repositoy;
 using System;
@@ -18,10 +19,13 @@ namespace Repository
         {
         }
 
-        public async Task<IEnumerable<CustomerContact>> GetAllCustomersContactsAsync(bool trackChanges) =>
+        public async Task<IEnumerable<CustomerContact>> GetAllCustomersContactsAsync(bool trackChanges, CustomerContactParameters customerContactParameters) =>
         await FindAll(trackChanges)
-        .OrderBy(c => c.CustomerContactId)
-        .ToListAsync();
+        .OrderBy(c => c.CustomerId)
+         .Skip((customerContactParameters.PageNumber - 1) * customerContactParameters.PageSize)
+         .Take(customerContactParameters.PageSize)
+         .ToListAsync();
+
 
         public async Task<IEnumerable<CustomerContact>> GetAllContactsForCustomer(int customerId, bool trackChanges) =>
             await FindByCondition(e => e.CustomerId.Equals(customerId), trackChanges)

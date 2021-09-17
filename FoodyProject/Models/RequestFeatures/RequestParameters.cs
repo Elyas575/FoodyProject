@@ -36,4 +36,14 @@ namespace FoodyProject.Models
     {
 
     }
+
+    public class CustomerParameters : RequestParameters
+    {
+
+    }
+
+    public class CustomerContactParameters : RequestParameters
+    {
+
+    }
 }
