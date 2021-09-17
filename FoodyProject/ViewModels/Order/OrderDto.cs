@@ -12,6 +12,7 @@ namespace Entities.DataTransferObjects
         public int OrderId { get; set; }
         public int CustomerId { get; set; }
         public int RestaurantId { get; set; }
+        public int OrderRate { get; set; }
         public string OrderStatus { get; set; }
         public DateTime OrderedTime { get; set; }
         public DateTime DelieveredTime { get; set; }

@@ -32,7 +32,10 @@ namespace FoodyProject
             CreateMap<OrderForCreationDto, Order>();
             CreateMap<OrderForUpdateDto, Order>();
 
-            CreateMap<Restaurant, RestaurantDto>();
+            CreateMap<Restaurant, RestaurantDto>()
+                .ForMember( dest => dest.Location , opt => opt.MapFrom(src=>src.Latitude+ " , " + src.Longitude))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Country + ", " + src.City + ", " + src.Area + ", " + src.Street));
+
             CreateMap<RestaurantContact, RestaurantDto>();
             CreateMap<RestaurantForCreationDto, Restaurant>();
             CreateMap<RestaurantForUpdateDto, Restaurant>();

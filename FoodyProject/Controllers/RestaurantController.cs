@@ -81,10 +81,11 @@ namespace FoodyProject.Controllers
         [HttpGet("best")]
         public async Task<IActionResult> GetBestRestaurantAsync( [FromQuery] RestaurantParameters restaurantParameters)
         {
+
             var restaurantFromDb = await _repository.Restaurant.GetBestRestaurantAsync( restaurantParameters, trackChanges: false);
             var maxRate = restaurantFromDb.ToArray().Max();
 
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(restaurantFromDb.MetaData));
+            //Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(restaurantFromDb.MetaData));
             var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurantFromDb);
 
             return Ok(restaurantDto);
