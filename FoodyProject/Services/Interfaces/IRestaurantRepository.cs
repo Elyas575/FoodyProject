@@ -10,11 +10,11 @@ namespace Contracts
 {
     public interface IRestaurantRepository
     {
-        Task<IEnumerable<Restaurant>> GetAllRestaurantAsync(RestaurantParameters restaurantParameters, bool trackChanges);
-        Task<IEnumerable<Restaurant>> GetRestaurantByCityAsync(string city, RestaurantParameters restaurantParameters, bool trackChanges);
+        Task<PagedList<Restaurant>> GetAllRestaurantAsync(RestaurantParameters restaurantParameters, bool trackChanges);
+        Task<PagedList<Restaurant>> GetRestaurantByCityAsync(string city, RestaurantParameters restaurantParameters, bool trackChanges);
         Task<Restaurant> GetRestaurantAsync(int restaurantId, bool trackChanges);
-        Task<IEnumerable<Restaurant>> GetRestaurantByNameAsync(string name, RestaurantParameters restaurantParameters, bool trackChanges);
-        Task<IEnumerable<Restaurant>>GetBestRestaurantAsync(RestaurantParameters restaurantParameters, bool trackChanges);
+        Task<PagedList<Restaurant>> GetRestaurantByNameAsync(string name, RestaurantParameters restaurantParameters, bool trackChanges);
+        Task<PagedList<Restaurant>>GetBestRestaurantAsync(RestaurantParameters restaurantParameters, bool trackChanges);
         void DeleteRestaurant(Restaurant restaurant);
         void CreateRestaurant(Restaurant restaurant);
     }

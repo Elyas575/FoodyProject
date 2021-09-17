@@ -5,6 +5,7 @@ using Entities.Models;
 using FoodyProject.ActionFilters;
 using FoodyProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,8 @@ namespace FoodyProject.Controllers
         public async Task<IActionResult> GetAllRestaurantAsync([FromQuery] RestaurantParameters restaurantParameters)
         {
             var restaurantFromDb = await _repository.Restaurant.GetAllRestaurantAsync( restaurantParameters, trackChanges: false);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(restaurantFromDb.MetaData));
+
             var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurantFromDb);
             return Ok(restaurantDto);
         }
@@ -54,6 +57,8 @@ namespace FoodyProject.Controllers
             {
                 return NotFound();
             }
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(restaurantFromDb.MetaData));
             var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurantFromDb);
 
             return Ok(restaurantDto);
@@ -64,6 +69,9 @@ namespace FoodyProject.Controllers
         public async Task<IActionResult> GetRestaurantByCityAsync(string city, [FromQuery] RestaurantParameters restaurantParameters)
         {
             var restaurantFromDb = await _repository.Restaurant.GetRestaurantByCityAsync(city, restaurantParameters, trackChanges: false);
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(restaurantFromDb.MetaData));
+
             var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurantFromDb);
 
             return Ok(restaurantDto);
@@ -75,6 +83,8 @@ namespace FoodyProject.Controllers
         {
             var restaurantFromDb = await _repository.Restaurant.GetBestRestaurantAsync( restaurantParameters, trackChanges: false);
             var maxRate = restaurantFromDb.ToArray().Max();
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(restaurantFromDb.MetaData));
             var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurantFromDb);
 
             return Ok(restaurantDto);
