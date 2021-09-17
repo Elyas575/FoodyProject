@@ -3,7 +3,9 @@ using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
 using FoodyProject.ActionFilters;
+using FoodyProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,24 +27,25 @@ namespace FoodyProject.Controllers
         }
 
         [HttpGet("{restaurantId}/category/{categoryId}/meal")]
-        public async Task<IActionResult> GetAllMealsAsync(int restaurantId, int categoryId)
+        public async Task<IActionResult> GetAllMealsAsync(int restaurantId, int categoryId, [FromQuery] MealParameters mealParameters)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
             {
                 return NotFound();
             }
+
             var categoryDb = await _repository.Category.GetCategoryAsync(restaurantId, categoryId, trackChanges: false);
             if (categoryDb == null)
             {
                 return NotFound();
             }
 
-            var mealFromDb = await _repository.Meal.GetAllMealsAsync(restaurantId, categoryId, trackChanges: false);
-
+            var mealFromDb = await _repository.Meal.GetAllMealsAsync(restaurantId, categoryId, mealParameters, trackChanges: false);
+            Response.Headers.Add("X-Paganation", JsonConvert.SerializeObject(mealFromDb.MetaData));
             var MealDto = _mapper.Map<IEnumerable<MealDto>>(mealFromDb);
 
-            return Ok(mealFromDb);
+            return Ok(MealDto);
         }
 
         [HttpGet("{restaurantId}/category/{categoryId}/meal/{mealId}", Name = "GetMealForCategory")]
