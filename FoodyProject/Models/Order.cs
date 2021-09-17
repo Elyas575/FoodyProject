@@ -17,6 +17,7 @@ namespace Entities.Models
         public string OrderStatus { get; set; }
         public DateTime OrderedTime { get; set; }
         public DateTime DelieveredTime { get; set; }
+        public int OrderRate { get; set; }
 
         [Required(ErrorMessage = "Payment method is a required field")]
         [MaxLength(50, ErrorMessage = "Maximum length for the payment method is 50 characters.")]

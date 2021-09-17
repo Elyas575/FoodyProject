@@ -71,7 +71,7 @@ namespace Entities.Models
         public string Cuisine { get; set; }
         public string Note { get; set; }
         public bool IsDelete { get; set; }
-        public int Rate { get; set; }
+        public float Rate { get; set; }
         
         public ICollection<Order> Orders { get; set; }
         public ICollection<Category> Categories { get; set; }
