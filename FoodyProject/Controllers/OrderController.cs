@@ -6,6 +6,7 @@ using Entities.Models;
 using FoodyProject.ActionFilters;
 using FoodyProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,33 +28,30 @@ namespace FoodyProject.Controllers
 
         [HttpGet]
         /*  this should be get all orders for one restaurant*/
-        public async Task<IActionResult>  GetAllOrdersAsync([FromQuery] OrderParameters orderParameters)
+        public async Task<IActionResult> GetAllOrdersAsync([FromQuery] OrderParameters orderParameters)
         {
-            var orders =await _repository.Order.GetAllOrdersAsync(trackChanges: false, orderParameters);
+            var orders = await _repository.Order.GetAllOrdersAsync(orderParameters, trackChanges: false);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(orders.MetaData));
             return Ok(orders);
         }
 
         [HttpGet("OrderByCustomerId/{customerId}", Name = "OrderByCustomerId")]
-        public async Task<IActionResult> GetOrderByCustomerId(int customerId)
+        public async Task<IActionResult> GetOrderByCustomerId(int customerId, [FromQuery]  OrderParameters orderParameters)
         {
-            var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges: false);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _repository.Order.GetOrderByCustomerIdAsync(customerId, trackChanges: false);
+            var order = await _repository.Order.GetOrderByCustomerIdAsync(customerId, orderParameters, trackChanges: false);
             if (order == null)
             {
                 return NotFound();
             }
-         
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(order.MetaData));
             var orderdto = _mapper.Map<IEnumerable<OrderDto>>(order);
             return Ok(orderdto);
         }
 
         [HttpGet("{orderId}", Name = "OrderById")]
-        public async Task <IActionResult> GetOrderAsync(int orderId, bool trackchanges) {
+        public async Task<IActionResult> GetOrderAsync(int orderId, bool trackchanges)
+        {
 
             var order = await _repository.Order.GetOrderAsync(orderId, trackchanges);
 
@@ -79,13 +77,14 @@ namespace FoodyProject.Controllers
             }
 
             var orderfromdb = await _repository.Order.GetOrdersForRestaurantAsync(ResturantId, orderParameters, trackChanges: false);
+            Response.Headers.Add("X-Paganation", JsonConvert.SerializeObject(orderfromdb.MetaData));
             var orderdto = _mapper.Map<IEnumerable<OrderDto>>(orderfromdb);
             return Ok(orderdto);
         }
 
         [HttpPost("restaurant/{restaurantId}/customers/{customerId}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async  Task<IActionResult> CreateOrder(int customerId, int restaurantId, [FromBody] OrderForCreationDto order)
+        public async Task<IActionResult> CreateOrder(int customerId, int restaurantId, [FromBody] OrderForCreationDto order)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -108,7 +107,7 @@ namespace FoodyProject.Controllers
 
             return Ok(orderToReturn);
         }
-        
+
         [HttpPut("customers/{customerid}/{orderid}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         [ServiceFilter(typeof(ValidateOrderForCustomerExistsAttribute))]
@@ -123,7 +122,7 @@ namespace FoodyProject.Controllers
 
         [HttpDelete("{orderId}")]
         [ServiceFilter(typeof(ValidateOrderForCustomerExistsAttribute))]
-        public async  Task<IActionResult> DeleteOrder(int orderId)
+        public async Task<IActionResult> DeleteOrder(int orderId)
         {
             var orderForCustomer = await _repository.Order.GetOrderAsync(orderId, trackChanges: false);
 
