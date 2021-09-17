@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FoodyProject.Models
 {
-    public abstract class RequestParameters
+  public abstract class RequestParameters
     {
         const int maxPageSize = 50;
         public int PageNumber { get; set; } = 1;
@@ -33,9 +33,19 @@ namespace FoodyProject.Models
 
     public class MealParameters : RequestParameters { }
 
-    public class CustomerParameters : RequestParameters { }
+    }
 
-    public class CustomerContactParameters : RequestParameters { }
+    public class CustomerParameters : RequestParameters
+    {
+
+    }
+
+    public class CustomerContactParameters : RequestParameters
+    {
+
+    }
+
+
 
     public class OrderParameters : RequestParameters { }
 }
