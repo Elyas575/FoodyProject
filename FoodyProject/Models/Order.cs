@@ -13,30 +13,26 @@ namespace Entities.Models
         [Key]
         public int OrderId { get; set; }
         public int CustomerId { get; set; }
-
+        public int RestaurantId { get; set; }
         public string OrderStatus { get; set; }
         public DateTime OrderedTime { get; set; }
         public DateTime DelieveredTime { get; set; }
 
+        [Required(ErrorMessage = "Payment method is a required field")]
+        [MaxLength(50, ErrorMessage = "Maximum length for the payment method is 50 characters.")]
+        public string PaymentMethod { get; set; }
 
-        [Required(ErrorMessage = "Order description is a required field")]
-        [MaxLength(40, ErrorMessage = "Maximum length for the Order payment is 40 characters.")]
-        public string TypeOfPayment { get; set; }
-
-
-        [Required(ErrorMessage = "Order description is a required field")]
         [MaxLength(150, ErrorMessage = "Maximum length for the Order description is 150 characters.")]
         public string OrderDescription { get; set; }
 
         public bool IsDelivered { get; set; }
 
-        public int RestaurantId { get; set; }
+        [ForeignKey(nameof(CustomerId))]
+        public virtual Customer Customer { get; set; }
 
         [ForeignKey(nameof(RestaurantId))]
         public virtual Restaurant Restaurants { get; set; }
-
-        [ForeignKey(nameof(CustomerId))]
-        public virtual Customer Customer { get; set; }
+        
         public virtual ICollection<Meal> Meals { get; set; }
     }
 }

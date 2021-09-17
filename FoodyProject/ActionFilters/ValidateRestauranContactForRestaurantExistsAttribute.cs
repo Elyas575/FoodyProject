@@ -7,12 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace FoodyProject.ActionFilters
-{ 
-    public class ValidateOrderForCustomerExistsAttribute : IAsyncActionFilter
+{
+    public class ValidateRestaurantContactForRestaurantExistsAttribute : IAsyncActionFilter
     {
         private readonly IRepositoryManager _repository;
 
-        public ValidateOrderForCustomerExistsAttribute(IRepositoryManager repository)
+        public ValidateRestaurantContactForRestaurantExistsAttribute(IRepositoryManager repository)
         {
             _repository = repository;
         }
@@ -20,33 +20,26 @@ namespace FoodyProject.ActionFilters
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var method = context.HttpContext.Request.Method;
-            var trackChanges = (method.Equals("PUT") || method.Equals("PATCH")) ? true :  false;
+            var trackChanges = (method.Equals("PUT") || method.Equals("PATCH")) ? true : false;
             var restaurantId = (int)context.ActionArguments["restaurantId"];
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, false);
-            var customerId = (int)context.ActionArguments["customerId"];
-            var customer = await _repository.Customer.GetCustomerAsync(customerId, false);
-            
+
             if (restaurant == null)
             {
                 context.Result = new NotFoundResult();
                 return;
             }
 
-            if (customer == null)
-            {
-                context.Result = new NotFoundResult();
-                return;
-            }
+            var restaurantContactId = (int)context.ActionArguments["restaurantContactId"];
+            var restaurantContact = await _repository.RestaurantContact.GetRestaurantContactAsync(restaurantId, restaurantContactId, trackChanges);
 
-            var orderId = (int)context.ActionArguments["orderId"];
-            var order = await _repository.Order.GetOrderAsync(orderId, trackChanges);
-            if (order == null)
+            if (restaurantContact == null)
             {
                 context.Result = new NotFoundResult();
             }
             else
             {
-                context.HttpContext.Items.Add("order", order);
+                context.HttpContext.Items.Add("restaurantContact", restaurantContact);
                 await next();
             }
         }

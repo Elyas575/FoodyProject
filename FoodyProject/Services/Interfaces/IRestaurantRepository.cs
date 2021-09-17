@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using FoodyProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,11 @@ namespace Contracts
 {
     public interface IRestaurantRepository
     {
-        Task <Restaurant> GetRestaurantAsync(int restaurantId, bool trackChanges);
-        Task <IEnumerable<Restaurant>> GetAllRestaurantAsync(bool trackChanges);
-        Task<Restaurant> GetRestaurantByNameAsync(string name, bool trackChanges);
-        Task<Restaurant> GetRestaurantByCityAsync(string city, bool trackChanges);
-
-        
-        Task<IEnumerable<Restaurant>>GetBestRestaurantAsync(bool trackChanges);
-        
-        
-
+        Task<IEnumerable<Restaurant>> GetAllRestaurantAsync(RestaurantParameters restaurantParameters, bool trackChanges);
+        Task<IEnumerable<Restaurant>> GetRestaurantByCityAsync(string city, RestaurantParameters restaurantParameters, bool trackChanges);
+        Task<Restaurant> GetRestaurantAsync(int restaurantId, bool trackChanges);
+        Task<IEnumerable<Restaurant>> GetRestaurantByNameAsync(string name, RestaurantParameters restaurantParameters, bool trackChanges);
+        Task<IEnumerable<Restaurant>>GetBestRestaurantAsync(RestaurantParameters restaurantParameters, bool trackChanges);
         void DeleteRestaurant(Restaurant restaurant);
         void CreateRestaurant(Restaurant restaurant);
     }

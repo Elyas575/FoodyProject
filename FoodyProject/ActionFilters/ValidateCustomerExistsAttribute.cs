@@ -16,12 +16,12 @@ namespace FoodyProject.ActionFilters
         {
             _repository = repository;        
         }
-        public async Task OnActionExecutionAsync(ActionExecutingContext context,
-       ActionExecutionDelegate next)
+        public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var trackChanges = context.HttpContext.Request.Method.Equals("PUT");
-            var id = (int)context.ActionArguments["id"];
-            var customer = await _repository.Customer.GetCustomerAsync(id, trackChanges);
+            var customerId = (int)context.ActionArguments["customerId"];
+            var customer = await _repository.Customer.GetCustomerAsync(customerId, trackChanges);
+            
             if (customer == null)
             {             
                 context.Result = new NotFoundResult();
@@ -33,6 +33,5 @@ namespace FoodyProject.ActionFilters
             }
         }
     }
-
 }
   

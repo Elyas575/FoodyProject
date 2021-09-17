@@ -9,6 +9,7 @@ namespace Entities.DataTransferObjects
    public  class RestaurantContactDto
     {
         public int RestaurantContactId { get; set; }
+        public int RestaurantId { get; set; }
         public string PhoneNumber { get; set; }
     }
 }

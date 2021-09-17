@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entities.DataTransferObjects
 {
-  public  class CustomerContactForUpdateDto : CustomerContactForManipulationDto
+    public  class CustomerContactForUpdateDto : CustomerContactForManipulationDto
     {
     }
 }

@@ -27,11 +27,6 @@ namespace Repository
             .Take(customerParameters.PageSize)
               .ToListAsync();
 
-        /*public async Task<IEnumerable<Customer>> GetByIdsAsync(IEnumerable<string> ids, bool
-        trackChanges) =>
-         await FindByCondition(c => ids.ToList().Contains(c.CustomerId.ToString()), trackChanges)
-         .ToListAsync();*/
-
         public async Task<Customer> GetCustomerAsync(int customerId, bool trackChanges) =>
              await FindByCondition(c => c.CustomerId.Equals(customerId), trackChanges)
             .SingleOrDefaultAsync();

@@ -27,12 +27,6 @@ namespace FoodyProject.Controllers
         [HttpGet("categories")]
         public async Task<IActionResult> GetAllCategoriesAsync()
         {
-            var restaurant = await _repository.Restaurant.GetAllRestaurantAsync(trackChanges: false);
-            if (restaurant == null)
-            {
-                return NotFound();
-            }
-
             var categoryFromDto = await _repository.Category.GetAllCategoriesAsync(trackChanges: false);
             var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categoryFromDto);
 
@@ -99,7 +93,6 @@ namespace FoodyProject.Controllers
             }
 
             var categoryEntity = _mapper.Map<Category>(category);
-            
             _repository.Category.CreateCategory(restaurantId, categoryEntity);
             await _repository.SaveAsync();
 
@@ -111,7 +104,7 @@ namespace FoodyProject.Controllers
         [HttpPut("{restaurantId}/category/{categoryId}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         [ServiceFilter(typeof(ValidateCategoryForRestaurantExistsAttribute))]
-        public async Task<IActionResult> UpdateCategory(int restaurantId, int categoryId,  [FromBody] CategoryForUpdateDto category)
+        public async Task<IActionResult> UpdateCategory(int restaurantId, int categoryId, [FromBody] CategoryForUpdateDto category)
         {
             var categoryEntity = HttpContext.Items["category"] as Category;
             _mapper.Map(category, categoryEntity);

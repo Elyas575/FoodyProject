@@ -16,6 +16,21 @@ namespace Repository
         : base(repositoryContext)
         {
         }
+
+        public async Task<IEnumerable<Order>> GetAllOrdersAsync(bool trackChanges, OrderParameters orderParameters) =>
+            await FindAll(trackChanges)
+            .OrderBy(e => e.OrderId)
+            .Skip((orderParameters.PageNumber - 1) * orderParameters.PageSize)
+            .Take(orderParameters.PageSize)
+            .ToListAsync();
+
+        public async Task<IEnumerable<Order>> GetOrdersForRestaurantAsync(int restaurantid, OrderParameters orderParameters, bool trackChanges) =>
+            await FindByCondition(e => e.RestaurantId.Equals(restaurantid), trackChanges)
+            .OrderBy(e => e.OrderId)
+            .Skip((orderParameters.PageNumber - 1) * orderParameters.PageSize)
+            .Take(orderParameters.PageSize)
+            .ToListAsync();
+
         public async Task <Order>  GetOrderAsync(int orderid, bool trackChanges) =>
              await FindByCondition(c => c.OrderId.Equals(orderid), trackChanges)
              .SingleOrDefaultAsync();
@@ -25,17 +40,6 @@ namespace Repository
               .OrderBy(c => c.OrderId)
               .ToListAsync();
 
-        /*  getting a single order for resturant */
-        /* fix this u should get all orders for one resturant */
-        public async Task<IEnumerable<Order>> GetAllOrdersAsync(bool trackChanges,OrderParameters orderParameters) =>
-        await FindAll(trackChanges)
-        .OrderBy(e => e.OrderId)
-        .Skip((orderParameters.PageNumber - 1) * orderParameters.PageSize)
-         .Take(orderParameters.PageSize)
-         .ToListAsync();
-
-
-        /* fix this u should get all orders for one resturant */
         public void CreateOrder(int customerId, int restaurantId, Order order)
         {
             order.CustomerId = customerId;
@@ -47,17 +51,5 @@ namespace Repository
         {
             Delete(order);
         }
-
-        public async Task<IEnumerable<Order>> GetOrdersForRestaurantAsync(int restaurantid, OrderParameters orderParameters, bool trackChanges) =>
-         
-
-        await FindByCondition(e => e.RestaurantId.Equals(restaurantid), trackChanges)
- .OrderBy(e => e.OrderId)
- .Skip((orderParameters.PageNumber - 1) * orderParameters.PageSize)
- .Take(orderParameters.PageSize)
- .ToListAsync();
-
-
-     
     }
 }

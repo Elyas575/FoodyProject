@@ -20,11 +20,11 @@ namespace Repository
         }
 
         public async Task<IEnumerable<RestaurantContact>> GetAllRestaurantContactsAsync(bool trackChanges, RestaurantContactParameters restaurantcontactParameters) =>
-    await FindAll(trackChanges)
-    .OrderBy(e => e.PhoneNumber)
-    .Skip((restaurantcontactParameters.PageNumber - 1) * restaurantcontactParameters.PageSize)
-    .Take(restaurantcontactParameters.PageSize)
-    .ToListAsync();
+            await FindAll(trackChanges)
+            .OrderBy(e => e.PhoneNumber)
+            .Skip((restaurantcontactParameters.PageNumber - 1) * restaurantcontactParameters.PageSize)
+            .Take(restaurantcontactParameters.PageSize)
+            .ToListAsync();
 
         public async Task<IEnumerable<RestaurantContact>> GetAllContactsForRestaurantAsync(int restaurantId, bool trackChanges) =>
             await FindByCondition(e => e.RestaurantId.Equals(restaurantId), trackChanges)
@@ -32,9 +32,8 @@ namespace Repository
             .ToListAsync();
 
         public async Task<RestaurantContact> GetRestaurantContactAsync(int restaurantId, int id, bool trackChanges) =>
-         await FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.RestaurantContactId.Equals(id),
-         trackChanges)
-        .SingleOrDefaultAsync();
+            await FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.RestaurantContactId.Equals(id), trackChanges)
+            .SingleOrDefaultAsync();
 
         public void CreateRestaurantContact(int restaurantId, RestaurantContact restaurantcontact)
         {
