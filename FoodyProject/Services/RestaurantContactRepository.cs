@@ -19,17 +19,36 @@ namespace Repository
         {
         }
 
-        public async Task<IEnumerable<RestaurantContact>> GetAllRestaurantContactsAsync(bool trackChanges, RestaurantContactParameters restaurantcontactParameters) =>
-            await FindAll(trackChanges)
+        public async Task<PagedList<RestaurantContact>> GetAllRestaurantContactsAsync( RestaurantContactParameters restaurantcontactParameters,bool trackChanges)
+        {
+
+            var restauarntcontact = await FindAll(trackChanges)
+                   .OrderBy(e => e.PhoneNumber)
+                   .Skip((restaurantcontactParameters.PageNumber - 1) * restaurantcontactParameters.PageSize)
+                     .Take(restaurantcontactParameters.PageSize)
+                     .ToListAsync();
+
+
+            var count = await FindAll(trackChanges).CountAsync();
+
+
+            return new PagedList<RestaurantContact>(restauarntcontact, restaurantcontactParameters.PageNumber, restaurantcontactParameters.PageSize, count);
+        }
+        public async Task<PagedList<RestaurantContact>> GetAllContactsForRestaurantAsync(int restaurantId, RestaurantContactParameters restaurantcontactParameters,  bool trackChanges)
+        {
+            var restaurantcontact = await FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
             .OrderBy(e => e.PhoneNumber)
             .Skip((restaurantcontactParameters.PageNumber - 1) * restaurantcontactParameters.PageSize)
-            .Take(restaurantcontactParameters.PageSize)
-            .ToListAsync();
+               .Take(restaurantcontactParameters.PageSize)
+               .ToListAsync();
 
-        public async Task<IEnumerable<RestaurantContact>> GetAllContactsForRestaurantAsync(int restaurantId, bool trackChanges) =>
-            await FindByCondition(e => e.RestaurantId.Equals(restaurantId), trackChanges)
-            .OrderBy(e => e.RestaurantContactId)
-            .ToListAsync();
+
+            var count = await FindAll(trackChanges).CountAsync();
+
+
+            return new PagedList<RestaurantContact>(restaurantcontact, restaurantcontactParameters.PageNumber, restaurantcontactParameters.PageSize, count);
+        }
+          
 
         public async Task<RestaurantContact> GetRestaurantContactAsync(int restaurantId, int id, bool trackChanges) =>
             await FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.RestaurantContactId.Equals(id), trackChanges)

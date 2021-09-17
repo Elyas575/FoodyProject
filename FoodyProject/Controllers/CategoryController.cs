@@ -8,6 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Entities.Models;
 using FoodyProject.ActionFilters;
+using FoodyProject.Models;
+using Newtonsoft.Json;
 
 namespace FoodyProject.Controllers
 {
@@ -25,16 +27,17 @@ namespace FoodyProject.Controllers
         }
 
         [HttpGet("categories")]
-        public async Task<IActionResult> GetAllCategoriesAsync()
+        public async Task<IActionResult> GetAllCategoriesAsync([FromQuery] CategoryParameters categoryParameters)
         {
-            var categoryFromDto = await _repository.Category.GetAllCategoriesAsync(trackChanges: false);
-            var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categoryFromDto);
+            var categoryFromDb = await _repository.Category.GetAllCategoriesAsync(categoryParameters, trackChanges: false);
+            Response.Headers.Add("X-Paganation", JsonConvert.SerializeObject(categoryFromDb.MetaData));
+            var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categoryFromDb);
 
             return Ok(categoryDto);
         }
 
         [HttpGet("{restaurantId}/category")]
-        public async Task<IActionResult> GetAllCategoriesForRestaurantAsync(int restaurantId)
+        public async Task<IActionResult> GetAllCategoriesForRestaurantAsync(int restaurantId, [FromQuery] CategoryParameters categoryParameters)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -42,7 +45,23 @@ namespace FoodyProject.Controllers
                 return NotFound();
             }
 
-            var categoryFromDb = await _repository.Category.GetAllCategoriesByRestaurantId(restaurantId, trackChanges: false);
+            var categoryFromDb = await _repository.Category.GetAllCategoriesByRestaurantId(restaurantId, categoryParameters, trackChanges: false);
+            Response.Headers.Add("X-Paganation", JsonConvert.SerializeObject(categoryFromDb.MetaData));
+            var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categoryFromDb);
+
+            return Ok(categoryDto);
+        }
+
+        [HttpGet("{categoryName}/categoriesByName")]
+        public async Task<IActionResult> GetCategoryByNameAsync(string categoryName, [FromQuery] CategoryParameters categoryParameters)
+        {
+            var categoryFromDb = await _repository.Category.GetCategoriesByNameAsync(categoryName, categoryParameters, trackChanges: false);
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+
+            Response.Headers.Add("X-Paganation", JsonConvert.SerializeObject(categoryFromDb.MetaData));
             var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categoryFromDb);
 
             return Ok(categoryDto);
@@ -64,20 +83,6 @@ namespace FoodyProject.Controllers
             }
 
             var category = _mapper.Map<CategoryDto>(categoryDb);
-
-            return Ok(category);
-        }
-
-        [HttpGet("{categoryName}/categoriesByName")]
-        public async Task<IActionResult> GetCategoryByNameAsync(string categoryName)
-        {
-            var categoryDb = await _repository.Category.GetCategoriesByNameAsync(categoryName, trackChanges: false);
-            if (categoryDb == null)
-            {
-                return NotFound();
-            }
-
-            var category = _mapper.Map<IEnumerable<CategoryDto>>(categoryDb);
 
             return Ok(category);
         }

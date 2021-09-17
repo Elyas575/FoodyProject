@@ -18,38 +18,83 @@ namespace Repository
         : base(repositoryContext)
         {
         }
-        
-        public async Task<IEnumerable<Restaurant>> GetAllRestaurantAsync(RestaurantParameters restaurantParameters, bool trackChanges) =>
-            await FindAll(trackChanges)
-            .OrderBy(e => e.Name)
-            .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
-            .Take(restaurantParameters.PageSize)
-            .ToListAsync();
 
-        public async Task<IEnumerable<Restaurant>> GetRestaurantByCityAsync(string city, RestaurantParameters restaurantParameters, bool trackChanges) =>
-            await FindByCondition(c => c.City.Equals(city), trackChanges)
-            .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
-            .Take(restaurantParameters.PageSize)
-            .ToListAsync();
+        public async Task<PagedList<Restaurant>> GetAllRestaurantAsync(RestaurantParameters restaurantParameters, bool trackChanges)
+        {
+            var restauarnt = await FindAll(trackChanges)
+                 .OrderBy(e => e.Name)
+                 .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
+                   .Take(restaurantParameters.PageSize)
+                   .ToListAsync();
+
+
+            var count = await FindAll( trackChanges).CountAsync();
+
+
+            return new PagedList<Restaurant>(restauarnt, restaurantParameters.PageNumber, restaurantParameters.PageSize, count);
+
+        }
+
+
+        public async Task<PagedList<Restaurant>> GetRestaurantByCityAsync(string city, RestaurantParameters restaurantParameters, bool trackChanges)
+        {
+            var cities = await FindByCondition(c => c.City.Equals(city), trackChanges)
+                .OrderBy(e => e.City)
+                .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
+                   .Take(restaurantParameters.PageSize)
+                   .ToListAsync();
+
+
+            var count = await FindAll(trackChanges).CountAsync();
+
+
+            return new PagedList<Restaurant>(cities, restaurantParameters.PageNumber, restaurantParameters.PageSize, count);
+
+
+
+        }
+
+
 
         public async Task <Restaurant> GetRestaurantAsync(int restaurantId, bool trackChanges) =>
             await FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
             .SingleOrDefaultAsync();
 
-        public async Task<IEnumerable<Restaurant>> GetRestaurantByNameAsync(string name, RestaurantParameters restaurantParameters, bool trackChanges) =>
-            await FindAll(trackChanges)
-            .OrderBy(e => e.Name)
-            .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
-            .Take(restaurantParameters.PageSize)
-            .ToListAsync();
-        
+        public async Task<PagedList<Restaurant>> GetRestaurantByNameAsync(string name, RestaurantParameters restaurantParameters, bool trackChanges)
+        {
+            var names = await FindAll(trackChanges)
+                .OrderBy(e => e.Name)
+                .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
+                   .Take(restaurantParameters.PageSize)
+                   .ToListAsync();
+
+
+            var count = await FindAll(trackChanges).CountAsync();
+
+
+            return new PagedList<Restaurant>(names, restaurantParameters.PageNumber, restaurantParameters.PageSize, count);
+
+
+        }
+
+
         //GetBestRestaurantAsync
-        public async Task<IEnumerable<Restaurant>> GetBestRestaurantAsync(RestaurantParameters restaurantParameters, bool trackChanges) =>
-            await FindAll(trackChanges)
-            .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
-            .Take(restaurantParameters.PageSize)
-            .OrderBy(c => c.Rate)
-            .ToListAsync();
+        public async Task<PagedList<Restaurant>> GetBestRestaurantAsync(RestaurantParameters restaurantParameters, bool trackChanges)
+        {
+            var best = await FindAll(trackChanges)
+             .OrderBy(e => e.Name)
+           .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
+                   .Take(restaurantParameters.PageSize)
+                   .ToListAsync();
+
+
+            var count = await FindAll(trackChanges).CountAsync();
+
+
+            return new PagedList<Restaurant>(best, restaurantParameters.PageNumber, restaurantParameters.PageSize, count);
+
+        }
+
 
         public void DeleteRestaurant(Restaurant restaurant) => Delete(restaurant);
 

@@ -23,17 +23,14 @@ namespace FoodyProject.Models
             }
         }
     }
-    public class OrderParameters : RequestParameters
-    {
-    }
 
-    public class RestaurantContactParameters :  RequestParameters
-    {
+    public class RestaurantParameters : RequestParameters { }
 
-    }
+    public class RestaurantContactParameters : RequestParameters { }
 
-    public class RestaurantParameters: RequestParameters
-    {
+    public class CategoryParameters : RequestParameters { }
+
+    public class MealParameters : RequestParameters { }
 
     }
 
@@ -49,4 +46,5 @@ namespace FoodyProject.Models
 
 
 
+    public class OrderParameters : RequestParameters { }
 }

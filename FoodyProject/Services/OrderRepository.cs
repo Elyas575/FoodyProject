@@ -17,28 +17,49 @@ namespace Repository
         {
         }
 
-        public async Task<IEnumerable<Order>> GetAllOrdersAsync(bool trackChanges, OrderParameters orderParameters) =>
-            await FindAll(trackChanges)
-            .OrderBy(e => e.OrderId)
-            .Skip((orderParameters.PageNumber - 1) * orderParameters.PageSize)
-            .Take(orderParameters.PageSize)
-            .ToListAsync();
+        public async Task<PagedList<Order>> GetAllOrdersAsync(OrderParameters orderParameters, bool trackChanges)
+        {
+            var orders = await FindAll(trackChanges)
+                 .OrderBy(e => e.OrderId)
+                 .Skip((orderParameters.PageNumber - 1) * orderParameters.PageSize)
+                 .Take(orderParameters.PageSize)
+                 .ToListAsync();
 
-        public async Task<IEnumerable<Order>> GetOrdersForRestaurantAsync(int restaurantid, OrderParameters orderParameters, bool trackChanges) =>
-            await FindByCondition(e => e.RestaurantId.Equals(restaurantid), trackChanges)
-            .OrderBy(e => e.OrderId)
-            .Skip((orderParameters.PageNumber - 1) * orderParameters.PageSize)
-            .Take(orderParameters.PageSize)
-            .ToListAsync();
+            var count = await FindAll(trackChanges).CountAsync();
 
-        public async Task <Order>  GetOrderAsync(int orderid, bool trackChanges) =>
+            return new PagedList<Order>(orders, orderParameters.PageNumber, orderParameters.PageSize, count);
+        }
+
+
+        public async Task<PagedList<Order>> GetOrdersForRestaurantAsync(int restaurantid, OrderParameters orderParameters, bool trackChanges)
+        {
+            var orders = await FindByCondition(e => e.RestaurantId.Equals(restaurantid), trackChanges)
+           .OrderBy(e => e.OrderId)
+           .Skip((orderParameters.PageNumber - 1) * orderParameters.PageSize)
+           .Take(orderParameters.PageSize)
+           .ToListAsync();
+
+            var count = await FindByCondition(e => e.RestaurantId.Equals(restaurantid), trackChanges).CountAsync();
+
+            return new PagedList<Order>(orders, orderParameters.PageNumber, orderParameters.PageSize, count);
+        }
+        
+        public async Task<Order> GetOrderAsync(int orderid, bool trackChanges) =>
              await FindByCondition(c => c.OrderId.Equals(orderid), trackChanges)
              .SingleOrDefaultAsync();
 
-        public async Task<IEnumerable<Order>> GetOrderByCustomerIdAsync(int customerid, bool trackChanges) =>
-              await FindByCondition(c => c.CustomerId.Equals(customerid), trackChanges)
-              .OrderBy(c => c.OrderId)
-              .ToListAsync();
+        public async Task<PagedList<Order>> GetOrderByCustomerIdAsync(int customerid, OrderParameters orderParameters, bool trackChanges)
+        {
+            var orderbycustomerid = await FindByCondition(c => c.CustomerId.Equals(customerid), trackChanges)
+            .OrderBy(c => c.OrderId)
+            .Skip((orderParameters.PageNumber - 1) * orderParameters.PageSize)
+            .Take(orderParameters.PageSize)
+            .ToListAsync();
+
+            var count = await FindByCondition(c => c.CustomerId.Equals(customerid), trackChanges).CountAsync();
+
+            return new PagedList<Order>(orderbycustomerid, orderParameters.PageNumber, orderParameters.PageSize, count);
+        }
 
         public void CreateOrder(int customerId, int restaurantId, Order order)
         {

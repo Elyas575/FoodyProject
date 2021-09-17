@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using FoodyProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ namespace Contracts
 {
    public interface ICategoryRepository
     {
-        Task<IEnumerable<Category>> GetAllCategoriesAsync(bool trackChanges);
-        Task<IEnumerable<Category>> GetAllCategoriesByRestaurantId(int restaurantId, bool trackChanges);
-        Task<IEnumerable<Category>> GetCategoriesByNameAsync(string categoryName, bool trackChanges);
+        Task<PagedList<Category>> GetAllCategoriesAsync(CategoryParameters categoryParameters, bool trackChanges);
+        Task<PagedList<Category>> GetAllCategoriesByRestaurantId(int restaurantId, CategoryParameters categoryParameters, bool trackChanges);
+        Task<PagedList<Category>> GetCategoriesByNameAsync(string categoryName, CategoryParameters categoryParameters, bool trackChanges);
         Task <Category> GetCategoryAsync(int restaurantId, int categoryId, bool trackChanges);
         void CreateCategory(int restaurantId, Category category);
         void DeleteCategory(Category category);
