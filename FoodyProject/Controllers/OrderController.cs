@@ -125,7 +125,7 @@ namespace FoodyProject.Controllers
         [ServiceFilter(typeof(ValidateOrderForCustomerExistsAttribute))]
         public async  Task<IActionResult> DeleteOrder(int orderId)
         {
-            var orderForCustomer = HttpContext.Items["order"] as Order;
+            var orderForCustomer = await _repository.Order.GetOrderAsync(orderId, trackChanges: false);
 
             _repository.Order.DeleteOrder(orderForCustomer);
             await _repository.SaveAsync();

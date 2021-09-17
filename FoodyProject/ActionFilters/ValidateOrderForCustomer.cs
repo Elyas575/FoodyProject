@@ -21,22 +21,22 @@ namespace FoodyProject.ActionFilters
         {
             var method = context.HttpContext.Request.Method;
             var trackChanges = (method.Equals("PUT") || method.Equals("PATCH")) ? true :  false;
-            var restaurantId = (int)context.ActionArguments["restaurantId"];
-            var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, false);
-            var customerId = (int)context.ActionArguments["customerId"];
-            var customer = await _repository.Customer.GetCustomerAsync(customerId, false);
-            
-            if (restaurant == null)
-            {
-                context.Result = new NotFoundResult();
-                return;
-            }
+            //var restaurantId = (int)context.ActionArguments["restaurantId"];
+            //var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, false);
+            //var customerId = (int)context.ActionArguments["customerId"];
+            //var customer = await _repository.Customer.GetCustomerAsync(customerId, false);
 
-            if (customer == null)
-            {
-                context.Result = new NotFoundResult();
-                return;
-            }
+            //if (restaurant == null)
+            //{
+            //    context.Result = new NotFoundResult();
+            //    return;
+            //}
+
+            //if (customer == null)
+            //{
+            //    context.Result = new NotFoundResult();
+            //    return;
+            //}
 
             var orderId = (int)context.ActionArguments["orderId"];
             var order = await _repository.Order.GetOrderAsync(orderId, trackChanges);
