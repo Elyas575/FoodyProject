@@ -28,10 +28,7 @@ namespace FoodyProject.Controllers
         public async Task<IActionResult> GetAllCustomersAsync([FromQuery] CustomerParameters customerParameters)
         {
             var customers = await _repository.Customer.GetAllCustomersAsync(trackChanges: false, customerParameters);
-
-
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(customers.MetaData));
-
             var customerDto = _mapper.Map<IEnumerable<CustomerDto>>(customers);
 
             return Ok(customerDto);

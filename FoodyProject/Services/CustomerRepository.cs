@@ -19,20 +19,19 @@ namespace Repository
         {
 
         }
-         
-            public async Task<PagedList<Customer>> GetAllCustomersAsync(bool trackChanges, CustomerParameters customerParameters)
-            {
-                var customers = await FindAll(trackChanges)
-                      .OrderBy(c => c.CustomerId)
+
+        public async Task<PagedList<Customer>> GetAllCustomersAsync(bool trackChanges, CustomerParameters customerParameters)
+        {
+            var customers = await FindAll(trackChanges)
+                .OrderBy(c => c.CustomerId)
                 .Skip((customerParameters.PageNumber - 1) * customerParameters.PageSize)
                 .Take(customerParameters.PageSize)
-                  .ToListAsync();
+                .ToListAsync();
 
-                return PagedList<Customer>
-                    .ToPagedList(customers, customerParameters.PageNumber, customerParameters.PageSize);
-            }
+            var count = await FindAll(trackChanges).CountAsync();
 
-        
+            return new PagedList<Customer>(customers, customerParameters.PageNumber, customerParameters.PageSize, count);
+        }
 
         public async Task<Customer> GetCustomerAsync(int customerId, bool trackChanges) =>
              await FindByCondition(c => c.CustomerId.Equals(customerId), trackChanges)
@@ -47,7 +46,5 @@ namespace Repository
         {
             Delete(customer);
         }
-
-   
     }
 }
