@@ -139,13 +139,13 @@ namespace FoodyProject.Controllers
 
         public async Task<IActionResult> GetAllRestaurantsContactsAsync([FromQuery] RestaurantContactParameters restaurantcontactParameters)
         {
-            var restaurantcontactFromDb = await _repository.RestaurantContact.GetAllRestaurantContactsAsync(trackChanges: false, restaurantcontactParameters);
+            var restaurantcontactFromDb = await _repository.RestaurantContact.GetAllRestaurantContactsAsync(restaurantcontactParameters, trackChanges: false);
             return Ok(restaurantcontactFromDb);
         }
 
         // Get all contacts for a restaurant 
         [HttpGet("{restaurantId}/restaurantContacts")]
-        public async Task <IActionResult> GetAllContactsForRestaurantAsync(int restaurantId)
+        public async Task <IActionResult> GetAllContactsForRestaurantAsync([FromQuery] int restaurantId, RestaurantContactParameters restaurantcontactParameters)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
@@ -153,10 +153,15 @@ namespace FoodyProject.Controllers
                 return NotFound();
             }
 
-            var restaurantContactFromDb = await _repository.RestaurantContact.GetAllContactsForRestaurantAsync(restaurantId, trackChanges: false);
+
+            var restaurantContactFromDb = await _repository.RestaurantContact.GetAllContactsForRestaurantAsync(restaurantId, restaurantcontactParameters, trackChanges: false);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(restaurantContactFromDb.MetaData));
+
             var restaurantDto = _mapper.Map<IEnumerable<RestaurantContactDto>>(restaurantContactFromDb);
 
             return Ok(restaurantDto);
+
+         
         }
 
         // Get a single restaurant contact
@@ -188,6 +193,8 @@ namespace FoodyProject.Controllers
             {
                 return BadRequest("RestaurantContactForCreationDto object is null");
             }
+
+
 
             var restaurant = await  _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
