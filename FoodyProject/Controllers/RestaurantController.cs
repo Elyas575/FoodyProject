@@ -145,13 +145,16 @@ namespace FoodyProject.Controllers
         }
 
         // Get all contacts for a restaurant 
-        [HttpGet("{restaurantId}/restaurantContacts")]
+        [HttpGet("{restaurantId}/restaurantContacts")] 
         public async Task <IActionResult> GetAllContactsForRestaurantAsync( int restaurantId, [FromQuery] RestaurantContactParameters restaurantcontactParameters)
         {
             var restaurant = await _repository.Restaurant.GetRestaurantAsync(restaurantId, trackChanges: false);
             if (restaurant == null)
             {
+
+
                 return NotFound();
+
             }
 
 

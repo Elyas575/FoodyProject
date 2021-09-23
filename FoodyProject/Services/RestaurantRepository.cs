@@ -2,6 +2,7 @@
 using Entities;
 using Entities.Models;
 using FoodyProject.Models;
+using FoodyProject.Services.NewFolder;
 using Microsoft.EntityFrameworkCore;
 using Repositoy;
 using System;
@@ -22,9 +23,10 @@ namespace Repository
         public async Task<PagedList<Restaurant>> GetAllRestaurantAsync(RestaurantParameters restaurantParameters, bool trackChanges)
         {
             var restauarnt = await FindAll(trackChanges)
-                .Include(x=>x.RestaurantContacts)
-                 .OrderBy(e => e.Name)
-                 .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
+                   .Include(x=>x.RestaurantContacts)
+                   .Search(restaurantParameters.SearchTerm)
+                   .OrderBy(e => e.Name)
+                   .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
                    .Take(restaurantParameters.PageSize)
                    .ToListAsync();
 
@@ -39,8 +41,9 @@ namespace Repository
         public async Task<PagedList<Restaurant>> GetRestaurantByCityAsync(string city, RestaurantParameters restaurantParameters, bool trackChanges)
         {
             var cities = await FindByCondition(c => c.City.Equals(city), trackChanges)
-                .OrderBy(e => e.City)
-                .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
+                   .Search(restaurantParameters.SearchTerm)
+                   .OrderBy(e => e.City)
+                   .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
                    .Take(restaurantParameters.PageSize)
                    .ToListAsync();
 
@@ -60,13 +63,15 @@ namespace Repository
             await FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
             .SingleOrDefaultAsync();
 
+
         public async Task<PagedList<Restaurant>> GetRestaurantByNameAsync(string name, RestaurantParameters restaurantParameters, bool trackChanges)
         {
-            var names = await FindAll(trackChanges)
+            var names = await FindByCondition(e => e.RestaurantId.Equals(name), 
+                trackChanges)
+
+                .Search(restaurantParameters.SearchTerm)
                 .OrderBy(e => e.Name)
-                .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
-                   .Take(restaurantParameters.PageSize)
-                   .ToListAsync();
+                .ToListAsync();
 
 
             var count = await FindAll(trackChanges).CountAsync();

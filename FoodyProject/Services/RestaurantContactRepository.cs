@@ -2,6 +2,7 @@
 using Entities;
 using Entities.Models;
 using FoodyProject.Models;
+using FoodyProject.Services.NewFolder;
 using Microsoft.EntityFrameworkCore;
 using Repositoy;
 using System;
@@ -24,7 +25,8 @@ namespace Repository
 
             var restauarntcontact = await FindAll(trackChanges)
                    .OrderBy(e => e.PhoneNumber)
-                   .Skip((restaurantcontactParameters.PageNumber - 1) * restaurantcontactParameters.PageSize)
+                     .Search(restaurantcontactParameters.SearchTerm)
+                     .Skip((restaurantcontactParameters.PageNumber - 1) * restaurantcontactParameters.PageSize)
                      .Take(restaurantcontactParameters.PageSize)
                      .ToListAsync();
 
@@ -38,6 +40,7 @@ namespace Repository
         {
             var restaurantcontact = await FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
             .OrderBy(e => e.PhoneNumber)
+            .Search(restaurantcontactParameters.SearchTerm)
             .Skip((restaurantcontactParameters.PageNumber - 1) * restaurantcontactParameters.PageSize)
                .Take(restaurantcontactParameters.PageSize)
                .ToListAsync();

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodyProject.Migrations
 {
-    public partial class KasemMigration : Migration
+    public partial class kasemmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,7 +49,7 @@ namespace FoodyProject.Migrations
                     Cuisine = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDelete = table.Column<bool>(type: "bit", nullable: false),
-                    Rate = table.Column<int>(type: "int", nullable: false)
+                    Rate = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,6 +112,7 @@ namespace FoodyProject.Migrations
                     OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrderedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DelieveredTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OrderRate = table.Column<int>(type: "int", nullable: false),
                     PaymentMethod = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     OrderDescription = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
                     IsDelivered = table.Column<bool>(type: "bit", nullable: false)
