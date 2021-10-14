@@ -2,6 +2,7 @@
 using FoodyProject.Helpers.CollectionHelper;
 using FoodyProject.Helpers.RequestParameters;
 using FoodyProject.Models;
+using FoodyProject.Services.NewFolder;
 using FoodyProject.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -19,6 +20,11 @@ namespace FoodyProject.Services
         public async Task<PagedList<RestaurantContact>> GetAllRestaurantContactsAsync( RestaurantContactParameters restaurantcontactParameters,bool trackChanges)
         {
             var restauarntcontact = await FindAll(trackChanges)
+                   .OrderBy(e => e.PhoneNumber)
+                     .Search(restaurantcontactParameters.SearchTerm)
+                     .Skip((restaurantcontactParameters.PageNumber - 1) * restaurantcontactParameters.PageSize)
+                     .Take(restaurantcontactParameters.PageSize)
+                     .ToListAsync();
                    .OrderBy(e => e.Id)
                    .Skip((restaurantcontactParameters.PageNumber - 1) * restaurantcontactParameters.PageSize)
                    .Take(restaurantcontactParameters.PageSize)
@@ -32,6 +38,8 @@ namespace FoodyProject.Services
         public async Task<PagedList<RestaurantContact>> GetAllContactsForRestaurantAsync(int restaurantId, RestaurantContactParameters restaurantcontactParameters,  bool trackChanges)
         {
             var restaurantcontact = await FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
+            .OrderBy(e => e.PhoneNumber)
+            .Search(restaurantcontactParameters.SearchTerm)
             .OrderBy(e => e.RestaurantId)
             .Skip((restaurantcontactParameters.PageNumber - 1) * restaurantcontactParameters.PageSize)
             .Take(restaurantcontactParameters.PageSize)
