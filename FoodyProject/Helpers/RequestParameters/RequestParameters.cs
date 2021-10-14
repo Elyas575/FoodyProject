@@ -22,32 +22,15 @@
     public class RestaurantParameters : RequestParameters
     {
         public string SearchTerm { get; set; }
-
-
     }
 
     public class RestaurantContactParameters : RequestParameters 
     {
         public string SearchTerm { get; set; } 
     }
-
     public class CategoryParameters : RequestParameters { }
-
-    public class MealParameters : RequestParameters 
-    {
-
-
-    }
-
+    public class MealParameters : RequestParameters { }
     public class CustomerParameters : RequestParameters { }
-    
-
     public class CustomerContactParameters : RequestParameters { }
-    
     public class OrderParameters : RequestParameters { }
-
-}
-
-
-
 }

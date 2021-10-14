@@ -20,15 +20,11 @@ namespace FoodyProject.Services
         public async Task<PagedList<RestaurantContact>> GetAllRestaurantContactsAsync( RestaurantContactParameters restaurantcontactParameters,bool trackChanges)
         {
             var restauarntcontact = await FindAll(trackChanges)
-                   .OrderBy(e => e.PhoneNumber)
+                   .OrderBy(e => e.Id)
                      .Search(restaurantcontactParameters.SearchTerm)
                      .Skip((restaurantcontactParameters.PageNumber - 1) * restaurantcontactParameters.PageSize)
                      .Take(restaurantcontactParameters.PageSize)
                      .ToListAsync();
-                   .OrderBy(e => e.Id)
-                   .Skip((restaurantcontactParameters.PageNumber - 1) * restaurantcontactParameters.PageSize)
-                   .Take(restaurantcontactParameters.PageSize)
-                   .ToListAsync();
 
             var count = await FindAll(trackChanges).CountAsync();
 
@@ -38,7 +34,6 @@ namespace FoodyProject.Services
         public async Task<PagedList<RestaurantContact>> GetAllContactsForRestaurantAsync(int restaurantId, RestaurantContactParameters restaurantcontactParameters,  bool trackChanges)
         {
             var restaurantcontact = await FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
-            .OrderBy(e => e.PhoneNumber)
             .Search(restaurantcontactParameters.SearchTerm)
             .OrderBy(e => e.RestaurantId)
             .Skip((restaurantcontactParameters.PageNumber - 1) * restaurantcontactParameters.PageSize)

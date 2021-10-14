@@ -182,18 +182,6 @@ namespace FoodyProject.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-<<<<<<< HEAD
-=======
-                    b.Property<int>("OrderRate")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OrderStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("OrderedTime")
-                        .HasColumnType("datetime2");
-
->>>>>>> 80134d79cde379fe3c34981919fe6724ce523797
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
                         .HasMaxLength(50)
