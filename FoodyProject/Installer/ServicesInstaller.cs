@@ -22,8 +22,7 @@ namespace FoodyProject.Installer
                     //For signalR you must use .SetIsOriginAllowed((host) => true) with .AllowCredentials();
                     builder.AllowAnyOrigin()
                     .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
+                    .AllowAnyMethod();
                 }));
 
             services.AddScoped<IRepositoryManager, RepositoryManager>();
