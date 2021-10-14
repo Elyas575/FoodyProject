@@ -1,17 +1,15 @@
-﻿using Entities.Models;
+﻿using FoodyProject.Helpers.CollectionHelper;
+using FoodyProject.Helpers.RequestParameters;
 using FoodyProject.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-namespace Contracts
+
+namespace FoodyProject.Services.Interfaces
 {
     public interface IRestaurantContactRepository
     {
         Task<PagedList<RestaurantContact>> GetAllRestaurantContactsAsync( RestaurantContactParameters restaurantcontactParameters, bool trackChanges ); 
-        Task<RestaurantContact> GetRestaurantContactAsync(int restaurantId, int id, bool trackChanges);
         Task<PagedList<RestaurantContact>> GetAllContactsForRestaurantAsync(int restaurantId, RestaurantContactParameters restaurantcontactParameters,  bool trackChanges);
+        Task<RestaurantContact> GetRestaurantContactAsync(int restaurantId, int id, bool trackChanges);
         void CreateRestaurantContact(int restaurantId, RestaurantContact restaurantcontact);
         void DeleteRestaurantContact(RestaurantContact restaurantcontact);
     }

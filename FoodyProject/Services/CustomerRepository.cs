@@ -1,16 +1,13 @@
-﻿using Contracts;
-using Entities;
-using Entities.Models;
+﻿using Entities;
+using FoodyProject.Helpers.CollectionHelper;
+using FoodyProject.Helpers.RequestParameters;
 using FoodyProject.Models;
+using FoodyProject.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Repositoy;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository
+namespace FoodyProject.Services
 {
     public class CustomerRepository : RepositoryBase<Customer>, ICustomerRepository
     {
@@ -23,7 +20,8 @@ namespace Repository
         public async Task<PagedList<Customer>> GetAllCustomersAsync(bool trackChanges, CustomerParameters customerParameters)
         {
             var customers = await FindAll(trackChanges)
-                .OrderBy(c => c.CustomerId)
+                .Include(x => x.CustomerContacts)
+                .OrderBy(c => c.Id)
                 .Skip((customerParameters.PageNumber - 1) * customerParameters.PageSize)
                 .Take(customerParameters.PageSize)
                 .ToListAsync();
@@ -34,17 +32,12 @@ namespace Repository
         }
 
         public async Task<Customer> GetCustomerAsync(int customerId, bool trackChanges) =>
-             await FindByCondition(c => c.CustomerId.Equals(customerId), trackChanges)
+             await FindByCondition(c => c.Id.Equals(customerId), trackChanges)
+            .Include(x => x.CustomerContacts)
             .SingleOrDefaultAsync();
 
-        public void CreateCustomer(Customer customer)
-        {
-            Create(customer);
-        }
-
-        public void DeleteCustomer(Customer customer)
-        {
-            Delete(customer);
-        }
+        public void CreateCustomer(Customer customer) => Create(customer);
+        
+        public void DeleteCustomer(Customer customer) => Delete(customer);
     }
 }

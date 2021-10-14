@@ -1,14 +1,6 @@
-﻿using FoodyProject.ViewModels.RestaurantContact;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entities.DataTransferObjects
+﻿namespace FoodyProject.ViewModels.RestaurantContact
 {
-    public class RestaurantContactForUpdateDto : RestaurantContactForManipulationDto
+    public class RestaurantContactForUpdateDto : RestaurantContactBase
     {
     }
 }

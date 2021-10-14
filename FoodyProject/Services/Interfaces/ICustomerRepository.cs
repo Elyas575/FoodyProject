@@ -1,10 +1,9 @@
-﻿using Entities.Models;
+﻿using FoodyProject.Helpers.CollectionHelper;
+using FoodyProject.Helpers.RequestParameters;
 using FoodyProject.Models;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Contracts
+namespace FoodyProject.Services.Interfaces
 {
     public interface ICustomerRepository
     {

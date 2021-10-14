@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
-using Contracts;
-using Entities.DataTransferObjects;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Entities.Models;
 using FoodyProject.ActionFilters;
+using FoodyProject.Helpers.RequestParameters;
 using FoodyProject.Models;
+using FoodyProject.Services.Interfaces;
+using FoodyProject.ViewModels.Category;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FoodyProject.Controllers
 {
@@ -45,7 +43,7 @@ namespace FoodyProject.Controllers
                 return NotFound();
             }
 
-            var categoryFromDb = await _repository.Category.GetAllCategoriesByRestaurantId(restaurantId, categoryParameters, trackChanges: false);
+            var categoryFromDb = await _repository.Category.GetAllCategoriesByRestaurantIdAsync(restaurantId, categoryParameters, trackChanges: false);
             Response.Headers.Add("X-Paganation", JsonConvert.SerializeObject(categoryFromDb.MetaData));
             var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categoryFromDb);
 

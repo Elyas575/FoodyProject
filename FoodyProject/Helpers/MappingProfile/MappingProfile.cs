@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
-using Entities.DataTransferObjects;
-using Entities.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using FoodyProject.Models;
+using FoodyProject.ViewModels.Category;
+using FoodyProject.ViewModels.Customer;
+using FoodyProject.ViewModels.CustomerContact;
+using FoodyProject.ViewModels.Meal;
+using FoodyProject.ViewModels.Order;
+using FoodyProject.ViewModels.Restaurant;
+using FoodyProject.ViewModels.RestaurantContact;
 
-namespace FoodyProject
+namespace FoodyProject.Helpers.MappingProfile
 {
     public class MappingProfile : Profile
     {
@@ -20,7 +22,8 @@ namespace FoodyProject
             CreateMap<CustomerForCreationDto, Customer>();
             CreateMap<CustomerForUpdateDto, Customer>();
 
-            CreateMap<CustomerContact, CustomerContactDto>();
+            CreateMap<CustomerContact, CustomerContactDto>()
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Country + ", " + src.City + ", " + src.Street + ", " + src.Building));
             CreateMap<CustomerContactForCreationDto, CustomerContact>();
             CreateMap<CustomerContactForUpdateDto, CustomerContact>();
 
@@ -34,8 +37,7 @@ namespace FoodyProject
 
             CreateMap<Restaurant, RestaurantDto>()
                 .ForMember( dest => dest.Location , opt => opt.MapFrom(src=>src.Latitude+ " , " + src.Longitude))
-                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Country + ", " + src.City + ", " + src.Area + ", " + src.Street));
-
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Country + ", " + src.City + ", " + src.Street + ", " + src.Building));
             CreateMap<RestaurantContact, RestaurantDto>();
             CreateMap<RestaurantForCreationDto, Restaurant>();
             CreateMap<RestaurantForUpdateDto, Restaurant>();

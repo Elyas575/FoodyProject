@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
-using Contracts;
-using Entities.DataTransferObjects;
-using Entities.Models;
 using FoodyProject.ActionFilters;
+using FoodyProject.Helpers.RequestParameters;
 using FoodyProject.Models;
+using FoodyProject.Services.Interfaces;
+using FoodyProject.ViewModels.Meal;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FoodyProject.Controllers
@@ -97,9 +95,9 @@ namespace FoodyProject.Controllers
             }
 
             var mealEntity = _mapper.Map<Meal>(meal);
-            mealEntity.CategoryId = category.CategoryId;
+            mealEntity.CategoryId = category.Id;
 
-            _repository.Meal.CreateMealForCategory(restaurantId, categoryId, mealEntity);
+            _repository.Meal.CreateMeal(restaurantId, categoryId, mealEntity);
             await _repository.SaveAsync();
 
             var mealToReturn = _mapper.Map<MealDto>(mealEntity);

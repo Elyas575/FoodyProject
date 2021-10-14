@@ -1,14 +1,13 @@
-﻿using FoodyProject.ViewModels.Customer;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entities.DataTransferObjects
+namespace FoodyProject.ViewModels.Customer
 {
-    public class CustomerForCreationDto : CustomerForManipulationDto
+    public class CustomerForCreationDto : CustomerBase
     {
+        [DataType(DataType.DateTime)]
+        [Required(ErrorMessage = "Employee's DOB Field is Required.")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfBirth { get; set; }
     }
 }

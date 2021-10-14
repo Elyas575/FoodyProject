@@ -1,77 +1,83 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace FoodyProject.Models
 {
     public class Restaurant
     {
         [Key]
-        public int RestaurantId { get; set; }
+        public int Id { get; set; }
 
-        [Required(ErrorMessage = "Resturant name is a required field.")]
-        [MaxLength(50, ErrorMessage = "Maximum length for the Name is 50 characters.")]
+        [Required(ErrorMessage = "Restaurant's Name Field is Required.")]
+        [StringLength(40, ErrorMessage = "Restaurant's {0} Field Can't Exceed {1} Characters.")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Resturant Email is a required field.")]
-        [MaxLength(50, ErrorMessage = "Maximum length for the Email is 50 characters.")]
-        [EmailAddress]
-        public string Email { get; set; }
-     
-        [MinLength(8, ErrorMessage = "Minimum length for the Password is 8 characters.")]
-        [Required(ErrorMessage = "Password is a required field")]
+        [Required(ErrorMessage = "Restaurant's EmailAddress Field is Required.")]
+        [StringLength(50, ErrorMessage = "Restaurant's {0} Field Can't Exceed {1} Characteers.")]
+        [RegularExpression(@"^[\w\.\_\-]+@[\w.-]+\.[\w]{2,4}+", ErrorMessage = "Email Address should Follow These Rules:\n" +
+           "---> Use Lower & Upper Case Letters, Digits, and (_ . -) Symbols Before '@' Character.\n" +
+           "---> Use Lower & Upper Case Letters, Digits, and (-) Symbol Before '.' Character.\n" +
+           "---> Use From 2 to 4 Characters, From Lower & Upper Case Letters, and Digits after '.' Character.")]
+        public string EmailAddress { get; set; }
+
+        [Required(ErrorMessage = "Password Field is Required")]
+        [MinLength(8, ErrorMessage = "Password Can't be less than 8 Characters")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        [ReadOnly(true)]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "Resturant country is a required field.")]
-        [MaxLength(50, ErrorMessage = "Maximum length for the Country is 50 characters")]
+        [StringLength(50, ErrorMessage = "{0} Field Can't Exceed {1} Characters.")]
+        [Required(ErrorMessage = "Country Field is Required.")]
         public string Country { get; set; }
 
-        [Required(ErrorMessage = "Resturant city  is a required field.")]
-        [MaxLength(50, ErrorMessage = "Maximum length for the city is 50 characters")]
+        [StringLength(50, ErrorMessage = "{0} Field Can't Exceed {1} Characters.")]
+        [Required(ErrorMessage = "City Field is Required.")]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "Resturant city  is a required field.")]
-        [MaxLength(50, ErrorMessage = "Maximum length for the Area is 50 characters")]
-        public string Area { get; set; }
-
-        [Required(ErrorMessage = "Resturant Street  is a required field.")]
-        [MaxLength(60, ErrorMessage = "Maximum length for the Street is 60 characters")]
+        [StringLength(50, ErrorMessage = "{0} Field Can't Exceed {1} Characters.")]
+        [Required(ErrorMessage = "Street Field is Required.")]
         public string Street { get; set; }
 
-        [MaxLength(120, ErrorMessage = "Maximum length for the Location is 120 characters")]
+        [StringLength(50, ErrorMessage = "{0} Field Can't Exceed {1} Characters.")]
+        [Required(ErrorMessage = "Building Field is Required.")]
+        public string Building { get; set; }
+
+        [ReadOnly(true)]
         public string Location { get; set; }
 
-        [MaxLength(60, ErrorMessage = "Maximum length for the Latitude is 60 characters")]
+        [StringLength(30, ErrorMessage = "{0} Field Can't Exceed {1} Characters.")]
+        [Required(ErrorMessage = "Latitude Field is Required.")]
         public string Latitude { get; set; }
 
-        [MaxLength(60, ErrorMessage = "Maximum length for the Longitude is 60 characters")]
+        [StringLength(30, ErrorMessage = "{0} Field Can't Exceed {1} Characters.")]
+        [Required(ErrorMessage = "Longitude Field is Required.")]
         public string Longitude { get; set; }
 
-        [Required(ErrorMessage = "Resturant Street  is a required field.")]
-        [MaxLength(50, ErrorMessage = "Maximum length for the Status is 50 characters")]
+        [Required(ErrorMessage = "Restaurant's Status Field is Required.")]
+        [StringLength(25, ErrorMessage = "Restaurant's {0} Field Can't Exceed {1} Characters.")]
         public string Status { get; set; }
 
-        [MaxLength(100, ErrorMessage = "Maximum length for the Logo is 100 characters")]
-        public string Logo { get; set; }
-
-        [Required(ErrorMessage = "Resturant AvgDeliveryTime is a required field.")]
+        [Required(ErrorMessage = "Resturant's AvgDeliveryTime Field is Required.")]
+        [Range(typeof(int), "0", "21000", ErrorMessage = "Resturant's {0} Can't be less than {1}.")]
         public int AvgDeliveryTime { get; set; }
 
-        [Range(0.1, float.MaxValue, ErrorMessage = "Price is required and it can't be lower than 0.1")]
-        public float MinPrice { get; set; }
-       
-        public string AvailablePaymentMethods { get; set; }
-        public string Cuisine { get; set; }
-        public string Note { get; set; }
-        public bool IsDelete { get; set; }
+        [Required(ErrorMessage = "Restaurant's MinPrice Field is Required.")]
+        [Column(TypeName = "decimal(18,2")]
+        [Range(typeof(decimal), "0", "2000", ErrorMessage = "Restaurant's {0} Can't be less than {1}")]
+        public decimal MinPrice { get; set; }
+
+        [Range(0.0, 10.0, ErrorMessage = "Restaurant's Rate Should be between 0.0 and 10.0.")]
         public float Rate { get; set; }
+
+        public string Cuisine { get; set; }
+        public bool IsDelete { get; set; }
+        public string Logo { get; set; }
+        public string Note { get; set; }
         
         public ICollection<Order> Orders { get; set; }
         public ICollection<Category> Categories { get; set; }

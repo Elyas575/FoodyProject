@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodyProject.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20210917063348_KasemMigration")]
+    [Migration("20211014061410_KasemMigration")]
     partial class KasemMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,71 +21,82 @@ namespace FoodyProject.Migrations
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Entities.Models.Category", b =>
+            modelBuilder.Entity("FoodyProject.Models.Category", b =>
                 {
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
 
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
-
-                    b.Property<int>("RestaurantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CategoryId");
-
-                    b.HasIndex("RestaurantId");
-
-                    b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("Entities.Models.Customer", b =>
-                {
-                    b.Property<int>("CustomerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RestaurantId");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("FoodyProject.Models.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("Phone")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("Id");
 
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Entities.Models.CustomerContact", b =>
+            modelBuilder.Entity("FoodyProject.Models.CustomerContact", b =>
                 {
-                    b.Property<int>("CustomerContactId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Building")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -97,32 +108,24 @@ namespace FoodyProject.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("CustomerAddress")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Street")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("CustomerContactId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
                     b.ToTable("CustomerContacts");
                 });
 
-            modelBuilder.Entity("Entities.Models.Meal", b =>
+            modelBuilder.Entity("FoodyProject.Models.Meal", b =>
                 {
-                    b.Property<int>("MealId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -140,14 +143,14 @@ namespace FoodyProject.Migrations
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
-                    b.Property<string>("MealOptions")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("Option")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
@@ -155,10 +158,10 @@ namespace FoodyProject.Migrations
                     b.Property<string>("Picture")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("MealId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
@@ -167,9 +170,9 @@ namespace FoodyProject.Migrations
                     b.ToTable("Meals");
                 });
 
-            modelBuilder.Entity("Entities.Models.Order", b =>
+            modelBuilder.Entity("FoodyProject.Models.Order", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -177,31 +180,27 @@ namespace FoodyProject.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DelieveredTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDelivered")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("OrderDescription")
+                    b.Property<string>("Description")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("OrderStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("OrderedTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<double>("Rate")
+                        .HasColumnType("float");
+
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderId");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
@@ -210,9 +209,9 @@ namespace FoodyProject.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Entities.Models.Restaurant", b =>
+            modelBuilder.Entity("FoodyProject.Models.Restaurant", b =>
                 {
-                    b.Property<int>("RestaurantId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -220,16 +219,13 @@ namespace FoodyProject.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Area")
+                    b.Property<int>("AvgDeliveryTime")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Building")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("AvailablePaymentMethods")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("AvgDeliveryTime")
-                        .HasColumnType("int");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -244,7 +240,7 @@ namespace FoodyProject.Migrations
                     b.Property<string>("Cuisine")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -253,28 +249,28 @@ namespace FoodyProject.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Latitude")
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Location")
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Logo")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Longitude")
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                    b.Property<float>("MinPrice")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MinPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
@@ -283,49 +279,49 @@ namespace FoodyProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rate")
-                        .HasColumnType("int");
+                    b.Property<float>("Rate")
+                        .HasColumnType("real");
 
                     b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("Street")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.HasKey("RestaurantId");
+                    b.HasKey("Id");
 
                     b.ToTable("Resturants");
                 });
 
-            modelBuilder.Entity("Entities.Models.RestaurantContact", b =>
+            modelBuilder.Entity("FoodyProject.Models.RestaurantContact", b =>
                 {
-                    b.Property<int>("RestaurantContactId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("Phone")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
-                    b.HasKey("RestaurantContactId");
+                    b.HasKey("Id");
 
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("RestaurantContacts");
                 });
 
-            modelBuilder.Entity("Entities.Models.Category", b =>
+            modelBuilder.Entity("FoodyProject.Models.Category", b =>
                 {
-                    b.HasOne("Entities.Models.Restaurant", "Restaurants")
+                    b.HasOne("FoodyProject.Models.Restaurant", "Restaurants")
                         .WithMany("Categories")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -334,9 +330,9 @@ namespace FoodyProject.Migrations
                     b.Navigation("Restaurants");
                 });
 
-            modelBuilder.Entity("Entities.Models.CustomerContact", b =>
+            modelBuilder.Entity("FoodyProject.Models.CustomerContact", b =>
                 {
-                    b.HasOne("Entities.Models.Customer", "Customer")
+                    b.HasOne("FoodyProject.Models.Customer", "Customer")
                         .WithMany("CustomerContacts")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -345,30 +341,30 @@ namespace FoodyProject.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Entities.Models.Meal", b =>
+            modelBuilder.Entity("FoodyProject.Models.Meal", b =>
                 {
-                    b.HasOne("Entities.Models.Category", "Category")
+                    b.HasOne("FoodyProject.Models.Category", "Category")
                         .WithMany("Meals")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Order", null)
+                    b.HasOne("FoodyProject.Models.Order", null)
                         .WithMany("Meals")
                         .HasForeignKey("OrderId");
 
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Entities.Models.Order", b =>
+            modelBuilder.Entity("FoodyProject.Models.Order", b =>
                 {
-                    b.HasOne("Entities.Models.Customer", "Customer")
+                    b.HasOne("FoodyProject.Models.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Restaurant", "Restaurants")
+                    b.HasOne("FoodyProject.Models.Restaurant", "Restaurants")
                         .WithMany("Orders")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -379,9 +375,9 @@ namespace FoodyProject.Migrations
                     b.Navigation("Restaurants");
                 });
 
-            modelBuilder.Entity("Entities.Models.RestaurantContact", b =>
+            modelBuilder.Entity("FoodyProject.Models.RestaurantContact", b =>
                 {
-                    b.HasOne("Entities.Models.Restaurant", "Restaurant")
+                    b.HasOne("FoodyProject.Models.Restaurant", "Restaurant")
                         .WithMany("RestaurantContacts")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -390,24 +386,24 @@ namespace FoodyProject.Migrations
                     b.Navigation("Restaurant");
                 });
 
-            modelBuilder.Entity("Entities.Models.Category", b =>
+            modelBuilder.Entity("FoodyProject.Models.Category", b =>
                 {
                     b.Navigation("Meals");
                 });
 
-            modelBuilder.Entity("Entities.Models.Customer", b =>
+            modelBuilder.Entity("FoodyProject.Models.Customer", b =>
                 {
                     b.Navigation("CustomerContacts");
 
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("Entities.Models.Order", b =>
+            modelBuilder.Entity("FoodyProject.Models.Order", b =>
                 {
                     b.Navigation("Meals");
                 });
 
-            modelBuilder.Entity("Entities.Models.Restaurant", b =>
+            modelBuilder.Entity("FoodyProject.Models.Restaurant", b =>
                 {
                     b.Navigation("Categories");
 

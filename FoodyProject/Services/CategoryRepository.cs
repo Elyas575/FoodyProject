@@ -1,15 +1,13 @@
-﻿using Contracts;
-using Entities;
-using Entities.Models;
+﻿using Entities;
+using FoodyProject.Helpers.CollectionHelper;
+using FoodyProject.Helpers.RequestParameters;
 using FoodyProject.Models;
+using FoodyProject.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Repository;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Repositoy
+namespace FoodyProject.Services
 {
     public class CategoryRepository : RepositoryBase<Category>, ICategoryRepository
     {
@@ -21,7 +19,7 @@ namespace Repositoy
         public async Task<PagedList<Category>> GetAllCategoriesAsync(CategoryParameters categoryParameters, bool trackChanges)
         {
             var category = await FindAll(trackChanges)
-                .OrderBy(c => c.CategoryName)
+                .OrderBy(c => c.Name)
                 .Skip((categoryParameters.PageNumber - 1) * categoryParameters.PageSize)
                 .Take(categoryParameters.PageSize)
                 .ToListAsync();
@@ -31,10 +29,10 @@ namespace Repositoy
             return new PagedList<Category>(category, categoryParameters.PageNumber, categoryParameters.PageSize, count);
         }
 
-        public async Task<PagedList<Category>> GetAllCategoriesByRestaurantId(int restaurantId, CategoryParameters categoryParameters, bool trackChanges)
+        public async Task<PagedList<Category>> GetAllCategoriesByRestaurantIdAsync(int restaurantId, CategoryParameters categoryParameters, bool trackChanges)
         {
             var category = await FindByCondition(e => e.RestaurantId.Equals(restaurantId), trackChanges)
-                .OrderBy(e => e.CategoryName)
+                .OrderBy(e => e.Name)
                 .Skip((categoryParameters.PageNumber - 1) * categoryParameters.PageSize)
                 .Take(categoryParameters.PageSize)
                 .ToListAsync();
@@ -46,19 +44,19 @@ namespace Repositoy
              
         public async Task<PagedList<Category>> GetCategoriesByNameAsync(string categoryName, CategoryParameters categoryParameters, bool trackChanges)
         {
-            var category = await FindByCondition(e => e.CategoryName.Equals(categoryName), trackChanges)
-                .OrderBy(e => e.CategoryName)
+            var category = await FindByCondition(e => e.Name.Equals(categoryName), trackChanges)
+                .OrderBy(e => e.Name)
                 .Skip((categoryParameters.PageNumber - 1) * categoryParameters.PageSize)
                 .Take(categoryParameters.PageSize)
                 .ToListAsync();
 
-            var count = await FindByCondition(e => e.CategoryName.Equals(categoryName), trackChanges).CountAsync();
+            var count = await FindByCondition(e => e.Name.Equals(categoryName), trackChanges).CountAsync();
 
             return new PagedList<Category>(category, categoryParameters.PageNumber, categoryParameters.PageSize, count);
         }
 
         public async Task <Category> GetCategoryAsync(int restaurantId, int categoryId, bool trackChanges) =>
-             await FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.CategoryId.Equals(categoryId), trackChanges)
+             await FindByCondition(e => e.RestaurantId.Equals(restaurantId) && e.Id.Equals(categoryId), trackChanges)
              .SingleOrDefaultAsync();
 
         public void CreateCategory(int restaurantId, Category category)

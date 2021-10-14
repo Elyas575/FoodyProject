@@ -1,28 +1,14 @@
-﻿using Entities.Models;
-using System;
+﻿using FoodyProject.ViewModels.RestaurantContact;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entities.DataTransferObjects
+namespace FoodyProject.ViewModels.Restaurant
 {
-    public class RestaurantDto
+    public class RestaurantDto : RestaurantBase
     {
-        public int RestaurantId { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
+        public int Id { get; set; }
         public string Address { get; set; }
         public string Location { get; set; }
-        public string Status { get; set; }
-        public int AvgDeliveryTime { get; set; }
-        public float MinPrice { get; set; }
-        public string AvailablePaymentMethods { get; set; }
-        public string Cuisine { get; set; }
-        public string Note { get; set; }
-        public bool IsDelete { get; set; }
-        public int Rate { get; set; }
-        public string Logo { get; set; }
+        public float Rate { get; set; }
 
         public ICollection<RestaurantContactDto> RestaurantContacts { get; set; }
     }

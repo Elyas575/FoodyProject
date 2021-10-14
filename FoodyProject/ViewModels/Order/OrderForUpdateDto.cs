@@ -1,16 +1,7 @@
-﻿using FoodyProject.ViewModels.Order;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entities.DataTransferObjects
+﻿namespace FoodyProject.ViewModels.Order
 {
-    public class OrderForUpdateDto : OrderForMaipulationDto
+    public class OrderForUpdateDto : OrderBase
     {
-        public string OrderStatus { get; set; }
-        public bool IsDelivered { get; set; }
+        public double Rate { get; set; }
     }
 }

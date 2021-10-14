@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entities.DataTransferObjects
+﻿namespace FoodyProject.ViewModels.Category
 {
-  public  class CategoryDto
+    public class CategoryDto : CategoryBase
     {
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public int Id { get; set; }
         public int RestaurantId { get; set; }
-        public bool IsDelete { get; set; }
     }
 }

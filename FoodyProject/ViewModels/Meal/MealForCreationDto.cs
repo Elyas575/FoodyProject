@@ -1,9 +1,6 @@
-﻿using FoodyProject.ViewModels.Meal;
-using System.ComponentModel.DataAnnotations;
-
-namespace Entities.DataTransferObjects
+﻿namespace FoodyProject.ViewModels.Meal
 {
-    public class MealForCreationDto : MealForManipulationDto
+    public class MealForCreationDto : MealBase
     {
     }
 }

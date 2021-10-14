@@ -1,14 +1,11 @@
-﻿using Contracts;
-using Entities;
+﻿using Entities;
+using FoodyProject.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Repository
+namespace FoodyProject.Services
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {

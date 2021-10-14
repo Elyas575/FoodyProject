@@ -1,35 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace FoodyProject.Models
 {
     public class Meal
     {
         [Key]
-        public int MealId { get; set; }
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
 
-        [Required(ErrorMessage = "Meal name is a required field.")]
-        [MaxLength(30, ErrorMessage = "Max length for meal name is 30 characters.")]
+        [Required(ErrorMessage = "Meal's Name Field is Required")]
+        [StringLength(40, ErrorMessage = "Meal's {0} Field Can't Exceed {1} Characters.")]
         public string Name { get; set; }
 
-        [MaxLength(150, ErrorMessage = "Max length for meal description is 150 characters.")]
+        [StringLength(150, ErrorMessage = "Meal's {0} Field Can't Exceed {1} Characters.")]
         public string Description { get; set; }
 
-        [MaxLength(50, ErrorMessage = "Max length for meal options is 50 characters.")]
-        public string MealOptions { get; set; }
+        [StringLength(50, ErrorMessage = "Meal's {0} Field Can't Exceed {1} Characters.")]
+        public string Option { get; set; }
 
-        [Range(0.1, float.MaxValue, ErrorMessage = "Price is required and it can't be lower than 0.1")]
-        public float Price { get; set; }
+        [Required(ErrorMessage = "Meal's Price Field is Required.")]
+        [Column(TypeName = "decimal(18,2")]
+        public decimal Price { get; set; }
 
         public string Picture { get; set; }
         public bool IsDelete { get; set; }
         public bool IsAvailabe { get; set; }
+        public int CategoryId { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }

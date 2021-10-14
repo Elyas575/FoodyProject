@@ -1,14 +1,10 @@
-﻿using Entities.ErrorModel;
+﻿using FoodyProject.Helpers.ErrorModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
-namespace FoodyProject.Extensions
+namespace FoodyProject.Helpers.Extensions
 {
     public static class ExceptionMiddlewareExtensions
     {

@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using Contracts;
-using Entities.DataTransferObjects;
-using Entities.Models;
 using FoodyProject.ActionFilters;
+using FoodyProject.Helpers.RequestParameters;
 using FoodyProject.Models;
+using FoodyProject.Services.Interfaces;
+using FoodyProject.ViewModels.Restaurant;
+using FoodyProject.ViewModels.RestaurantContact;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -78,18 +78,18 @@ namespace FoodyProject.Controllers
         }
        
         //get the best restaurant 
-        [HttpGet("best")]
-        public async Task<IActionResult> GetBestRestaurantAsync( [FromQuery] RestaurantParameters restaurantParameters)
-        {
+        //[HttpGet("best")]
+        //public async Task<IActionResult> GetBestRestaurantAsync( [FromQuery] RestaurantParameters restaurantParameters)
+        //{
 
-            var restaurantFromDb = await _repository.Restaurant.GetBestRestaurantAsync( restaurantParameters, trackChanges: false);
-            var maxRate = restaurantFromDb.ToArray().Max();
+        //    var restaurantFromDb = await _repository.Restaurant.GetBestRestaurantAsync( restaurantParameters, trackChanges: false);
+        //    var maxRate = restaurantFromDb.ToArray().Max();
 
-            //Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(restaurantFromDb.MetaData));
-            var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurantFromDb);
+        //    //Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(restaurantFromDb.MetaData));
+        //    var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurantFromDb);
 
-            return Ok(restaurantDto);
-        }
+        //    return Ok(restaurantDto);
+        //}
 
         //create a restaurant 
         [HttpPost]

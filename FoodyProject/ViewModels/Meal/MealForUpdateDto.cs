@@ -1,9 +1,6 @@
-﻿using FoodyProject.ViewModels.Meal;
-using System.ComponentModel.DataAnnotations;
-
-namespace Entities.DataTransferObjects
+﻿namespace FoodyProject.ViewModels.Meal
 {
-    public class MealForUpdateDto : MealForManipulationDto
+    public class MealForUpdateDto : MealBase
     {
         public bool IsDelete { get; set; }
         public bool IsAvailabe { get; set; }

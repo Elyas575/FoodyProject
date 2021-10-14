@@ -1,16 +1,13 @@
-﻿using Contracts;
-using Entities;
-using Entities.Models;
+﻿using Entities;
+using FoodyProject.Helpers.CollectionHelper;
+using FoodyProject.Helpers.RequestParameters;
 using FoodyProject.Models;
+using FoodyProject.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Repositoy;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository
+namespace FoodyProject.Services
 {
     public class CustomerContactRepository : RepositoryBase<CustomerContact>, ICustomerContactRepository
     {
@@ -32,10 +29,11 @@ namespace Repository
             return new PagedList<CustomerContact>(customers, customerContactParameters.PageNumber, customerContactParameters.PageSize, count);
         }
 
-        public async Task<PagedList<CustomerContact>> GetAllContactsForCustomer(int customerId, CustomerContactParameters customerContactParameters, bool trackChanges)
+        // Test it????
+        public async Task<PagedList<CustomerContact>> GetAllContactsForCustomerAsync(int customerId, CustomerContactParameters customerContactParameters, bool trackChanges)
         {
-            var customers = await FindAll(trackChanges)
-              .OrderBy(c => c.CustomerId)
+            var customers = await FindByCondition(c => c.CustomerId.Equals(customerId), trackChanges)
+                .OrderBy(c => c.CustomerId)
                 .Skip((customerContactParameters.PageNumber - 1) * customerContactParameters.PageSize)
                 .Take(customerContactParameters.PageSize)
                 .ToListAsync();
@@ -46,7 +44,7 @@ namespace Repository
         }
 
         public async Task<CustomerContact> GetCustomerContactAsync(int customerId, int CustomerContactId, bool trackChanges) =>
-            await FindByCondition(c => c.CustomerId.Equals(customerId) && c.CustomerContactId.Equals(CustomerContactId), trackChanges)
+            await FindByCondition(c => c.CustomerId.Equals(customerId) && c.Id.Equals(CustomerContactId), trackChanges)
             .SingleOrDefaultAsync();
 
         public void CreateCustomerContact(int customerId, CustomerContact customercontact)

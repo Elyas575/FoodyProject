@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Contracts;
-using Entities.DataTransferObjects;
-using Entities.Models;
+using FoodyProject.Helpers.RequestParameters;
 using FoodyProject.Models;
+using FoodyProject.Services.Interfaces;
+using FoodyProject.ViewModels.Customer;
+using FoodyProject.ViewModels.CustomerContact;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -123,7 +123,7 @@ namespace FoodyProject.Controllers
                 return NotFound();
             }
 
-            var customerContactFromDb = await _repository.CustomerContact.GetAllContactsForCustomer(customerId, customerContactParameters, trackChanges: false);
+            var customerContactFromDb = await _repository.CustomerContact.GetAllContactsForCustomerAsync(customerId, customerContactParameters, trackChanges: false);
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(customerContactFromDb.MetaData));
             var customerDto = _mapper.Map<IEnumerable<CustomerContactDto>>(customerContactFromDb);
 

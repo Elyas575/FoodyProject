@@ -1,35 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace FoodyProject.Models
 {
-   public class CustomerContact
+    public class CustomerContact
     {
         [Key]
-        public int  CustomerContactId { get; set; }
-        public string CustomerAddress { get; set; }
-        public int CustomerId { get; set; }
+        public int Id { get; set; }
 
-        [Required(ErrorMessage = "Resturant country is a required field.")]
-        [MaxLength(50, ErrorMessage = "Maximum length for the Country is 50 characters")]
+        [ReadOnly(true)]
+        public string Address { get; set; }
+
+        [StringLength(50, ErrorMessage = "{0} Field Can't Exceed {1} Characters.")]
+        [Required(ErrorMessage = "Country Field is Required.")]
         public string Country { get; set; }
 
-        [Required(ErrorMessage = "Resturant country is a required field.")]
-        [MaxLength(50, ErrorMessage = "Maximum length for the Country is 50 characters")]
+        [StringLength(50, ErrorMessage = "{0} Field Can't Exceed {1} Characters.")]
+        [Required(ErrorMessage = "City Field is Required.")]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "Resturant country is a required field.")]
-        [MaxLength(50, ErrorMessage = "Maximum length for the Country is 50 characters")]
+        [StringLength(50, ErrorMessage = "{0} Field Can't Exceed {1} Characters.")]
+        [Required(ErrorMessage = "Street Field is Required.")]
         public string Street { get; set; }
 
-        [Required(ErrorMessage = "Resturant country is a required field.")]
-        [MaxLength(50, ErrorMessage = "Maximum length for the Country is 50 characters")]
-        public string State { get; set; }
+        [StringLength(50, ErrorMessage = "{0} Field Can't Exceed {1} Characters.")]
+        [Required(ErrorMessage = "Building Field is Required.")]
+        public string Building { get; set; }
+
+        public int CustomerId { get; set; }
 
         [ForeignKey(nameof(CustomerId))]
         public Customer Customer { get; set; }

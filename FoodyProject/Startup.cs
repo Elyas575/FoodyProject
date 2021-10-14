@@ -1,19 +1,14 @@
 using FoodyProject.ActionFilters;
-using FoodyProject.Extensions;
+using FoodyProject.Helpers.Extensions;
+using FoodyProject.Helpers.SettingModel;
+using FoodyProject.Installer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FoodyProject
 {
@@ -29,20 +24,14 @@ namespace FoodyProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.InstallServicesAssembly(Configuration);
+
             services.AddAutoMapper(typeof(Startup));
-            services.ConfigureCors();
-            services.ConfigureIISIntegration();
-            services.ConfigureSqlContext(Configuration);
-            services.ConfigureRepositoryManager();
-            services.AddAutoMapper(typeof(Startup));
-            services.ConfigureSwagger();
             
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
-            
-            services.AddControllers();
 
             services.AddScoped<ValidationFilterAttribute>();
             services.AddScoped<ValidateRestaurantExistsAttribute>();
@@ -52,11 +41,6 @@ namespace FoodyProject
             services.AddScoped<ValidateCustomerExistsAttribute>();
             services.AddScoped<ValidateCustomerContactForCustomerExistsAttribute>();
             services.AddScoped<ValidateOrderForCustomerExistsAttribute>();
-
-            /*services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FoodyProject", Version = "v1" });
-            });*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,14 +64,27 @@ namespace FoodyProject
                 ForwardedHeaders = ForwardedHeaders.All
             });
 
-            app.UseSwagger();
-            app.UseSwaggerUI(s =>
+            app.UseRouting();
+
+            app.UseAuthentication();
+
+            //Here we are bringing SwaggerSettings's fields from appsettings.json,
+            //and bind them to the fields of SwaggerSettings class in the Helper folder.
+            var swaggerSetting = new SwaggerSettings();
+            Configuration.GetSection(/*nameof(swaggerSetting*/"SwaggerSettings").Bind(swaggerSetting);
+
+            app.UseSwagger(options =>
             {
-                s.SwaggerEndpoint("/swagger/v1/swagger.json", "FoodyProject");
+                options.RouteTemplate = swaggerSetting.JsonRoute;
             });
 
-            app.UseRouting();
+            app.UseSwaggerUI(setupAction =>
+            {
+                setupAction.SwaggerEndpoint(swaggerSetting.UiEndPoint, swaggerSetting.Description);
+            });
+
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

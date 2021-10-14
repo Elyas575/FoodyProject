@@ -1,14 +1,14 @@
-﻿using FoodyProject.ViewModels.Order;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Entities.DataTransferObjects
+namespace FoodyProject.ViewModels.Order
 {
-    public class OrderForCreationDto : OrderForMaipulationDto
+    public class OrderForCreationDto : OrderBase
     {
+        [Required(ErrorMessage = "Order's PaymentMethod Field is Required.")]
+        [StringLength(50, ErrorMessage = "Order's {0} Field Can't Exceed {1} Characters.")]
+        public string PaymentMethod { get; set; }
+
+        [StringLength(150, ErrorMessage = "Order's {0} Field Can't Exceed {1} Characters.")]
+        public string Description { get; set; }
     }
 }

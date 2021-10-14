@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FoodyProject.Models
+﻿namespace FoodyProject.Helpers.CollectionHelper
 {
     public class MetaData
     {

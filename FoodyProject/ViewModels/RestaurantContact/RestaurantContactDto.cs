@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entities.DataTransferObjects
+﻿namespace FoodyProject.ViewModels.RestaurantContact
 {
-   public  class RestaurantContactDto
+    public  class RestaurantContactDto : RestaurantContactBase
     {
-        public int RestaurantContactId { get; set; }
-        public string PhoneNumber { get; set; }
+        public int Id { get; set; }
     }
 }

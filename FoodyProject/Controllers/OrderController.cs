@@ -1,13 +1,11 @@
-﻿
-using AutoMapper;
-using Contracts;
-using Entities.DataTransferObjects;
-using Entities.Models;
+﻿using AutoMapper;
 using FoodyProject.ActionFilters;
+using FoodyProject.Helpers.RequestParameters;
 using FoodyProject.Models;
+using FoodyProject.Services.Interfaces;
+using FoodyProject.ViewModels.Order;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -76,7 +74,7 @@ namespace FoodyProject.Controllers
                 return NotFound();
             }
 
-            var orderfromdb = await _repository.Order.GetOrdersForRestaurantAsync(ResturantId, orderParameters, trackChanges: false);
+            var orderfromdb = await _repository.Order.GetOrdersByRestaurantIdAsync(ResturantId, orderParameters, trackChanges: false);
             Response.Headers.Add("X-Paganation", JsonConvert.SerializeObject(orderfromdb.MetaData));
             var orderdto = _mapper.Map<IEnumerable<OrderDto>>(orderfromdb);
             return Ok(orderdto);

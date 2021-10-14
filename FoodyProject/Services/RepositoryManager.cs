@@ -1,14 +1,8 @@
-﻿
-using Contracts;
-using Entities;
-using Repositoy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Entities;
+using FoodyProject.Services.Interfaces;
 using System.Threading.Tasks;
 
-namespace Repository
+namespace FoodyProject.Services
 {
     public class RepositoryManager : IRepositoryManager
     {

@@ -1,19 +1,13 @@
-﻿using System;
+﻿using FoodyProject.ViewModels.CustomerContact;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entities.DataTransferObjects
+namespace FoodyProject.ViewModels.Customer
 {
-  public class CustomerDto
+    public class CustomerDto : CustomerBase
     {
-        public int CustomerId { get; set; }
-        public string Name { get; set; }
-        public string Password { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
-        public string CustomerAddress { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public int Id { get; set; }
+        public int Age { get; set; }
+
+        public ICollection<CustomerContactDto> CustomerContacts { get; set; }
     }
 }
