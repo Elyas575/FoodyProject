@@ -8,7 +8,6 @@ using FoodyProject.ViewModels.RestaurantContact;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FoodyProject.Controllers
@@ -79,10 +78,6 @@ namespace FoodyProject.Controllers
         }
        
         //get the best restaurant 
-        [HttpGet("best")]
-        
-        public async Task<IActionResult> GetBestRestaurantAsync( [FromQuery] RestaurantParameters restaurantParameters)
-        {
         //[HttpGet("best")]
         //public async Task<IActionResult> GetBestRestaurantAsync( [FromQuery] RestaurantParameters restaurantParameters)
         //{

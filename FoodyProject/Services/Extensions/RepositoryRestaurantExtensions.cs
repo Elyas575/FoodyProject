@@ -1,5 +1,4 @@
-﻿using Entities.Models;
-using System;
+﻿using FoodyProject.Models;
 using System.Linq;
 
 namespace FoodyProject.Services.NewFolder
