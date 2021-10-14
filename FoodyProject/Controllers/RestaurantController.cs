@@ -75,10 +75,12 @@ namespace FoodyProject.Controllers
             var restaurantDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurantFromDb);
 
             return Ok(restaurantDto);
+
         }
        
         //get the best restaurant 
         [HttpGet("best")]
+        
         public async Task<IActionResult> GetBestRestaurantAsync( [FromQuery] RestaurantParameters restaurantParameters)
         {
 
@@ -126,7 +128,7 @@ namespace FoodyProject.Controllers
         //delete restaurant 
         [HttpDelete("{restaurantId}")]
         [ServiceFilter(typeof(ValidateRestaurantExistsAttribute))]
-        public async Task<IActionResult> DeleteRestaurant(int restaurantId)
+        public async Task<IActionResult>  UpdateRestaurant(int restaurantId)
         {
             var restaurant = HttpContext.Items["restaurant"] as Restaurant;
             _repository.Restaurant.DeleteRestaurant(restaurant);
