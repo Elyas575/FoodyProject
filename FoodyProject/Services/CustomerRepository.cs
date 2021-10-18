@@ -28,6 +28,7 @@ namespace FoodyProject.Services
 
             var count = await FindAll(trackChanges).CountAsync();
 
+
             return new PagedList<Customer>(customers, customerParameters.PageNumber, customerParameters.PageSize, count);
         }
 

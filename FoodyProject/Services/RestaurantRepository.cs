@@ -52,13 +52,12 @@ namespace FoodyProject.Services
             .Include(x => x.RestaurantContacts)
             .SingleOrDefaultAsync();
 
-        // ask about this ( 1 or many)???
         public async Task<PagedList<Restaurant>> GetRestaurantByNameAsync(string name, RestaurantParameters restaurantParameters, bool trackChanges)
         {
             var names = await FindByCondition(e => e.Name.Equals(name), trackChanges)
                 .Include(x => x.RestaurantContacts)
                 .Search(restaurantParameters.SearchTerm)
-                .OrderBy(e => e.Name)
+                .OrderBy(e => e.Id)
                 .Skip((restaurantParameters.PageNumber - 1) * restaurantParameters.PageSize)
                 .Take(restaurantParameters.PageSize)
                 .ToListAsync();

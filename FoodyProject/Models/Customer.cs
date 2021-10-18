@@ -16,10 +16,7 @@ namespace FoodyProject.Models
 
         [Required(ErrorMessage = "Customers's EmailAddress Field is Required.")]
         [StringLength(50, ErrorMessage = "Customer's {0} Field Can't Exceed {1} Characteers.")]
-        [RegularExpression(@"^[\w\.\_\-]+@[\w.-]+\.[\w]{2,4}+", ErrorMessage = "Email Address should Follow These Rules:\n" +
-            "---> Use Lower & Upper Case Letters, Digits, and (_ . -) Symbols Before '@' Character.\n" +
-            "---> Use Lower & Upper Case Letters, Digits, and (-) Symbol Before '.' Character.\n" +
-            "---> Use From 2 to 4 Characters, From Lower & Upper Case Letters, and Digits after '.' Character.")]
+        [RegularExpression(@"^([\w_\-\.]+)@([\w_\-\.]+)\.(([\w]{2,4})+)", ErrorMessage = "You are Not Allowed to Use any Symbol Character Other Than These ( '.' , '-' , and '_')")]
         public string EmailAddress { get; set; }
 
         [Required(ErrorMessage = "Password Field is Required")]

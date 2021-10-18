@@ -35,7 +35,7 @@ namespace FoodyProject.Services
         {
             var restaurantcontact = await FindByCondition(c => c.RestaurantId.Equals(restaurantId), trackChanges)
             .Search(restaurantcontactParameters.SearchTerm)
-            .OrderBy(e => e.RestaurantId)
+            .OrderBy(e => e.Id)
             .Skip((restaurantcontactParameters.PageNumber - 1) * restaurantcontactParameters.PageSize)
             .Take(restaurantcontactParameters.PageSize)
             .ToListAsync();

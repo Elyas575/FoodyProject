@@ -36,7 +36,7 @@ namespace FoodyProject.Helpers.MappingProfile
             CreateMap<OrderForUpdateDto, Order>();
 
             CreateMap<Restaurant, RestaurantDto>()
-                .ForMember( dest => dest.Location , opt => opt.MapFrom(src=>src.Latitude+ " , " + src.Longitude))
+                .ForMember( dest => dest.Location , opt => opt.MapFrom(src=>src.Latitude+", "+src.Longitude))
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Country + ", " + src.City + ", " + src.Street + ", " + src.Building));
             CreateMap<RestaurantContact, RestaurantDto>();
             CreateMap<RestaurantForCreationDto, Restaurant>();

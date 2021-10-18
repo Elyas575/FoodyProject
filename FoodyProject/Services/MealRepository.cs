@@ -19,8 +19,8 @@ namespace FoodyProject.Services
         //Test all meal ???
         public async Task <PagedList<Meal>> GetAllMealsAsync(int restaurantId, int categoryId, MealParameters mealParameters, bool trackChanges)
         {
-            var meal = await FindAll(trackChanges)
-                .OrderBy(c => c.Name)
+            var meal = await FindByCondition(e => e.CategoryId.Equals(categoryId), trackChanges)
+                .OrderBy(c => c.Id)
                 .Skip((mealParameters.PageNumber - 1) * mealParameters.PageSize)
                 .Take(mealParameters.PageSize)
                 .ToListAsync();

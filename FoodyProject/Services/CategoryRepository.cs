@@ -19,7 +19,7 @@ namespace FoodyProject.Services
         public async Task<PagedList<Category>> GetAllCategoriesAsync(CategoryParameters categoryParameters, bool trackChanges)
         {
             var category = await FindAll(trackChanges)
-                .OrderBy(c => c.Name)
+                .OrderBy(c => c.Id)
                 .Skip((categoryParameters.PageNumber - 1) * categoryParameters.PageSize)
                 .Take(categoryParameters.PageSize)
                 .ToListAsync();
@@ -32,7 +32,7 @@ namespace FoodyProject.Services
         public async Task<PagedList<Category>> GetAllCategoriesByRestaurantIdAsync(int restaurantId, CategoryParameters categoryParameters, bool trackChanges)
         {
             var category = await FindByCondition(e => e.RestaurantId.Equals(restaurantId), trackChanges)
-                .OrderBy(e => e.Name)
+                .OrderBy(e => e.RestaurantId)
                 .Skip((categoryParameters.PageNumber - 1) * categoryParameters.PageSize)
                 .Take(categoryParameters.PageSize)
                 .ToListAsync();
@@ -45,7 +45,7 @@ namespace FoodyProject.Services
         public async Task<PagedList<Category>> GetCategoriesByNameAsync(string categoryName, CategoryParameters categoryParameters, bool trackChanges)
         {
             var category = await FindByCondition(e => e.Name.Equals(categoryName), trackChanges)
-                .OrderBy(e => e.Name)
+                .OrderBy(e => e.Id)
                 .Skip((categoryParameters.PageNumber - 1) * categoryParameters.PageSize)
                 .Take(categoryParameters.PageSize)
                 .ToListAsync();
