@@ -17,11 +17,23 @@
                 _pageSize = (value > maxPageSize) ? maxPageSize : value;
             }
         }
+
+        public string OrderBy { get; set; }
+
     }
 
     public class RestaurantParameters : RequestParameters
     {
         public string SearchTerm { get; set; }
+
+        public RestaurantParameters()
+        {
+            OrderBy = "name";
+            OrderBy = "city";
+        }
+
+        
+
     }
 
     public class RestaurantContactParameters : RequestParameters 
