@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace FoodyProject.Helpers.CollectionHelper
 {
     public class ArrayBinderHelper : IModelBinder
+
     {
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
